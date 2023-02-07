@@ -7,7 +7,8 @@ const route = createBrowserRouter([
     element: <Rootlayout />,
     children: [
       {
-        path: "/welcome",
+        index: true,
+        path: "welcome",
         element: <Welcome />,
       },
     ],
