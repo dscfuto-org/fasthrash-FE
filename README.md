@@ -9,8 +9,8 @@ Its a Project that was built for the 2023 Google Solution Challenge that helps p
 # HOW TO INSTALL AND RUN THE PROJECT
 
 git clone it to your local file,
-run `yarn install`
-after yarn install you then run `yarn run dev` to view it in your browser.
+run `npm install`
+after yarn install you then run `npm run start` to view it in your browser.
 
 # Contributing
 
