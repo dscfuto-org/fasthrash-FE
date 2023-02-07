@@ -1,17 +1,19 @@
 # PROJECT TITLE
+
 FAST TRASH
 
 # DESCRIPTION
+
 Its a Project that was built for the 2023 Google Solution Challenge that helps people easily dispose off plastic waste while making money off it, educating people on proper waste disposal and ensuring a more eco-friendly environment
 
 # HOW TO INSTALL AND RUN THE PROJECT
-git clone it to your local file
+
+git clone it to your local file,
 run `yarn install`
 after yarn install you then run `yarn run dev` to view it in your browser.
 
+# Contributing
 
-
-# Contributing 
 1. fork the Repository.
 2. Create your Own working Branch.
 3. Commit Your Changes if you are Satisfied You did the right thing and also Make some Reviews.
