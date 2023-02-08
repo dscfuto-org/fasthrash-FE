@@ -10,7 +10,7 @@ const route = createBrowserRouter([
     children: [
       {
         index: true,
-        path: "welcome",
+        path: "/",
         element: <Welcome />,
       },
       {
