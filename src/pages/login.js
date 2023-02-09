@@ -1,4 +1,4 @@
-import Buttons from "../Components/buttons";
+// import Buttons from "../Components/buttons";
 
 export default function Login() {
   return (

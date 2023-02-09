@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Text, Button, Flex, Box } from "@chakra-ui/react";
+import { Text, Button, VStack, Flex, Box } from "@chakra-ui/react";
+import SocialButton from "../Components/SocialButton";
 
 export default function Welcome() {
   return (
@@ -12,6 +13,7 @@ export default function Welcome() {
     >
       <Text fontSize="2xl">Welcome To Fast Trash</Text>
       <Box>
+        <VStack>
         <Button
           fontSize={16}
           fontWeight={600}
@@ -24,6 +26,10 @@ export default function Welcome() {
         >
           <Link to="/signup">Get Started</Link>
         </Button>
+        <SocialButton name ='Google'/>
+        
+        
+        </VStack>
       </Box>
     </Flex>
   );
