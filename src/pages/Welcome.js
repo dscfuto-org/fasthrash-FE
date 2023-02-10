@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-import { Text, Button, Flex, Box } from "@chakra-ui/react";
+import { Text, Button, VStack, Flex, Link } from "@chakra-ui/react";
+import { Link as ReachLink } from "react-router-dom";
+import SocialButton from "../Components/SocialButton";
 
 export default function Welcome() {
   return (
@@ -11,20 +12,26 @@ export default function Welcome() {
       justifyContent="center"
     >
       <Text fontSize="2xl">Welcome To Fast Trash</Text>
-      <Box>
+      <VStack>
         <Button
-          fontSize={16}
-          fontWeight={600}
-          lineHeight={24}
-          _hover={{ color: "black", backgroundColor: "wheat" }}
-          color="#fff"
           backgroundColor="#7F56D9;
 "
+          _hover={{ backgroundColor: "wheat" }}
           w={360}
         >
-          <Link to="/signup">Get Started</Link>
+          <Link
+            as={ReachLink}
+            color="#fff"
+            textDecoration="none"
+            fontSize={16}
+            fontWeight={600}
+            to="/signup"
+          >
+            Get Started
+          </Link>
         </Button>
-      </Box>
+        <SocialButton name="Google" />
+      </VStack>
     </Flex>
   );
 }

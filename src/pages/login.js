@@ -1,6 +1,6 @@
-import Buttons from "../Components/buttons";
 import { Box, Flex, Heading, Stack, Avatar, AvatarBadge, Text, FormControl, FormLabel, Input, Switch, Checkbox, Link, InputGroup, InputRightElement, Button } from "@chakra-ui/react";
 import { useState } from "react";
+
 
 export default function Login() {
 
