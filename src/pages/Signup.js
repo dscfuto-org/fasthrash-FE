@@ -2,9 +2,8 @@ import {
   Box,
   Flex,
   Heading,
-  Stack,
   Avatar,
-  AvatarBadge,
+  AvatarGroup,
   Text,
   FormControl,
   FormLabel,
@@ -13,8 +12,7 @@ import {
   Link,
   InputGroup,
   InputRightElement,
-  Button,
-  AvatarGroup
+  Button
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -117,9 +115,9 @@ export default function Signup() {
       >
         <Box width="80%" margin="auto">
           <Flex
-            align="center"
-            justify="center"
-            gap="20px"
+            alignItems="center"
+            justifyContent="center"
+            gap="30px"
             direction="column"
             marginBottom="60px"
           >
