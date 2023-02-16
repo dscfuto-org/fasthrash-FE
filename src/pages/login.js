@@ -16,11 +16,30 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { redirect, Form as form, json } from "react-router-dom";
+import { useActionData, useNavigation } from "react-router-dom";
+import loginTime from "../util/login";
 
 export default function Login() {
   const [show, setValue] = useState(false);
-
   const togglePassword = (event) => setValue(!show);
+  const errors = useActionData();
+  const navigation = useNavigation();
+  const isSubmiting = navigation.state === "submitting";
+  let message;
+
+  if (errors?.email && !errors?.password) {
+    message = errors?.email;
+  }
+  if (!errors?.email && errors?.password) {
+    message = errors?.password;
+  }
+  if (errors?.email && errors?.password) {
+    message = "Please fill in your details";
+  }
+  if (errors?.status && !errors?.email && !errors?.password) {
+    message = "Invalid email or password";
+  }
 
   return (
     <Flex
@@ -75,17 +94,17 @@ export default function Login() {
 
       <Box width={{ lg: "30%", sm: "80%" }} margin="auto">
         <Heading size="lg">Welcome Back</Heading>
-        <Text marginTop="10px">Welcome. Please enter your details.</Text>
+        {message && <Text marginTop="10px">{message}</Text>}
 
-        <Box marginTop="40px">
+        <Box marginTop="40px" as={form} method="post">
           <FormControl marginY="16px">
-            <FormLabel>Email address</FormLabel>
-            <Input type="email" />
+            <FormLabel> "Email address"</FormLabel>
+            <Input type="email" name="email" />
           </FormControl>
 
           <FormControl marginY="30px">
             <Box display="flex" justify="between" width="100%">
-              <FormLabel>Password</FormLabel>
+              <FormLabel> "Password"</FormLabel>
               <Link href="" marginLeft="auto">
                 Forgot Password?
               </Link>
@@ -96,6 +115,7 @@ export default function Login() {
                 pr="4.5rem"
                 type={show ? "text" : "password"}
                 placeholder="Enter password"
+                name="password"
               />
               <InputRightElement width="4.5rem">
                 <Button h="1.75rem" size="sm" onClick={togglePassword}>
@@ -115,18 +135,11 @@ export default function Login() {
             width="100%"
             fontWeight="bold"
             marginY="20px"
+            type="submit"
+            disable={isSubmiting}
           >
-            Login
+            {isSubmiting ? "Loading..." : "Login"}
           </Button>
-
-          <Button
-            marginTop="10px"
-            width="100%"
-            leftIcon={<img src="/assets/google.svg" alt="icon" />}
-          >
-            Sign In With Google
-          </Button>
-
           <Text marginTop="30px" fontWeight="bold">
             Don't Have an account?{" "}
             <Link href="/signup" marginLeft="16px" color="#7F56D9">
@@ -139,4 +152,36 @@ export default function Login() {
   );
 }
 
-export function loader() {}
+export async function action({ request }) {
+  const formData = await request.formData();
+  const data = {
+    email: formData.get("email"),
+    password: formData.get("password"),
+  };
+
+  const errors = {};
+
+  if (!data.email) {
+    errors.email = "Email is required";
+  }
+  if (!data.password) {
+    errors.password = "Password is required";
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return errors;
+  }
+  const response = await loginTime(
+    "https://fastrash-1337.ew.r.appspot.com/api/auth/org/login",
+    data
+  );
+  if (response.status === 401 || response.status === 404) {
+    return { message: "Invalid email or password", status: response.status };
+  }
+  if (!response.ok) {
+    return json({ message: response.message }, { status: response.status });
+  }
+  const { token, id } = await response.json();
+  localStorage.setItem("token", token);
+  return redirect(`/dashboard/${id}`);
+}

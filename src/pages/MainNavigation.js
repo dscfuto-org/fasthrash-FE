@@ -1,7 +1,8 @@
 import { Flex, Text, Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useRouteLoaderData } from "react-router-dom";
 
 function MainNAvigation() {
+  const token = useRouteLoaderData("root");
   return (
     <nav>
       <Flex
@@ -18,8 +19,9 @@ function MainNAvigation() {
           </Text>
         </Flex>
         <Flex gap="2rem" alignItems="center">
-          <Text>
-            <Link to="/login">Login</Link>
+          <Text as="div">
+            {token && <Link to="/logout">Logout</Link>}
+            {!token && <Link to="/login">Login</Link>}
           </Text>
           <Button
             fontSize={10}
