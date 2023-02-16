@@ -7,6 +7,7 @@ async function loginTime(url, data, timeout = 5000) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
+    signal: timeout.signal,
   };
 
   const response = await fetch(url, fetchOptions);
