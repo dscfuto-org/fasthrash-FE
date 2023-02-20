@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Rootlayout from "./pages/Rootlayout";
 import Welcome from "./pages/Welcome";
 import Login, { action as LoginAction } from "./pages/login";
-import Signup from "./pages/Signup";
+import Signup, { action as SignupAction } from "./pages/Signup";
 import ErrorPage from "./pages/ErrorPage";
 import { logout as Logout } from "./Auth/logout";
 import { checkToken as tokenLoader } from "./Auth/getToken";
@@ -45,6 +45,7 @@ const route = createBrowserRouter([
       {
         path: "Signup",
         element: <Signup />,
+        action: SignupAction,
       },
       {
         path: "dashboard/:profile",

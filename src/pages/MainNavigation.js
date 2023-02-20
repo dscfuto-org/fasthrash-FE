@@ -23,16 +23,18 @@ function MainNAvigation() {
             {token && <Link to="/logout">Logout</Link>}
             {!token && <Link to="/login">Login</Link>}
           </Text>
-          <Button
-            fontSize={10}
-            fontWeight={600}
-            lineHeight={24}
-            color="#fff"
-            backgroundColor="#7F56D9;
+          {!token && (
+            <Button
+              fontSize={10}
+              fontWeight={600}
+              lineHeight={24}
+              color="#fff"
+              backgroundColor="#7F56D9;
 "
-          >
-            <Link to="/signup">Signup</Link>
-          </Button>
+            >
+              <Link to="/signup">Signup</Link>
+            </Button>
+          )}
         </Flex>
       </Flex>
     </nav>
