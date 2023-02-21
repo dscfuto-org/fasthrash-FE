@@ -1,6 +1,5 @@
 import { Text, Button, VStack, Flex, Link } from "@chakra-ui/react";
 import { Link as ReachLink } from "react-router-dom";
-import SocialButton from "../Components/SocialButton";
 
 export default function Welcome() {
   return (
@@ -30,7 +29,6 @@ export default function Welcome() {
             Get Started
           </Link>
         </Button>
-        <SocialButton name="Google" />
       </VStack>
     </Flex>
   );

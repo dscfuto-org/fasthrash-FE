@@ -27,7 +27,6 @@ export default function Login() {
   const navigation = useNavigation();
   const isSubmiting = navigation.state === "submitting";
   let message;
-
   if (errors?.email && !errors?.password) {
     message = errors?.email;
   }
@@ -76,8 +75,7 @@ export default function Login() {
             marginBottom="60px"
           >
             <Heading size="md" align="center">
-              We've been using Untitled to kick start every new project and
-              can't imagine working without it.
+              LOGIN TO YOUR ACCOUNT
             </Heading>
 
             <Stack direction="row" spacing={4}>
@@ -98,13 +96,13 @@ export default function Login() {
 
         <Box marginTop="40px" as={form} method="post">
           <FormControl marginY="16px">
-            <FormLabel> "Email address"</FormLabel>
+            <FormLabel> Email address</FormLabel>
             <Input type="email" name="email" />
           </FormControl>
 
           <FormControl marginY="30px">
             <Box display="flex" justify="between" width="100%">
-              <FormLabel> "Password"</FormLabel>
+              <FormLabel> Password</FormLabel>
               <Link href="" marginLeft="auto">
                 Forgot Password?
               </Link>
@@ -136,7 +134,7 @@ export default function Login() {
             fontWeight="bold"
             marginY="20px"
             type="submit"
-            disable={isSubmiting}
+            disable={isSubmiting.toString()}
           >
             {isSubmiting ? "Loading..." : "Login"}
           </Button>
