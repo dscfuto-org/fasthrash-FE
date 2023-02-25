@@ -1,35 +1,23 @@
-import { Text, Button, VStack, Flex, Link } from "@chakra-ui/react";
-import { Link as ReachLink } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
+import AboutUs from "../Components/AboutUs";
+import Education from "../Components/Education";
+import WebFooter from "../Components/WebFooter";
+import WebBanner from "../Components/WebBanner";
+import Patrons from "../Components/Patrons";
 
-export default function Welcome() {
-  return (
-    <Flex
-      flexDirection="column"
-      gap="2rem"
-      alignItems="center"
-      h={480}
-      justifyContent="center"
-    >
-      <Text fontSize="2xl">Welcome To Fast Trash</Text>
-      <VStack>
-        <Button
-          backgroundColor="#7F56D9;
-"
-          _hover={{ backgroundColor: "wheat" }}
-          w={360}
-        >
-          <Link
-            as={ReachLink}
-            color="#fff"
-            textDecoration="none"
-            fontSize={16}
-            fontWeight={600}
-            to="/signup"
-          >
-            Get Started
-          </Link>
-        </Button>
-      </VStack>
-    </Flex>
-  );
+const Welcome = () => {
+	return (
+		<Box w='100%' h='100%' overflowX='hidden'>			
+			<WebBanner />
+			<Patrons />
+			<Box pr="32px" pl="32px" pb="48px">
+				<AboutUs />
+				<Education />
+			</Box>
+			<WebFooter />
+		</Box>
+	);
 }
+
+
+export default Welcome

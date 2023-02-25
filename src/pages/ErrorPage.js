@@ -23,7 +23,7 @@ const ErrorPage = ({ message, title }) => {
         Ooops!
       </Box>
       <Box fontWeight="600" textAlign="center">
-       {message ? message : "The requested URL was not found on our servers..npm stat!"}
+       {message ? message : "The requested URL was not found on our servers!"}
       </Box>
       <Box
         mt="50px"
