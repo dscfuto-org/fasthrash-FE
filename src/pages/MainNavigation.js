@@ -23,7 +23,7 @@ function MainNavigation() {
     // ** RESET THE ACTIVENAVLINK TO NULL IF URL DOES NOT INCLUDE # USED IN THE SINGLE PAGES ROUTING
     useEffect(() => {
         if (!pathname.includes('#')) setActiveNavLinkId('')
-    }, [pathname])
+    }, [pathname, setActiveNavLinkId])
 
     // ** ROUTING LINKS
     const navLinks = [
@@ -93,11 +93,11 @@ function MainNavigation() {
                 </Box>
                 {/** AUTH BUTTONS SECTION */}
                 <Box className="auth-block">
-                    {token && <Link to="/logout">Logout</Link>}
-                    {(!token && pathname !== '/login') && <Link to="/login">Login</Link>}
+                    {token && <Link onClick={toggleNavbar} to="/logout">Logout</Link>}
+                    {(!token && pathname !== '/login') && <Link onClick={toggleNavbar} to="/login">Login</Link>}
                     {(!token && pathname !== '/signup') &&
                         <Link to="/signup">
-                            <Box fontSize={15} ml='4' fontWeight={600} color="#fff" background={useColors.appGreen} px='15px' py='7px' borderRadius='5px' transition='all 0.3s ease' _hover={{ opacity: .6 }}>
+                            <Box onClick={toggleNavbar} fontSize={15} ml='4' fontWeight={600} color="#fff" background={useColors.appGreen} px='15px' py='7px' borderRadius='5px' transition='all 0.3s ease' _hover={{ opacity: .6 }}>
                                 Sign Up!
                             </Box>
                         </Link>
