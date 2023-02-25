@@ -15,49 +15,53 @@ import { loader as dashboardLoader } from "./util/dashboard";
 // And to change the color, we only have to change this constant value here...
 export const THEME_COLOR = "#7F56D9";
 export const SITE_NAME = "FAST TRASH";
+export const useColors = {
+    appYellow: '#ffa800',
+    appGreen: '#2a8d00'
+}
 
 const route = createBrowserRouter([
-  {
-    path: "/",
-    element: <Rootlayout />,
-    id: "root",
-    loader: tokenLoader,
-    errorElement: <Error />,
-    children: [
-      {
-        index: true,
+    {
         path: "/",
-        element: <Welcome />,
-      },
-      {
-        path: "*",
-        element: <ErrorPage />, //This is the page for all 404 routes on this website!
-      },
-      {
-        path: "login",
-        element: <Login />,
-        action: LoginAction,
-      },
-      {
-        path: "logout",
-        loader: Logout,
-      },
-      {
-        path: "Signup",
-        element: <Signup />,
-        action: SignupAction,
-      },
-      {
-        path: "dashboard/:profile",
-        element: <Dashboard />,
-        loader: dashboardLoader,
-      },
-    ],
-  },
+        element: <Rootlayout />,
+        id: "root",
+        loader: tokenLoader,
+        errorElement: <Error />,
+        children: [
+            {
+                index: true,
+                path: "/",
+                element: <Welcome />,
+            },
+            {
+                path: "*",
+                element: <ErrorPage />, //This is the page for all 404 routes on this website!
+            },
+            {
+                path: "login",
+                element: <Login />,
+                action: LoginAction,
+            },
+            {
+                path: "logout",
+                loader: Logout,
+            },
+            {
+                path: "Signup",
+                element: <Signup />,
+                action: SignupAction,
+            },
+            {
+                path: "dashboard/:profile",
+                element: <Dashboard />,
+                loader: dashboardLoader,
+            },
+        ],
+    },
 ]);
 
 function App() {
-  return <RouterProvider router={route} />;
+    return <RouterProvider router={route} />;
 }
 
 export default App;

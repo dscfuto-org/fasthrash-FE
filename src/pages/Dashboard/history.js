@@ -13,7 +13,7 @@ export default function History({ id }) {
     };
 
     getHistory();
-  }, []);
+  }, [id]);
 
-  return <>{/* if history is null map data */}</>;
+  return <>{history ? history : '' /* if history is null map data */}</>;
 }
