@@ -15,6 +15,7 @@ import {
   InputRightElement,
   Button,
 } from "@chakra-ui/react";
+import { useColors } from "../App";
 import { useState } from "react";
 import { redirect, Form as form, json } from "react-router-dom";
 import { useActionData, useNavigation } from "react-router-dom";
@@ -128,7 +129,7 @@ export default function Login() {
           </Checkbox>
 
           <Button
-            bgColor="#7F56D9"
+            bgColor={useColors.appGreen}
             color="white"
             width="100%"
             fontWeight="bold"
@@ -179,7 +180,10 @@ export async function action({ request }) {
   if (!response.ok) {
     return json({ message: response.message }, { status: response.status });
   }
-  const { token, id } = await response.json();
+  const { token, id, businessName, size, yearsOfOperation } =
+    await response.json();
+  const loginData = { businessName, size, yearsOfOperation };
   localStorage.setItem("token", token);
-  return redirect(`/dashboard/${id}`);
+  const encodedLoginData = encodeURIComponent(JSON.stringify(loginData));
+  return redirect(`/dashboard/${id}?dashboard=${encodedLoginData}`);
 }

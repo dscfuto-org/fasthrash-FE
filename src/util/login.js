@@ -5,6 +5,7 @@ async function loginTime(url, data, timeout = 5000) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     },
     body: JSON.stringify(data),
     signal: timeout.signal,

@@ -23,6 +23,7 @@ import {
 } from "@chakra-ui/react";
 
 import { useState } from "react";
+import { useColors } from "../App";
 import {
   Form as forms,
   useActionData,
@@ -157,7 +158,7 @@ export default function Signup() {
           </FormControl>
 
           <Button
-            bgColor="#7F56D9"
+            bgColor={useColors.appGreen}
             color="white"
             width="100%"
             fontWeight="bold"
