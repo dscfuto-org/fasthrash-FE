@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { THEME_COLOR, SITE_NAME } from "../App";
 
-const ErrorPage = () => {
+const ErrorPage = ({ message, title }) => {
   const navigate = useNavigate();
 
   return (
@@ -17,13 +17,13 @@ const ErrorPage = () => {
     >
       <Box color={THEME_COLOR} fontSize="150px" fontWeight="600">
         {" "}
-        404{" "}
+        {title ? title : '404'}{" "}
       </Box>
       <Box mb="10px" fontSize="25px" fontWeight="600" color={THEME_COLOR}>
         Ooops!
       </Box>
       <Box fontWeight="600" textAlign="center">
-        The requested URL was not found on our servers..npm stat!
+       {message ? message : "The requested URL was not found on our servers!"}
       </Box>
       <Box
         mt="50px"

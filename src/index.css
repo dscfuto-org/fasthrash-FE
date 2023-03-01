@@ -1,0 +1,144 @@
+:root {
+    --app-green: #2a8d00;
+    --appYellow: #ffa800;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    width: 100%;
+    background-color: #fff;
+    z-index: 98;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    transition: top 0.4s;
+}
+
+.nav-wrapper {
+    color: #0009;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-wrapper .navigations {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-open {
+    display: none;
+    flex-flow: column;
+    align-items: flex-end;
+    justify-content: right;
+}
+
+.toggle-open>div {
+    height: 4px;
+    margin: 3px 0;
+    border-radius: 5px;
+    background: var(--app-green);
+}
+
+.links {
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0 15px
+}
+
+.auth-block {
+    color: #0009;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.nav-wrapper .btn-close,
+.responsive-nav-logo {
+    display: none;
+}
+
+@media only screen and (max-width: 678px) {
+    .header {
+        padding: 0 10px;
+    }
+
+    .toggle-open {
+        display: flex;
+    }
+
+    .nav-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100vw !important;
+        height: 100vh !important;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        z-index: 99999;
+        display: flex;
+        flex-flow: column;
+        align-items: flex-start;
+        justify-content: center;
+        background: #fff;
+        transition: 1.5s;
+        transform: translateY(-100vh);
+    }
+
+    .nav-wrapper.responsive {
+        transform: none !important;
+    }
+
+    .body-sticky-on-header-open {
+        overflow: hidden !important;
+    }
+
+    .navigations {
+        flex-direction: column;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 0 40px;
+        position: relative;
+    }
+
+    .divider {
+        display: none;
+    }
+
+    .links {
+        margin: 15px 0
+    }
+
+    .auth-block {
+        width: 100%;
+        justify-content: center;
+        margin: 40px 0 0;
+    }
+
+    .nav-wrapper .btn-close {
+        display: flex;
+        color: var(--app-green) !important;
+        font-size: 25px;
+        position: absolute !important;
+        top: -5rem !important;
+        right: 1.5rem !important;
+    }
+
+    .responsive-nav-logo {
+        margin: 5px 0 80px;
+        display: block;
+        /* Other styles for the logo should come here */
+    }
+}
