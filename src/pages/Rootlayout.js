@@ -8,7 +8,6 @@ export default function Rootlayout() {
 		<React.Fragment>
 			<MainNavigation />
 			<Box
-				background="white"
 				display="flex"
 				flexDirection="column"
 				alignItems="center"
