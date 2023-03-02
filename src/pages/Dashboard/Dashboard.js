@@ -1,93 +1,87 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  StatArrow,
-  StatGroup,
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-} from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Avatar, Box } from "@chakra-ui/react";
+import { useColors } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
-import { addToState } from "../../store/alerts";
+import {
+  addToState,
+  completed,
+  Accepted,
+  AcceptingUpdate,
+} from "../../store/alerts";
 import { useLoaderData } from "react-router-dom";
-
-export default function Dashboard() {
-  const loaderData = useLoaderData();
-  const { data, dashboardData } = loaderData;
-
+import History from "./history";
+const Dashboard = () => {
+  const params = useParams();
   const dispatch = useDispatch();
-  const { completed, pending } = useSelector((state) => state.alerts);
+  const { data, dashboardData } = useLoaderData();
+  const {
+    items,
+    completed: complete,
+    pending: pend,
+    Accepted: accepted,
+  } = useSelector((state) => state.alert);
 
+  // ** CHANGE THE BACKGROUND COLOR TO BE GREY ON COMPONENT-DID-MOUNT
   useEffect(() => {
-    dispatch(addToState(data.alerts));
+    document.querySelector("body").classList.add("grey");
+    dispatch(addToState({ data: data.alerts }));
+    // dispatch(completed({ id: "63eca0f32df0965714777753" }));
+    // dispatch(Accepted({ id: "63f8a89cf54256e65cfe8e46" }));
   }, [data]);
+ 
+
   return (
-    <Box backgroundColor="blackAlpha" width="100%" height="100%" p="20px">
-      <Flex justify="space-between" alignItems="center">
-        <Box>
-          <Heading>{dashboardData.businessName}</Heading>
+    <React.Fragment>
+      {/** DASHBOARD SIDEPANEL SECTION */}
+      <Box className="side-panel">
+        <Box className="center" h="55px" fontSize="1xl" fontWeight={600}>
+          FAST TRASH
         </Box>
-        <Box>
-          <Text>1234 created Alerts</Text>
+      </Box>
+
+      {/** DASHBOARD MAIN SECTION */}
+      <Box className="main">
+        <Box w="100%" px="5px" fontSize={17} fontWeight={600}>
+          {/* Welcome Back, {dashboardData.businessName} */}
         </Box>
-      </Flex>
-      <Stat borderRadius="8px" p="4" border="1px solid #eeee">
-        <StatLabel>Total Alerts Pending</StatLabel>
-        <StatNumber>{pending}</StatNumber>
-        <StatHelpText>Feb 12 - Feb 28</StatHelpText>
-      </Stat>
-      <TableContainer margin="20px">
-        <Table variant="striped" colorScheme="yellow">
-          <TableCaption placement="top"> Created Alerts </TableCaption>
-          <Thead>
-            <Tr>
-              <Th>Creator</Th>
-              <Th>Request</Th>
-              <Th isNumeric>Pending</Th>
-              <Th isNumeric>Completed</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>Creator 1</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-              <Td isNumeric>30.48</Td>
-            </Tr>
-            <Tr>
-              <Td>Creator 2</Td>
-              <Td>centimetres (cm)</Td>
-              <Td isNumeric>30.48</Td>
-              <Td isNumeric>30.48</Td>
-            </Tr>
-            <Tr>
-              <Td>Creator 3</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-              <Td isNumeric>30.48</Td>
-            </Tr>
-            <Tr>
-              <Td>Creator 4</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-              <Td isNumeric>30.48</Td>
-            </Tr>
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </Box>
+        <Box className="details-summary center">
+          <Box className="card">
+            <Box className="title">Total Alerts Created</Box>
+            <Box fontWeight={600} fontSize={{ md: "28px" }} mt="5px">
+              {items.length}
+            </Box>
+          </Box>
+          <Box className="card">
+            <Box className="title">Completed Alerts</Box>
+            <Box fontWeight={600} fontSize={{ md: "28px" }} mt="5px">
+              {complete}
+            </Box>
+          </Box>
+          <Box className="card">
+            <Box className="title">Pending Alerts</Box>
+            <Box fontWeight={600} fontSize={{ md: "28px" }} mt="5px">
+              {pend}
+            </Box>
+          </Box>
+        </Box>
+        <Box w="100%" h="2px" bg={useColors.appGreen} borderRadius="50%"></Box>
+        <Box
+          p="10px"
+          w="100"
+          borderRadius="5px"
+          border="1px solid #eee"
+          mt="20px"
+          boxShadow="1px 1px 2px 0 rgba(42, 141, 0, 0.3)"
+        >
+          <Box w="100%" fontWeight={600} p="10px" fontSize="15px">
+            Recent Transactions
+          </Box>
+          <History items={items} />
+        </Box>
+      </Box>
+    </React.Fragment>
   );
-}
+};
+
+export default Dashboard;

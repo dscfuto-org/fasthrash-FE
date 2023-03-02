@@ -3,20 +3,20 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
-import { ContextProvider } from "./context";
-// import { Provider } from "react-redux';
-// import store from "./store/index";
+import { ContextProvider } from "./context/index";
+import { Provider } from "react-redux";
+import store from "./store/index";
 import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ContextProvider>
-    {/* <Provider store={store}> */}
-      <ChakraProvider>
-        <App />
-      </ChakraProvider>
-    {/* </Provider> */}
+      <Provider store={store}>
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
+      </Provider>
     </ContextProvider>
   </React.StrictMode>
 );

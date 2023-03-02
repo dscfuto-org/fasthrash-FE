@@ -8,10 +8,10 @@ export function checkToken() {
  return setToken();
 }
 
-export function protectedRoute() {
-  const token = setToken();
-  if (!token) {
-    return redirect("/login");
-  }
-}
+// export function protectedRoute() {
+//   const token = setToken();
+//   if (!token) {
+//     return redirect("/login");
+//   }
+// }
 

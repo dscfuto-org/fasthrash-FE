@@ -1,14 +1,53 @@
 :root {
     --app-green: #2a8d00;
     --appYellow: #ffa800;
+    --border-radius: 5px;
+    --header-height: 56px;
+    --side-panel-width: 250px
 }
 
+/* BOOTSTRAP CSS */
+body.grey {
+    background: #eee !important;
+}
+
+.flex {
+    display: flex !important;
+}
+
+.center {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-bold {
+    font-weight: 600 !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.success {
+    background: #79d861;
+}
+
+.warning {
+    background: #ffa800;
+}
+
+.info {
+    background: #0495c7;
+}
+
+/* HEADER CSS */
 .header {
     position: fixed;
     top: 0;
-    left: 0;
     right: 0;
-    height: 56px;
+    height: var(--header-height);
     width: 100%;
     background-color: #fff;
     z-index: 98;
@@ -19,6 +58,13 @@
     align-items: center;
     padding: 0 20px;
     transition: top 0.4s;
+}
+
+.dashboard-header {
+    width: calc(100vw - 268px) !important;
+    top: 5px;
+    right: 5px;
+    border-radius: var(--border-radius);
 }
 
 .nav-wrapper {
@@ -45,7 +91,7 @@
 .toggle-open>div {
     height: 4px;
     margin: 3px 0;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     background: var(--app-green);
 }
 
@@ -66,6 +112,99 @@
 .nav-wrapper .btn-close,
 .responsive-nav-logo {
     display: none;
+}
+
+/* DASHBOARD CSS BEGINS HERE */
+.side-panel {
+    width: var(--side-panel-width);
+    height: calc(100vh - 10px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0px 10px 20px 10px;
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.3);
+    transition: all 0.5s ease;
+}
+
+.main {
+    height: 100%;
+    width: calc(100vw - calc(var(--side-panel-width) + 25px));
+    margin-left: calc(var(--side-panel-width) + 5px);
+    margin-top: 12px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.3);
+    border-radius: var(--border-radius);
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 20px;
+}
+
+.details-summary {
+    margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    border-radius: var(--border-radius);
+    box-shadow: 1px 1px 2px 0 rgba(42, 141, 0, 0.3);
+    margin: 5px 10px;
+    padding: 10px;
+    width: 30%;
+}
+
+.card .title {
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+}
+
+table,
+thead,
+tbody,
+tr {
+    width: 100%;
+}
+
+thead {
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    font-weight: 500;
+}
+
+th,
+td {
+    padding: 10px 5px;
+}
+
+tbody tr:nth-child(odd) {
+    background: #eee;
+    width: 100%;
+}
+
+div.status {
+    color: #fff;
+    width: max-content;
+    border-radius: 20px;
+    padding: 4px 10px !important;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 1px 1px 2px 0 rgba(42, 141, 0, 0.3);
+}
+
+.avatar {
+    height: 60px;
+    width: 60px;
+    border: 1px solid #eee;
+    border-radius: 50%;
 }
 
 @media only screen and (max-width: 678px) {
