@@ -154,17 +154,14 @@ export default function Login() {
 const handleForgetPass = async (e) => {
   e.preventDefault();
   let userEmail = document.querySelector("[type=email]").value;
-  let userId = "test";
   let response = null;
 
   if ((userEmail && userEmail.length < 0) || !userEmail) {
     alert("Please proide email id");
   }
-  if ((userId && userId.length < 0) || !userId) {
-    alert("Please proide user id");
-  }
-  if (userId && userEmail && userId.length > 0 && userEmail.length > 0) {
-    response = await resetPassword(userEmail, userId);
+
+  if (userEmail && userEmail.length > 0) {
+    response = await resetPassword(userEmail);
   }
   response && alert("message sent");
 

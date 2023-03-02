@@ -1,4 +1,4 @@
-export const resetPassword = async (data, id) => {
+export const resetPassword = async (data) => {
   let url = "https://fastrash-1337.ew.r.appspot.com/api/auth/resetpassword";
   const fetchOptions = {
     method: "POST",
@@ -7,7 +7,7 @@ export const resetPassword = async (data, id) => {
     },
     body: JSON.stringify({ data }),
   };
-  const response = await fetch(`${url}/${id}`, fetchOptions);
+  const response = await fetch(`${url}/`, fetchOptions);
 
   return response;
 };
