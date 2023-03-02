@@ -9,6 +9,7 @@ import { checkToken as tokenLoader } from "./Auth/getToken";
 import Error from "./pages/Error";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import { loader as dashboardLoader } from "./util/dashboard";
+import { extendTheme } from "@chakra-ui/react";
 
 // This can be imported by anyone throughout the app instead of having to declare the color or site name in all files...
 // For example, I imported it in the ErrorPage.js file
@@ -17,7 +18,8 @@ export const THEME_COLOR = "#7F56D9";
 export const SITE_NAME = "FAST TRASH";
 export const useColors = {
     appYellow: '#ffa800',
-    appGreen: '#2a8d00'
+    appGreen: '#2a8d00',
+    appWhite: '#ffffff'
 }
 
 const route = createBrowserRouter([

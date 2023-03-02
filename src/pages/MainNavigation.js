@@ -62,7 +62,7 @@ function MainNavigation() {
     return (
         <Box className="header">
             {/** WEBSITE LOGO SECTION */}
-            <Box fontSize="1xl" fontWeight={600}>
+            <Box fontSize={{base: "1xl", md: '18px', lg: '20px'}} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
                 <Link to="/">FAST TRASH</Link>
             </Box>
             {/** MOBILE MENU BUTTON/SWITCH */}
@@ -97,7 +97,7 @@ function MainNavigation() {
                     {(!token && pathname !== '/login') && <Link onClick={toggleNavbar} to="/login">Login</Link>}
                     {(!token && pathname !== '/signup') &&
                         <Link to="/signup">
-                            <Box onClick={toggleNavbar} fontSize={15} ml='4' fontWeight={600} color="#fff" background={useColors.appGreen} px='15px' py='7px' borderRadius='5px' transition='all 0.3s ease' _hover={{ opacity: .6 }}>
+                            <Box onClick={toggleNavbar} fontSize={15} ml='4' fontWeight={600} color="#fff" background={useColors.appGreen} px='25px' py='10px' borderRadius='5px' transition='all 0.3s ease' _hover={{ opacity: .6 }}>
                                 Sign Up!
                             </Box>
                         </Link>
