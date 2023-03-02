@@ -29,7 +29,7 @@ const WebBanner = () => {
             <Box flexWrap='wrap' px='20px' maxW='600px' fontSize={{ base: '13px', md: '14px', lg: '16px' }} textAlign='center'>
                 Welcome to <span style={{ color: useColors.appYellow }}>FastTrash</span>, the world's <span style={{ color: useColors.appYellow }}>#1</span> trash recycling brand!
                 <br />
-                We beleieve that recycling is the key to preserving our planet for future generations.
+                We believe that recycling is the key to preserving our planet for future generations.
                 Our mission is to make recycling easier and more accessible for everyone. By working together
                 we can reduce waste and create a cleaner, greener world.
             </Box>
