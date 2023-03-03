@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   // ** CHANGE THE BACKGROUND COLOR TO BE GREY ON COMPONENT-DID-MOUNT
   useEffect(() => {
-    document.querySelector("body").classList.add("grey");
+    // document.querySelector("body").classList.add("grey");
     dispatch(addToState({ data: data.alerts }));
     // dispatch(completed({ id: "63eca0f32df0965714777753" }));
     // dispatch(Accepted({ id: "63f8a89cf54256e65cfe8e46" }));
