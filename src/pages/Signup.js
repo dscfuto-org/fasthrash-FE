@@ -70,6 +70,9 @@ export default function Signup() {
         <Heading size="lg">Signup</Heading>
 
         <Box marginTop="40px" as={forms} method="post">
+          <Text marginTop="10px" color="red">
+            {errors?.status ? errors.message : ""}
+          </Text>
           <FormControl marginY="16px">
             <FormLabel>Business Name*</FormLabel>
             <Input type="text" name="name" placeholder="Enter your Name" />
@@ -290,8 +293,9 @@ export async function action({ request }) {
     errors.passwordConfirm = "Password Confirmation is required";
   }
   if (data.passwordConfirm !== data.password) {
-    errors.passwordConfirm = "Confirm Password is Different from Password";
+    errors.passwordConfirm = "Password  is different from Confirm password";
   }
+
   if (!data.size) {
     errors.size = "Company size is required";
   }
