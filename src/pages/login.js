@@ -156,12 +156,16 @@ const handleForgetPass = async (e) => {
   let userEmail = document.querySelector("[type=email]").value;
   let response = null;
 
-  if ((userEmail && userEmail.length < 0) || !userEmail) {
-    alert("Please proide email id");
+  if (
+    (userEmail && userEmail.length < 0) ||
+    !userEmail ||
+    !userEmail.includes("@")
+  ) {
+    return alert("Please proide a valid email id");
   }
 
   if (userEmail && userEmail.length > 0) {
-    response = await resetPassword(userEmail);
+    await resetPassword(userEmail);
   }
 };
 
@@ -194,7 +198,7 @@ export async function action({ request }) {
   if (!response.ok) {
     return json({ message: response.message }, { status: response.status });
   }
-  
+
   const { token, id } = await response.json();
   localStorage.setItem("token", token);
 
