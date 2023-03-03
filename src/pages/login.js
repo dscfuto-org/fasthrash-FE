@@ -19,6 +19,7 @@ import { useState } from "react";
 import { redirect, Form as form, json } from "react-router-dom";
 import { useActionData, useNavigation } from "react-router-dom";
 import loginTime from "../util/login";
+import { resetPassword } from "../util/userAccount";
 
 export default function Login() {
   const [show, setValue] = useState(false);
@@ -103,7 +104,7 @@ export default function Login() {
           <FormControl marginY="30px">
             <Box display="flex" justify="between" width="100%">
               <FormLabel> Password</FormLabel>
-              <Link href="" marginLeft="auto">
+              <Link onClick={handleForgetPass} href="" marginLeft="auto">
                 Forgot Password?
               </Link>
             </Box>
@@ -150,6 +151,24 @@ export default function Login() {
   );
 }
 
+const handleForgetPass = async (e) => {
+  e.preventDefault();
+  let userEmail = document.querySelector("[type=email]").value;
+  let response = null;
+
+  if (
+    (userEmail && userEmail.length < 0) ||
+    !userEmail ||
+    !userEmail.includes("@")
+  ) {
+    return alert("Please proide a valid email id");
+  }
+
+  if (userEmail && userEmail.length > 0) {
+    await resetPassword(userEmail);
+  }
+};
+
 export async function action({ request }) {
   const formData = await request.formData();
   const data = {
@@ -179,7 +198,7 @@ export async function action({ request }) {
   if (!response.ok) {
     return json({ message: response.message }, { status: response.status });
   }
-  
+
   const { token, id } = await response.json();
   localStorage.setItem("token", token);
 
