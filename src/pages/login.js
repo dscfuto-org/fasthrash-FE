@@ -179,9 +179,7 @@ export async function action({ request }) {
   if (!response.ok) {
     return json({ message: response.message }, { status: response.status });
   }
-  
   const { token, id } = await response.json();
   localStorage.setItem("token", token);
-
   return redirect(`/dashboard/${id}`);
 }
