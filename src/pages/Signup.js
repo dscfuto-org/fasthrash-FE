@@ -39,21 +39,19 @@ export default function Signup() {
   const navigation = useNavigation();
   const isSubmiting = navigation.state === "submitting";
 
-  let checkIfErrorDataExist = function(type){
-    if(!Boolean(errors)){
+  let checkIfErrorDataExist = function (type) {
+    if (!Boolean(errors)) {
       return false;
     }
 
-    if(Object.keys(errors).length > 0){
-        if(errors.hasOwnProperty(type)){
-           return true;
-        }else{
-          return false;
-        }
+    if (Object.keys(errors).length > 0) {
+      if (errors.hasOwnProperty(type)) {
+        return true;
+      } else {
+        return false;
+      }
     }
-  }
-
-
+  };
 
   return (
     <Flex
@@ -70,14 +68,13 @@ export default function Signup() {
     >
       <Box width={{ lg: "30%", sm: "80%" }} margin="auto">
         <Heading size="lg">Signup</Heading>
-        
 
         <Box marginTop="40px" as={forms} method="post">
           <FormControl marginY="16px">
             <FormLabel>Business Name*</FormLabel>
             <Input type="text" name="name" placeholder="Enter your Name" />
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("name") ? errors.name: ""}
+              {checkIfErrorDataExist("name") ? errors.name : ""}
             </Text>
           </FormControl>
 
@@ -85,14 +82,14 @@ export default function Signup() {
             <FormLabel>Email address</FormLabel>
             <Input type="email" name="email" placeholder="Enter your email" />
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("email") ? errors.email: ""}
+              {checkIfErrorDataExist("email") ? errors.email : ""}
             </Text>
           </FormControl>
           <FormControl marginY="16px">
             <FormLabel>Location</FormLabel>
             <Input type="text" name="location" placeholder="Address" />
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("location") ? errors.location: ""}
+              {checkIfErrorDataExist("location") ? errors.location : ""}
             </Text>
           </FormControl>
           <FormControl>
@@ -111,7 +108,7 @@ export default function Signup() {
               </NumberInputStepper>
             </NumberInput>
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("years") ? errors.years: ""}
+              {checkIfErrorDataExist("years") ? errors.years : ""}
             </Text>
           </FormControl>
 
@@ -132,7 +129,7 @@ export default function Signup() {
             </RadioGroup>
 
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("size") ? errors.size: ""}
+              {checkIfErrorDataExist("size") ? errors.size : ""}
             </Text>
           </FormControl>
 
@@ -153,7 +150,7 @@ export default function Signup() {
             </InputGroup>
 
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("password") ? errors.password: ""}
+              {checkIfErrorDataExist("password") ? errors.password : ""}
             </Text>
           </FormControl>
 
@@ -174,7 +171,9 @@ export default function Signup() {
             </InputGroup>
 
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("password") ? errors.password: ""}
+              {checkIfErrorDataExist("passwordConfirm")
+                ? errors.passwordConfirm
+                : ""}
             </Text>
           </FormControl>
 
@@ -266,7 +265,7 @@ export async function action({ request }) {
   console.log(request);
   const formData = await request.formData();
   const errors = {};
-  
+
   const data = {
     businessName: formData.get("name"),
     email: formData.get("email"),
@@ -287,10 +286,12 @@ export async function action({ request }) {
     errors.password = "Password is required";
   }
 
-  if (!data.passwordConfirm){
-    errors.passwordConfirm = "Password Confirmation is required"
+  if (!data.passwordConfirm) {
+    errors.passwordConfirm = "Password Confirmation is required";
   }
-
+  if (data.passwordConfirm !== data.password) {
+    errors.passwordConfirm = "Confirm Password is Different from Password";
+  }
   if (!data.size) {
     errors.size = "Company size is required";
   }
