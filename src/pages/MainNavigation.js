@@ -62,14 +62,9 @@ function MainNavigation() {
     return (
         <Box className={`${pathname.includes('/dashboard') && 'dashboard-header'} header`}>
             {/** WEBSITE LOGO SECTION */}
-            {!pathname.includes('/dashboard') &&
-                <Box fontSize="1xl" fontWeight={600}>
-                    <Link to="/">FAST TRASH</Link>
-                </Box>
-            }
-            {pathname.includes('/dashboard') &&
-                <Box></Box>
-            }
+            <Box fontSize={{base: "1xl", md: '18px', lg: '20px'}} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
+                <Link to="/">FAST TRASH</Link>
+            </Box>
             {/** MOBILE MENU BUTTON/SWITCH */}
             <Box onClick={toggleNavbar} className='toggle-open'>
                 <Box w='30px'></Box>
@@ -104,7 +99,7 @@ function MainNavigation() {
                     {(!token && pathname !== '/login') && <Link onClick={toggleNavbar} to="/login">Login</Link>}
                     {(!token && pathname !== '/signup') &&
                         <Link to="/signup">
-                            <Box onClick={toggleNavbar} fontSize={15} ml='4' fontWeight={600} color="#fff" background={useColors.appGreen} px='15px' py='7px' borderRadius='5px' transition='all 0.3s ease' _hover={{ opacity: .6 }}>
+                            <Box onClick={toggleNavbar} fontSize={15} ml='4' fontWeight={600} color="#fff" background={useColors.appGreen} px='25px' py='10px' borderRadius='5px' transition='all 0.3s ease' _hover={{ opacity: .6 }}>
                                 Sign Up!
                             </Box>
                         </Link>

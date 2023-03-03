@@ -1,0 +1,56 @@
+.swiper {
+  width: 100%;
+  height: 100%;
+
+}
+.mySwiper {
+  margin-top: 80px;
+}
+.swiper-button-prev{
+  left: 45%;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 20px;
+}
+.swiper-button-next {
+ right: 45%;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  top: 95% !important;
+  border-radius: 50%;
+  background: #09121F;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.swiper-slide {
+  width: 40% !important;
+  text-align: center;
+  font-size: 30px;
+  background: #fff;
+  margin-bottom: 100px;
+
+  /* Center slide text vertically */
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+/************Mbile Slide screen size****************** */
+@media (max-width: 600px) {
+  .Card-Swiper {
+    width: 100% !important;
+  }
+  .swiper-button-prev{
+    left: 20%;
+  }
+  .swiper-button-next {
+    right: 20%;
+   }
+   
+  
+}
