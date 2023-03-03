@@ -163,17 +163,6 @@ const handleForgetPass = async (e) => {
   if (userEmail && userEmail.length > 0) {
     response = await resetPassword(userEmail);
   }
-  response && alert("message sent");
-
-  if (
-    (response && response.status === 400) ||
-    (response && response.status === 401)
-  ) {
-    return { message: "User not found", status: response.status };
-  }
-  if (response && response.ok) {
-    return json({ message: "message sent" }, { status: response.status });
-  }
 };
 
 export async function action({ request }) {
