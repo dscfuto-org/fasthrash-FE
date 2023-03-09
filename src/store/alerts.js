@@ -58,6 +58,7 @@ const Alertdata = createSlice({
     },
     addToState(state, action) {
       const actions = action.payload;
+      // filters the array for new alerts while pushing all the alerts to items
       const newItems = actions.data.filter((item) => {
         const found = state.items.find((item2) => item2._id === item._id);
         if (!found) {
@@ -83,5 +84,6 @@ const Alertdata = createSlice({
   },
 });
 
-export const { Accepted, completed, addToState ,updateState} = Alertdata.actions;
+export const { Accepted, completed, addToState, updateState } =
+  Alertdata.actions;
 export default Alertdata;

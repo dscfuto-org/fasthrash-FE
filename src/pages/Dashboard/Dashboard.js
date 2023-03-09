@@ -1,35 +1,38 @@
-import { useParams } from "react-router-dom";
 import React, { useEffect } from "react";
 import { Avatar, Box } from "@chakra-ui/react";
 import { useColors } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addToState,
-  completed,
-  Accepted,
-  AcceptingUpdate,
-} from "../../store/alerts";
+import { addToState } from "../../store/alerts";
 import { useLoaderData } from "react-router-dom";
 import History from "./history";
 const Dashboard = () => {
-  const params = useParams();
   const dispatch = useDispatch();
-  const { data, dashboardData } = useLoaderData();
+  const data = useLoaderData();
+  const { businessName } = data.user;
   const {
     items,
     completed: complete,
     pending: pend,
     Accepted: accepted,
   } = useSelector((state) => state.alert);
-
   // ** CHANGE THE BACKGROUND COLOR TO BE GREY ON COMPONENT-DID-MOUNT
   useEffect(() => {
-    // document.querySelector("body").classList.add("grey");
-    dispatch(addToState({ data: data.alerts }));
-    // dispatch(completed({ id: "63eca0f32df0965714777753" }));
-    // dispatch(Accepted({ id: "63f8a89cf54256e65cfe8e46" }));
-  }, [data]);
- 
+    const getData = async () => {
+      try {
+        //you can change the api to get data so far collectors have no data in their api
+        const response = await fetch(
+          "https://fastrash-1337.ew.r.appspot.com/api/org/alerts/?role=collector"
+        );
+        const { data } = await response.json();
+        dispatch(addToState({ data: data.alert }));
+      } catch (error) {
+        //should return something
+        console.log(error);
+      }
+    };
+
+    getData();
+  }, [dispatch]);
 
   return (
     <React.Fragment>
@@ -43,13 +46,19 @@ const Dashboard = () => {
       {/** DASHBOARD MAIN SECTION */}
       <Box className="main">
         <Box w="100%" px="5px" fontSize={17} fontWeight={600}>
-          {/* Welcome Back, {dashboardData.businessName} */}
+          Welcome Back {businessName}
         </Box>
         <Box className="details-summary center">
           <Box className="card">
             <Box className="title">Total Alerts Created</Box>
             <Box fontWeight={600} fontSize={{ md: "28px" }} mt="5px">
               {items.length}
+            </Box>
+          </Box>
+          <Box className="card">
+            <Box className="title">Accepted</Box>
+            <Box fontWeight={600} fontSize={{ md: "28px" }} mt="5px">
+              {accepted}
             </Box>
           </Box>
           <Box className="card">

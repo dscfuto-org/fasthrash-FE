@@ -200,10 +200,9 @@ export async function action({ request }) {
     return json({ message: response.message }, { status: response.status });
   }
 
-  const { token, id, businessName, size, yearsOfOperation } =
-    await response.json();
-  const loginData = { businessName, size, yearsOfOperation };
+  const { token, id } = await response.json();
+
   localStorage.setItem("token", token);
-  const encodedLoginData = encodeURIComponent(JSON.stringify(loginData));
-  return redirect(`/dashboard/${id}?dashboard=${encodedLoginData}`);
+
+  return redirect(`/dashboard/${id}`);
 }
