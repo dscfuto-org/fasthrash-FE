@@ -62,9 +62,14 @@ function MainNavigation() {
     return (
         <Box className={`${pathname.includes('/dashboard') && 'dashboard-header'} header`}>
             {/** WEBSITE LOGO SECTION */}
-            <Box fontSize={{base: "1xl", md: '18px', lg: '20px'}} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
-                <Link to="/">FAST TRASH</Link>
-            </Box>
+            {!pathname.includes('/dashboard') &&
+                <Box fontSize={{base: "1xl", md: '18px', lg: '20px'}} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
+                    <Link to="/">FAST TRASH</Link>
+                </Box>
+            }
+            {pathname.includes('/dashboard') &&
+                <Box></Box>
+            }
             {/** MOBILE MENU BUTTON/SWITCH */}
             <Box onClick={toggleNavbar} className='toggle-open'>
                 <Box w='30px'></Box>

@@ -1,19 +1,49 @@
-import { useState, useEffect } from "react";
-
-export default function History({ id }) {
-  const [history, setHistory] = useState([]);
-
-  useEffect(() => {
-    const getHistory = async () => {
-      const response = await fetch(
-        "https://fastrash-1337.ew.r.appspot.com/api/history/" + id
-      );
-      const data = await response.json();
-      setHistory(data);
-    };
-
-    getHistory();
-  }, [id]);
-
-  return <>{history ? history : '' /* if history is null map data */}</>;
+import { Avatar } from "@chakra-ui/react";
+import Buttons from "../../Components/Buttons/AcceptButton";
+export default function History({ items }) {
+  let buttonClass = {
+    pending: "red",
+    accepted: "yellow",
+    collected: "green",
+  };
+  return (
+    <>
+      {" "}
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Alert Created By</th>
+            <th>Alert Status</th>
+            <th>Quantity in Kg</th>
+            <th>Location</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items?.map((item, index) => {
+            return (
+              <tr key={item._id}>
+                <td>{index + 1}</td>
+                <td className="text-bold">
+                  <div className="flex">
+                    <Avatar src={item.image} mr="5px" size="sm" />
+                    Alex Chima
+                  </div>
+                </td>
+                <td className="center">
+                  <Buttons
+                    color={buttonClass[item.status]}
+                    id={item._id}
+                    name={item.status}
+                  />
+                </td>
+                <td className="text-bold text-center">{item.quantity}kg</td>
+                <td className="center">{item.location}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </>
+  );
 }

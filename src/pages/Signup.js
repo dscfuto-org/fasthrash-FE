@@ -23,6 +23,7 @@ import {
 } from "@chakra-ui/react";
 
 import { useState } from "react";
+import { useColors } from "../App";
 import {
   Form as forms,
   useActionData,
@@ -38,39 +39,21 @@ export default function Signup() {
   const navigation = useNavigation();
   const isSubmiting = navigation.state === "submitting";
 
-  let message;
-  if (errors) {
-    Object.keys(errors).forEach((errorType) => {
-      switch (errorType) {
-        case "email":
-          message = errors.email;
-          break;
-        case "password":
-          message = errors.password;
-          break;
-        case "status":
-          message = errors.message;
-          break;
-        case "location":
-          message = errors.location;
-          break;
-        case "name":
-          message = errors.name;
-          break;
-        case "years":
-          message = errors.years;
-          break;
-        case "size":
-          message = errors.size;
-          break;
-        default:
-          break;
-      }
-      if (message) {
-        return;
-      }
-    });
+  let checkIfErrorDataExist = function(type){
+    if(!Boolean(errors)){
+      return false;
+    }
+
+    if(Object.keys(errors).length > 0){
+        if(errors.hasOwnProperty(type)){
+           return true;
+        }else{
+          return false;
+        }
+    }
   }
+
+
 
   return (
     <Flex
@@ -87,23 +70,34 @@ export default function Signup() {
     >
       <Box width={{ lg: "30%", sm: "80%" }} margin="auto">
         <Heading size="lg">Signup</Heading>
-        <Text marginTop="10px" color="red">
-          {errors && message}
-        </Text>
 
         <Box marginTop="40px" as={forms} method="post">
+          <Text marginTop="10px" color="red">
+            {errors?.status ? errors.message : ""}
+          </Text>
           <FormControl marginY="16px">
             <FormLabel>Business Name*</FormLabel>
             <Input type="text" name="name" placeholder="Enter your Name" />
+            <Text marginTop="10px" color="red">
+              {checkIfErrorDataExist("name") ? errors.name: ""}
+            </Text>
           </FormControl>
 
           <FormControl marginY="16px">
             <FormLabel>Email address</FormLabel>
             <Input type="email" name="email" placeholder="Enter your email" />
+            <Text marginTop="10px" color="red">
+
+              {checkIfErrorDataExist("email") ? errors.email: ""}
+
+            </Text>
           </FormControl>
           <FormControl marginY="16px">
             <FormLabel>Location</FormLabel>
             <Input type="text" name="location" placeholder="Address" />
+            <Text marginTop="10px" color="red">
+              {checkIfErrorDataExist("location") ? errors.location: ""}
+            </Text>
           </FormControl>
           <FormControl>
             <FormLabel>Years of Operation</FormLabel>
@@ -120,6 +114,11 @@ export default function Signup() {
                 <NumberDecrementStepper />
               </NumberInputStepper>
             </NumberInput>
+            <Text marginTop="10px" color="red">
+
+              {checkIfErrorDataExist("years") ? errors.years: ""}
+
+            </Text>
           </FormControl>
 
           <FormControl marginY="16px">
@@ -137,6 +136,12 @@ export default function Signup() {
                 </Radio>
               </Stack>
             </RadioGroup>
+
+            <Text marginTop="10px" color="red">
+
+              {checkIfErrorDataExist("size") ? errors.size: ""}
+
+            </Text>
           </FormControl>
 
           <FormControl marginY="30px">
@@ -154,10 +159,39 @@ export default function Signup() {
                 </Button>
               </InputRightElement>
             </InputGroup>
+
+            <Text marginTop="10px" color="red">
+
+              {checkIfErrorDataExist("password") ? errors.password: ""}
+
+            </Text>
+          </FormControl>
+
+          <FormControl marginY="30px">
+            <FormLabel>Password Confirmation</FormLabel>
+            <InputGroup size="md">
+              <Input
+                pr="4.5rem"
+                type={show ? "text" : "password"}
+                placeholder="Confirm password"
+                name="passwordConfirm"
+              />
+              <InputRightElement width="4.5rem">
+                <Button h="1.75rem" size="sm" onClick={togglePassword}>
+                  {show ? "Hide" : "Show"}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+
+            <Text marginTop="10px" color="red">
+              {checkIfErrorDataExist("passwordConfirm")
+                ? errors.passwordConfirm
+                : ""}
+            </Text>
           </FormControl>
 
           <Button
-            bgColor="#7F56D9"
+            bgColor={useColors.appGreen}
             color="white"
             width="100%"
             fontWeight="bold"
@@ -241,17 +275,21 @@ export default function Signup() {
 }
 
 export async function action({ request }) {
+  console.log(request);
   const formData = await request.formData();
+  const errors = {};
+  
 
   const data = {
     businessName: formData.get("name"),
     email: formData.get("email"),
     password: formData.get("password"),
+    passwordConfirm: formData.get("passwordConfirm"),
     size: formData.get("size"),
     yearsOfOperation: Number(formData.get("years")),
     location: formData.get("location"),
   };
-  let errors = {};
+
   if (!data.businessName) {
     errors.name = "Name is required";
   }
@@ -261,6 +299,15 @@ export async function action({ request }) {
   if (!data.password) {
     errors.password = "Password is required";
   }
+
+
+  if (!data.passwordConfirm) {
+    errors.passwordConfirm = "Password Confirmation is required";
+  }
+  if (data.passwordConfirm !== data.password) {
+    errors.passwordConfirm = "Password  is different from Confirm password";
+  }
+
   if (!data.size) {
     errors.size = "Company size is required";
   }
@@ -270,13 +317,16 @@ export async function action({ request }) {
   if (!data.location) {
     errors.location = "Location is required";
   }
+
   if (Object.keys(errors).length > 0) {
     return errors;
   }
+
   const response = await LoginTime(
     "https://fastrash-1337.ew.r.appspot.com/api/auth/org/register",
     data
   );
+
   if (response.status === 500 || response.status === 401) {
     return {
       status: 500,
