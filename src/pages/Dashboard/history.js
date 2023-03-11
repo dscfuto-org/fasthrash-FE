@@ -2,9 +2,9 @@ import { Avatar } from "@chakra-ui/react";
 import Buttons from "../../Components/Buttons/AcceptButton";
 export default function History({ items }) {
   let buttonClass = {
-    pending: "red",
-    accepted: "yellow",
-    collected: "green",
+    pending: "#fc270bbd",
+    accepted: "#ffc400",
+    collected: "#79d861",
   };
   return (
     <>
@@ -38,7 +38,7 @@ export default function History({ items }) {
                   />
                 </td>
                 <td className="text-bold text-center">{item.quantity}kg</td>
-                <td className="center">{item.location}</td>
+                {/* <td className="center">{item.location}</td> */}
               </tr>
             );
           })}

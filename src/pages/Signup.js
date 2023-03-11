@@ -31,6 +31,13 @@ import {
   useNavigation,
 } from "react-router-dom";
 import LoginTime from "../util/login";
+import User1 from '../assets/images/user1.jpg'
+import User2 from '../assets/images/user2.jpg'
+import User3 from '../assets/images/user3.jpg'
+import User4 from '../assets/images/user4.jpg'
+import User5 from '../assets/images/user5.jpg'
+import User6 from '../assets/images/user6.jpg'
+import User7 from '../assets/images/user7.jpg'
 
 export default function Signup() {
   const [show, setValue] = useState(false);
@@ -66,10 +73,10 @@ export default function Signup() {
         lg: "row",
         xl: "row",
       }}
-      height="80vh"
+      height="100vh"
     >
-      <Box width={{ lg: "30%", sm: "80%" }} margin="auto">
-        <Heading size="lg">Signup</Heading>
+      <Box pt={'40px'} width={{ lg: "30%", sm: "80%" }} margin="auto">
+        <Heading size="lg">Sign Up!</Heading>
 
         <Box marginTop="40px" as={forms} method="post">
           <Text marginTop="10px" color="red">
@@ -202,8 +209,8 @@ export default function Signup() {
             {isSubmiting ? "Loading..." : "Get started"}
           </Button>
 
-          <Text marginTop="30px" textAlign="center">
-            Already have an account ?{" "}
+          <Text mt="10px" mb='30px' textAlign="center">
+            Already have an account?{" "}
             <Link
               href="/login"
               marginLeft="16px"
@@ -232,7 +239,7 @@ export default function Signup() {
           alignContent: "center",
         }}
         // padding="50px 10px"
-        height="100%"
+        height="920px"
       >
         <Box width="80%" margin="auto">
           <Flex
@@ -243,12 +250,12 @@ export default function Signup() {
             marginBottom="60px"
           >
             <Heading size="xl">
-              Sign Up and Reward users Why you Recycle
+              Sign Up and Reward users While you Recycle!
             </Heading>
 
             <Text>
               Create a free account and get full access to all Collectors with
-              Trash Available to Dispose
+              Trash Available to Dispose.
             </Text>
 
             <Flex
@@ -257,12 +264,26 @@ export default function Signup() {
               justifyContent="flex-start"
               width="100%"
             >
-              <AvatarGroup size="md" max={6}>
-                <Avatar name="Alex Unusual" src="/assets/Profile1.jpg" />
-                <Avatar name="Chidera" src="/assets/Profile1.jpg" />
-                <Avatar name="Victor Okonkwo" src="/assets/Profile1.jpg" />
-                <Avatar name="Localhost" src="/assets/Profile1.jpg" />
-                <Avatar name="Christian Nwamba" src="/assets/Profile1.jpg" />
+              <AvatarGroup size="md" max={7}>
+                <Avatar name="Alex Unusual" src={User1} />
+                <Avatar name="Chidera" src={User2} />
+                <Avatar name="Victor Okonkwo" src={User3} />
+                <Avatar name="Localhost" src={User4} />
+                <Avatar name="Christian Nwamba" src={User5} />
+                <Avatar name="Victory George" src={User4} />
+                <Avatar name="Sunday Ezekiel" src={User5} />
+                <Avatar name="Israel Godfrey" src={User6} />
+                <Avatar name="Emeka Lamb" src={User7} />
+                <Avatar name="Christian Nwamba" src={User5} />
+                <Avatar name="Victory George" src={User4} />
+                <Avatar name="Sunday Ezekiel" src={User5} />
+                <Avatar name="Israel Godfrey" src={User6} />
+                <Avatar name="Emeka Lamb" src={User7} />
+                <Avatar name="Christian Nwamba" src={User5} />
+                <Avatar name="Victory George" src={User4} />
+                <Avatar name="Sunday Ezekiel" src={User5} />
+                <Avatar name="Israel Godfrey" src={User6} />
+                <Avatar name="Emeka Lamb" src={User7} />
               </AvatarGroup>
 
               <Text>Join 40,000+ users.</Text>

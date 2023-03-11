@@ -49,8 +49,8 @@ export default function Buttons({ id, name, color }) {
     } catch (error) {}
   };
   return (
-    <Button onClick={handleClick} colorScheme={color}>
-      {!spin && name}
+    <Button onClick={handleClick} bg={color}>
+      {!spin && name.charAt(0).toUpperCase() + name.slice(1)}
       {spin && <Spinner size="sm" />}
     </Button>
   );

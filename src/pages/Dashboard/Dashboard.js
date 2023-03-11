@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Avatar, Box } from "@chakra-ui/react";
+import { Avatar, Box, Text } from "@chakra-ui/react";
 import { useColors } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { addToState } from "../../store/alerts";
@@ -34,43 +34,45 @@ const Dashboard = () => {
     getData();
   }, [dispatch]);
 
+  console.log(items)
+
   return (
     <React.Fragment>
       {/** DASHBOARD SIDEPANEL SECTION */}
       <Box className="side-panel">
-        <Box className="center" h="55px" fontSize="1xl" fontWeight={600}>
+        <Box className="center" h="55px" fontSize={{ base: "1xl", md: '18px', lg: '20px' }} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
           FAST TRASH
         </Box>
       </Box>
 
       {/** DASHBOARD MAIN SECTION */}
       <Box className="main">
-        <Box w="100%" px="5px" fontSize={17} fontWeight={600}>
-          Welcome Back {businessName}
+        <Box display='flex' w="100%" px="5px" fontSize={17} fontWeight={600}>
+          Welcome Back <Text ml='5px' fontWeight={600} color={useColors.appGreen}>{businessName}</Text>
         </Box>
         <Box className="details-summary center">
-          <Box className="card">
-            <Box className="title">Total Alerts Created</Box>
+          <Box className="card danger">
+            <Box className="title">Pending Alerts</Box>
             <Box fontWeight={600} fontSize={{ md: "28px" }} mt="5px">
-              {items.length}
+              {pend}
             </Box>
           </Box>
-          <Box className="card">
+          <Box className="card warning">
             <Box className="title">Accepted</Box>
             <Box fontWeight={600} fontSize={{ md: "28px" }} mt="5px">
               {accepted}
             </Box>
           </Box>
-          <Box className="card">
+          <Box className="card success">
             <Box className="title">Completed Alerts</Box>
             <Box fontWeight={600} fontSize={{ md: "28px" }} mt="5px">
               {complete}
             </Box>
           </Box>
-          <Box className="card">
-            <Box className="title">Pending Alerts</Box>
+          <Box className="card info">
+            <Box className="title">Total Alerts Created</Box>
             <Box fontWeight={600} fontSize={{ md: "28px" }} mt="5px">
-              {pend}
+              {items.length}
             </Box>
           </Box>
         </Box>

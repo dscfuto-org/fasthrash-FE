@@ -36,10 +36,10 @@ export default function Login() {
     message = errors?.password;
   }
   if (errors?.email && errors?.password) {
-    message = "Please fill in your details";
+    message = "Please fill in your details!";
   }
   if (errors?.status && !errors?.email && !errors?.password) {
-    message = "Invalid email or password";
+    message = "Invalid email or password!";
   }
 
   return (
@@ -53,7 +53,7 @@ export default function Login() {
         lg: "row",
         xl: "row",
       }}
-      height="80vh"
+      height="100vh"
     >
       <Box
         display={{
@@ -68,7 +68,7 @@ export default function Login() {
         padding="50px"
         height="100%"
       >
-        <Box width="80%" margin="auto">
+        <Box display='flex' alignItems='center' justifyContent='center' width="100%" height='100%' margin="auto">
           <Flex
             align="center"
             justify="center"
@@ -93,8 +93,8 @@ export default function Login() {
       </Box>
 
       <Box width={{ lg: "30%", sm: "80%" }} margin="auto">
-        <Heading size="lg">Welcome Back</Heading>
-        {message && <Text marginTop="10px">{message}</Text>}
+        <Heading size="lg">Welcome Back!</Heading>
+        {message && <Text mt={5} bg='crimson' color='#fff' fontWeight={600} textAlign='center' borderRadius='md' p={2}>{message}</Text>}
 
         <Box marginTop="40px" as={form} method="post">
           <FormControl marginY="16px">
@@ -140,10 +140,10 @@ export default function Login() {
           >
             {isSubmiting ? "Loading..." : "Login"}
           </Button>
-          <Text marginTop="30px" fontWeight="bold">
+          <Text marginTop="30px" fontWeight="bold" display='flex' justifyContent='space-between'>
             Don't Have an account?{" "}
             <Link href="/signup" marginLeft="16px" color="#7F56D9">
-              Sign Up
+              Sign Up!
             </Link>
           </Text>
         </Box>
@@ -180,10 +180,10 @@ export async function action({ request }) {
   const errors = {};
 
   if (!data.email) {
-    errors.email = "Email is required";
+    errors.email = "Email is required!";
   }
   if (!data.password) {
-    errors.password = "Password is required";
+    errors.password = "Password is required!";
   }
 
   if (Object.keys(errors).length > 0) {

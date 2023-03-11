@@ -63,7 +63,7 @@ function MainNavigation() {
         <Box className={`${pathname.includes('/dashboard') && 'dashboard-header'} header`}>
             {/** WEBSITE LOGO SECTION */}
             {!pathname.includes('/dashboard') &&
-                <Box fontSize={{base: "1xl", md: '18px', lg: '20px'}} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
+                <Box fontSize={{ base: "1xl", md: '18px', lg: '20px' }} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
                     <Link to="/">FAST TRASH</Link>
                 </Box>
             }
@@ -81,7 +81,11 @@ function MainNavigation() {
                 {!pathname.includes('/dashboard') &&
                     <Box className="navigations" w='70%'>
                         <Box className="btn-close" onClick={toggleNavbar}><FaTimes /></Box>
-                        <Box className="responsive-nav-logo">FAST RASH logo here</Box>
+                        <Box className="responsive-nav-logo">
+                            <Box fontSize={{ base: "1xl", md: '18px', lg: '20px' }} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
+                                <Link to="/">FAST TRASH</Link>
+                            </Box>
+                        </Box>
                         {navLinks.map(
                             ({ navLinkId, scrollToId, link, icon }, i) =>
                                 <React.Fragment key={i}>

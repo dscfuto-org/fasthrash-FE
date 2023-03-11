@@ -11,7 +11,7 @@ const AboutUs = () => {
      pl={{md: '15px',lg: "30px"}} px={{base:'7px'}} flexDirection={{base: 'column', md: 'row', lg: 'row'}} bgColor="#111210" color="#ffffff">
       <Box width={{ base: '100%', sm: '100%', md: '60%', lg: '40%' }}>
         <Heading  fontSize={{ base: '40px', md: '50px', lg: '60px' }} textAlign={{base: 'center' , md: 'initial', lg: 'initial'}}>
-        Make <span style={{ color: useColors.appYellow }}>Meaning Impact</span> In The Community You Care About. 
+        Make <span style={{ color: useColors.appYellow }}>Meaningful Impact</span> In The Community You Care About. 
         </Heading>
           <Text pt="20px" textAlign={{base: 'center' , md: 'initial', lg: 'initial'}}>
             Welcome to our trash recycling website! We believe that recycling is the key to preserving our planet for future generations. Our mission is to make recycling easier and more accessible for everyone. By working together, we can reduce waste and create a cleaner, greener world.
