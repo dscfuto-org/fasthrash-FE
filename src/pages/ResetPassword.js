@@ -139,12 +139,6 @@ export async function action({ request, params }) {
     confirmPassword: formData.get("ConfirmPassword").trim(),
     password: formData.get("password").trim(),
   };
-  const datas = {
-    id,
-    tokenID,
-    token,
-    email: data.password,
-  };
 
   const errors = {};
 
@@ -160,14 +154,17 @@ export async function action({ request, params }) {
   }
   const response = await loginTime(
     `https://fastrash-1337.ew.r.appspot.com/api/auth/org/resetpassword/${id}/${token}/${tokenID}`,
-    datas
+    { password: data.password }
   );
   console.log(response);
   if (response.status === 401 || response.status === 404) {
     return { message: "Invalid email or password", status: response.status };
   }
   if (!response.ok) {
-    return json({message: "Error changing your password"},{status:response.status});
+    return json(
+      { message: "Error changing your password" },
+      { status: response.status }
+    );
   }
   console.log(response.ok);
   return redirect("/login");
