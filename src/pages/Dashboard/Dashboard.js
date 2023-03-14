@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Avatar, Box, Text } from "@chakra-ui/react";
+import {  Box, Text } from "@chakra-ui/react";
 import { useColors } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { addToState } from "../../store/alerts";
