@@ -60,11 +60,16 @@ function MainNavigation() {
     }
 
     return (
-        <Box className="header">
+        <Box className={`${pathname.includes('/dashboard') && 'dashboard-header'} header`}>
             {/** WEBSITE LOGO SECTION */}
-            <Box fontSize={{base: "1xl", md: '18px', lg: '20px'}} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
-                <Link to="/">FAST TRASH</Link>
-            </Box>
+            {!pathname.includes('/dashboard') &&
+                <Box fontSize={{ base: "1xl", md: '18px', lg: '20px' }} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
+                    <Link to="/">FAST TRASH</Link>
+                </Box>
+            }
+            {pathname.includes('/dashboard') &&
+                <Box></Box>
+            }
             {/** MOBILE MENU BUTTON/SWITCH */}
             <Box onClick={toggleNavbar} className='toggle-open'>
                 <Box w='30px'></Box>
@@ -72,28 +77,34 @@ function MainNavigation() {
                 <Box w='30px'></Box>
             </Box>
             {/** WEB NAVIGATION SECTION */}
-            <Box className="nav-wrapper" w='80%' ref={navRef}>
-                <Box className="navigations" w='70%'>
-                    <Box className="btn-close" onClick={toggleNavbar}><FaTimes /></Box>
-                    <Box className="responsive-nav-logo">FAST RASH logo here</Box>
-                    {navLinks.map(
-                        ({ navLinkId, scrollToId, link, icon }, i) =>
-                            <React.Fragment key={i}>
-                                <NavLink
-                                    navLinkId={navLinkId}
-                                    icon={icon}
-                                    scrollToId={scrollToId}
-                                    link={link}
-                                    activeNavLinkId={activeNavLinkId}
-                                    setActiveNavLinkId={setActiveNavLinkId}
-                                />
-                                {i !== 2 && <span className="divider">|</span>}
-                            </React.Fragment>
-                    )}
-                </Box>
+            <Box className="nav-wrapper" w={!pathname.includes('/dashboard') && '80%'} ref={navRef}>
+                {!pathname.includes('/dashboard') &&
+                    <Box className="navigations" w='70%'>
+                        <Box className="btn-close" onClick={toggleNavbar}><FaTimes /></Box>
+                        <Box className="responsive-nav-logo">
+                            <Box fontSize={{ base: "1xl", md: '18px', lg: '20px' }} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
+                                <Link to="/">FAST TRASH</Link>
+                            </Box>
+                        </Box>
+                        {navLinks.map(
+                            ({ navLinkId, scrollToId, link, icon }, i) =>
+                                <React.Fragment key={i}>
+                                    <NavLink
+                                        navLinkId={navLinkId}
+                                        icon={icon}
+                                        scrollToId={scrollToId}
+                                        link={link}
+                                        activeNavLinkId={activeNavLinkId}
+                                        setActiveNavLinkId={setActiveNavLinkId}
+                                    />
+                                    {i !== 2 && <span className="divider">|</span>}
+                                </React.Fragment>
+                        )}
+                    </Box>
+                }
                 {/** AUTH BUTTONS SECTION */}
                 <Box className="auth-block">
-                    {token && <Link onClick={toggleNavbar} to="/logout">Logout</Link>}
+                    {token && <Link onClick={toggleNavbar} to="/logout">Sign Out</Link>}
                     {(!token && pathname !== '/login') && <Link onClick={toggleNavbar} to="/login">Login</Link>}
                     {(!token && pathname !== '/signup') &&
                         <Link to="/signup">

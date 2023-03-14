@@ -3,19 +3,24 @@
   height: 100%;
 
 }
+
 .mySwiper {
   margin-top: 80px;
 }
-.swiper-button-prev{
+
+.swiper-button-prev {
   left: 45%;
 }
+
 .swiper-button-prev::after,
 .swiper-button-next::after {
   font-size: 20px;
 }
+
 .swiper-button-next {
- right: 45%;
+  right: 45%;
 }
+
 .swiper-button-prev,
 .swiper-button-next {
   top: 95% !important;
@@ -42,15 +47,22 @@
 
 /************Mbile Slide screen size****************** */
 @media (max-width: 600px) {
+
+  .mySwiper {
+    margin-top: 40px;
+  }
+
   .Card-Swiper {
     width: 100% !important;
   }
-  .swiper-button-prev{
+
+  .swiper-button-prev {
     left: 20%;
   }
+
   .swiper-button-next {
     right: 20%;
-   }
-   
-  
+  }
+
+
 }

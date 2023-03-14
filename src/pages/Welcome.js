@@ -6,10 +6,10 @@ import WebBanner from "../Components/WebBanner";
 
 const Welcome = () => {
 	return (
-		<Box w='100%' h='100%' overflowX='hidden'>			
+		<Box w='100%' h='100%' overflowX='hidden'>
 			<WebBanner />
 			<AboutUs />
-			<Box pr="32px" pl="32px" pb="48px">
+			<Box pr={{ base: '10px', md: "32px" }} pl={{ base: '10px', md: "32px" }} pb="48px">
 				<Education />
 			</Box>
 			<WebFooter />

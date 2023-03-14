@@ -2,8 +2,6 @@ import {
   Box,
   Flex,
   Heading,
-  Avatar,
-  AvatarGroup,
   Text,
   FormControl,
   FormLabel,
@@ -23,6 +21,7 @@ import {
 } from "@chakra-ui/react";
 
 import { useState } from "react";
+import { useColors } from "../App";
 import {
   Form as forms,
   useActionData,
@@ -30,30 +29,13 @@ import {
   useNavigation,
 } from "react-router-dom";
 import LoginTime from "../util/login";
-
+import { checkIfErrorDataExist } from "../util/checkErrors";
 export default function Signup() {
   const [show, setValue] = useState(false);
   const togglePassword = (event) => setValue(!show);
   const errors = useActionData();
   const navigation = useNavigation();
   const isSubmiting = navigation.state === "submitting";
-
-  let checkIfErrorDataExist = function(type){
-    if(!Boolean(errors)){
-      return false;
-    }
-
-    if(Object.keys(errors).length > 0){
-        if(errors.hasOwnProperty(type)){
-           return true;
-        }else{
-          return false;
-        }
-    }
-  }
-
-
-
   return (
     <Flex
       width="100%"
@@ -65,18 +47,20 @@ export default function Signup() {
         lg: "row",
         xl: "row",
       }}
-      height="80vh"
+      height="100vh"
     >
-      <Box width={{ lg: "30%", sm: "80%" }} margin="auto">
-        <Heading size="lg">Signup</Heading>
-        
+      <Box pt={"40px"} width={{ lg: "30%", sm: "80%" }} margin="auto">
+        <Heading size="lg">Sign Up!</Heading>
 
         <Box marginTop="40px" as={forms} method="post">
+          <Text marginTop="10px" color="red">
+            {errors?.status ? errors.message : ""}
+          </Text>
           <FormControl marginY="16px">
             <FormLabel>Business Name*</FormLabel>
             <Input type="text" name="name" placeholder="Enter your Name" />
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("name") ? errors.name: ""}
+              {checkIfErrorDataExist("name", errors) ? errors.name : ""}
             </Text>
           </FormControl>
 
@@ -84,14 +68,14 @@ export default function Signup() {
             <FormLabel>Email address</FormLabel>
             <Input type="email" name="email" placeholder="Enter your email" />
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("email") ? errors.email: ""}
+              {checkIfErrorDataExist("email", errors) ? errors.email : ""}
             </Text>
           </FormControl>
           <FormControl marginY="16px">
             <FormLabel>Location</FormLabel>
             <Input type="text" name="location" placeholder="Address" />
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("location") ? errors.location: ""}
+              {checkIfErrorDataExist("location", errors) ? errors.location : ""}
             </Text>
           </FormControl>
           <FormControl>
@@ -110,7 +94,7 @@ export default function Signup() {
               </NumberInputStepper>
             </NumberInput>
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("years") ? errors.years: ""}
+              {checkIfErrorDataExist("years", errors) ? errors.years : ""}
             </Text>
           </FormControl>
 
@@ -131,7 +115,7 @@ export default function Signup() {
             </RadioGroup>
 
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("size") ? errors.size: ""}
+              {checkIfErrorDataExist("size", errors) ? errors.size : ""}
             </Text>
           </FormControl>
 
@@ -152,7 +136,7 @@ export default function Signup() {
             </InputGroup>
 
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("password") ? errors.password: ""}
+              {checkIfErrorDataExist("password", errors) ? errors.password : ""}
             </Text>
           </FormControl>
 
@@ -173,12 +157,14 @@ export default function Signup() {
             </InputGroup>
 
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("password") ? errors.password: ""}
+              {checkIfErrorDataExist("passwordConfirm", errors)
+                ? errors.passwordConfirm
+                : ""}
             </Text>
           </FormControl>
 
           <Button
-            bgColor="#7F56D9"
+            bgColor={useColors.appGreen}
             color="white"
             width="100%"
             fontWeight="bold"
@@ -189,8 +175,8 @@ export default function Signup() {
             {isSubmiting ? "Loading..." : "Get started"}
           </Button>
 
-          <Text marginTop="30px" textAlign="center">
-            Already have an account ?{" "}
+          <Text mt="10px" mb="30px" textAlign="center">
+            Already have an account?{" "}
             <Link
               href="/login"
               marginLeft="16px"
@@ -202,61 +188,6 @@ export default function Signup() {
           </Text>
         </Box>
       </Box>
-
-      <Box
-        display={{
-          sm: "none",
-          base: "none",
-          md: "none",
-          lg: "flex",
-          xl: "flex",
-        }}
-        width="50%"
-        background="linear-gradient(45deg, #101828 0%, #475467 100%)"
-        style={{
-          color: "white",
-          flexDirection: "column",
-          alignContent: "center",
-        }}
-        // padding="50px 10px"
-        height="100%"
-      >
-        <Box width="80%" margin="auto">
-          <Flex
-            alignItems="center"
-            justifyContent="center"
-            gap="30px"
-            direction="column"
-            marginBottom="60px"
-          >
-            <Heading size="xl">
-              Sign Up and Reward users Why you Recycle
-            </Heading>
-
-            <Text>
-              Create a free account and get full access to all Collectors with
-              Trash Available to Dispose
-            </Text>
-
-            <Flex
-              gap="10px"
-              alignItems="center"
-              justifyContent="flex-start"
-              width="100%"
-            >
-              <AvatarGroup size="md" max={6}>
-                <Avatar name="Alex Unusual" src="/assets/Profile1.jpg" />
-                <Avatar name="Chidera" src="/assets/Profile1.jpg" />
-                <Avatar name="Victor Okonkwo" src="/assets/Profile1.jpg" />
-                <Avatar name="Localhost" src="/assets/Profile1.jpg" />
-                <Avatar name="Christian Nwamba" src="/assets/Profile1.jpg" />
-              </AvatarGroup>
-
-              <Text>Join 40,000+ users.</Text>
-            </Flex>
-          </Flex>
-        </Box>
-      </Box>
     </Flex>
   );
 }
@@ -265,7 +196,7 @@ export async function action({ request }) {
   console.log(request);
   const formData = await request.formData();
   const errors = {};
-  
+
   const data = {
     businessName: formData.get("name"),
     email: formData.get("email"),
@@ -286,8 +217,11 @@ export async function action({ request }) {
     errors.password = "Password is required";
   }
 
-  if (!data.passwordConfirm){
-    errors.passwordConfirm = "Password Confirmation is required"
+  if (!data.passwordConfirm) {
+    errors.passwordConfirm = "Password Confirmation is required";
+  }
+  if (data.passwordConfirm !== data.password) {
+    errors.passwordConfirm = "Password  is different from Confirm password";
   }
 
   if (!data.size) {
