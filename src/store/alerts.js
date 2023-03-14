@@ -59,6 +59,7 @@ const Alertdata = createSlice({
     addToState(state, action) {
       const actions = action.payload;
       // filters the array for new alerts while pushing all the alerts to items
+      // eslint-disable-next-line
       const newItems = actions.data.filter((item) => {
         const found = state.items.find((item2) => item2._id === item._id);
         if (!found) {

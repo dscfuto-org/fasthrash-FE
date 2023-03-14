@@ -16,7 +16,6 @@ import {
   useActionData,
   Form as form,
   useNavigation,
-  json,
 } from "react-router-dom";
 const ResetPassword = () => {
   const [show, setValue] = useState(false);
