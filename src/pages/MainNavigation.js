@@ -5,6 +5,19 @@ import React, { useRef, useEffect } from 'react'
 import { useAppContext } from "../context";
 import { FaTimes } from 'react-icons/fa'
 
+export const handleToggleNavbar = () => {
+    document.getElementById('collapse-sidebar').classList.toggle('collapse')
+    document.getElementById('header').classList.toggle('collapse')
+    document.getElementById('main-section').classList.toggle('collapse')
+    document.getElementById('overlay').classList.toggle('collapse')
+}
+export const handleCloseNavbar = () => {
+    document.getElementById('collapse-sidebar').classList.remove('collapse')
+    document.getElementById('header').classList.remove('collapse')
+    document.getElementById('main-section').classList.remove('collapse')
+    document.getElementById('overlay').classList.remove('collapse')
+}
+
 function MainNavigation() {
     const token = useRouteLoaderData("root");
 
@@ -59,11 +72,7 @@ function MainNavigation() {
         );
     }
 
-    const handleToggleNavbar = () => {
-        document.getElementById('collapse-sidebar').classList.toggle('collapse')
-        document.getElementById('header').classList.toggle('collapse')
-        document.getElementById('main-section').classList.toggle('collapse')
-    }
+
     return (
         <Box id='header' className={`${pathname.includes('/dashboard') && 'dashboard-header'} header`}>
             {/** WEBSITE LOGO SECTION */}
@@ -80,11 +89,13 @@ function MainNavigation() {
                 </Box>
             }
             {/** MOBILE MENU BUTTON/SWITCH */}
-            <Box onClick={toggleNavbar} className='toggle-open'>
-                <Box w='30px'></Box>
-                <Box w='25px'></Box>
-                <Box w='30px'></Box>
-            </Box>
+            {!pathname.includes('/dashboard') &&
+                <Box onClick={toggleNavbar} className='toggle-open'>
+                    <Box w='30px'></Box>
+                    <Box w='25px'></Box>
+                    <Box w='30px'></Box>
+                </Box>
+            }
             {/** WEB NAVIGATION SECTION */}
             <Box className="nav-wrapper" w={!pathname.includes('/dashboard') && '80%'} ref={navRef}>
                 {!pathname.includes('/dashboard') &&

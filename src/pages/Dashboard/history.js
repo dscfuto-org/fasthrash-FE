@@ -1,6 +1,17 @@
 import { Avatar } from "@chakra-ui/react";
 import Buttons from "../../Components/Buttons/AcceptButton";
-export default function History({ items }) {
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from '@chakra-ui/react'
+export default function History({ businessName, items }) {
   let buttonClass = {
     pending: "#fc270bbd",
     accepted: "#ffc400",
@@ -9,41 +20,53 @@ export default function History({ items }) {
   return (
     <>
       {" "}
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Alert Created By</th>
-            <th>Alert Status</th>
-            <th>Quantity in Kg</th>
-            <th>Location</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items?.map((item, index) => {
+      <TableContainer>
+  <Table variant='striped' colorScheme='grey'>
+    <TableCaption>Transactions for {businessName} </TableCaption>
+    <Thead>
+      <Tr>
+        <Th>#</Th>
+        <Th>Alert Created By</Th>
+        <Th>Alert Status</Th>
+        <Th>Quantity in Kg</Th>
+        <Th>Location</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+    {items?.map((item, index) => {
             return (
-              <tr key={item._id}>
-                <td>{index + 1}</td>
-                <td className="text-bold">
+              <Tr key={item._id}>
+                <Td>{index + 1}</Td>
+                <Td className="text-bold">
                   <div className="flex">
                     <Avatar src={item.image} mr="5px" size="sm" />
                     Alex Chima
                   </div>
-                </td>
-                <td className="center">
+                </Td>
+                <Td className="center">
                   <Buttons
                     color={buttonClass[item.status]}
                     id={item._id}
                     name={item.status}
                   />
-                </td>
-                <td className="text-bold text-center">{item.quantity}kg</td>
-                {/* <td className="center">{item.location}</td> */}
-              </tr>
+                </Td>
+                <Td isNumeric className="text-bold text-center">{item.quantity}kg</Td>
+                {/* <Td className="center">{item.location}</Td> */}
+              </Tr>
             );
           })}
-        </tbody>
-      </table>
+    </Tbody>
+    <Tfoot>
+    <Tr>
+        <Th>#</Th>
+        <Th>Alert Created By</Th>
+        <Th>Alert Status</Th>
+        <Th>Quantity in Kg</Th>
+        <Th>Location</Th>
+      </Tr>
+    </Tfoot>
+  </Table>
+</TableContainer>
     </>
   );
 }

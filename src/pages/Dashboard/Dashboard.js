@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
 import { Box, Text } from "@chakra-ui/react";
-import { useColors } from "../../App";
+import { useColors, SITE_NAME } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { addToState } from "../../store/alerts";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useLocation, useParams } from "react-router-dom";
 import History from "./history";
+import { handleCloseNavbar, handleToggleNavbar } from "../MainNavigation";
+import { FaHistory, FaHome } from 'react-icons/fa'
+
 const Dashboard = () => {
+  // ** GET CURRENT ROUTE FROM REACT ROUTER DOM
+  const { pathname } = useLocation();
+  const { profile } = useParams()
+
   const dispatch = useDispatch();
   const data = useLoaderData();
   const { businessName } = data.user;
@@ -40,16 +47,25 @@ const Dashboard = () => {
   return (
     <React.Fragment>
       {/** DASHBOARD SIDEPANEL SECTION */}
+      <Box className='dashboard_navbar_side_overlay_bg' id='overlay' onClick={handleToggleNavbar}></Box>
       <Box id='collapse-sidebar' className="side-panel">
         <Box
-          className="center"
+          className="center nav-logo"
           h="55px"
-          fontSize={{ base: "1xl", md: "18px", lg: "20px" }}
+          fontSize={{ base: "22px", md: "20px", lg: "23px" }}
           fontWeight={700}
           bgGradient="linear(to-l, #FAB20F, #2A8D00)"
           bgClip="text"
         >
-          FAST TRASH
+          {SITE_NAME}
+        </Box>
+        <Box mt={0} py={1} width='100%' borderBottom='1px solid rgba(0, 0, 0, 30%)' borderTop='1px solid rgba(0, 0, 0, 30%)'>
+          <Link onClick={handleCloseNavbar} to={`/dashboard/${profile}`}>
+            <Box bg={pathname.includes('/dashboard') ? '#eee' : 'inherit'} display='flex' p={2} cursor='pointer' fontWeight={600} borderRadius='sm' my={1.5} _hover={{ bg: '#eee' }}><FaHome style={{ fontSize: '20px', margin: 'auto 5px' }} /><span className='nav-item'>Dashboard</span></Box>
+          </Link>
+          <Link onClick={handleCloseNavbar} to={`/history/${profile}`}>
+            <Box bg={pathname.includes('/history') ? '#eee' : 'inherit'} display='flex' p={2} cursor='pointer' fontWeight={600} borderRadius='sm' my={1.5} _hover={{ bg: '#eee' }}><FaHistory style={{ fontSize: '20px', margin: 'auto 5px' }} /><span className='nav-item'>View History</span></Box>
+          </Link>
         </Box>
       </Box>
 
@@ -61,28 +77,28 @@ const Dashboard = () => {
             {businessName}
           </Text>
         </Box>
-        <Box className="details-summary center">
-          <Box className="card danger">
+        <Box flexFlow={{ base: 'column', md: 'row' }} className="details-summary center">
+          <Box w={{ base: '100%', md: '100%' }} className="card danger">
             <Box className="title">Pending Alerts</Box>
-            <Box fontWeight={600} fontSize={{ md: "28px" }} mt="5px">
+            <Box textAlign='center' fontWeight={600} fontSize={{ base: '25px', md: "32px" }} mt="5px">
               {pend}
             </Box>
           </Box>
-          <Box className="card warning">
+          <Box w={{ base: '100%', md: '100%' }} className="card warning">
             <Box className="title">Accepted</Box>
-            <Box fontWeight={600} fontSize={{ md: "28px" }} mt="5px">
+            <Box textAlign='center' fontWeight={600} fontSize={{ base: '25px', md: "32px" }} mt="5px">
               {accepted}
             </Box>
           </Box>
-          <Box className="card success">
+          <Box w={{ base: '100%', md: '100%' }} className="card success">
             <Box className="title">Completed Alerts</Box>
-            <Box fontWeight={600} fontSize={{ md: "28px" }} mt="5px">
+            <Box textAlign='center' fontWeight={600} fontSize={{ base: '25px', md: "32px" }} mt="5px">
               {complete}
             </Box>
           </Box>
-          <Box className="card info">
+          <Box w={{ base: '100%', md: '100%' }} className="card info">
             <Box className="title">Total Alerts Created</Box>
-            <Box fontWeight={600} fontSize={{ md: "28px" }} mt="5px">
+            <Box textAlign='center' fontWeight={600} fontSize={{ base: '25px', md: "32px" }} mt="5px">
               {items.length}
             </Box>
           </Box>
@@ -99,7 +115,7 @@ const Dashboard = () => {
           <Box w="100%" fontWeight={600} p="10px" fontSize="15px">
             Recent Transactions
           </Box>
-          <History items={items} />
+          <History businessName={businessName} items={items} />
         </Box>
       </Box>
     </React.Fragment>

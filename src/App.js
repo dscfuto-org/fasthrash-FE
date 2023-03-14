@@ -15,7 +15,7 @@ import { loader as dashboardLoader } from "./util/dashboard";
 // For example, I imported it in the ErrorPage.js file
 // And to change the color, we only have to change this constant value here...
 export const THEME_COLOR = "#7F56D9";
-export const SITE_NAME = "FAST TRASH";
+export const SITE_NAME = "FASTRASH";
 export const useColors = {
   appYellow: "#ffa800",
   appGreen: "#2a8d00",
