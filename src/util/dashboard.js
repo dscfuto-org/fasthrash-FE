@@ -7,7 +7,14 @@ export async function loader({ request, params }) {
     return redirect("/login");
   }
   const response = await fetch(
-    `https://fastrash-1337.ew.r.appspot.com/api/auth/org/profile/${id}`
+    `https://fastrash-1337.ew.r.appspot.com/api/auth/org/profile/${id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    }
   );
   if (response.status !== 200 || !response.ok) {
     return json({ status: 500 }, { message: response.message });

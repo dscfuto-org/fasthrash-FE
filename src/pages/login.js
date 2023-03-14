@@ -20,7 +20,6 @@ import { useState } from "react";
 import { redirect, Form as form, json } from "react-router-dom";
 import { useActionData, useNavigation } from "react-router-dom";
 import loginTime from "../util/login";
-import { resetPassword } from "../util/userAccount";
 
 export default function Login() {
   const [show, setValue] = useState(false);
@@ -29,6 +28,28 @@ export default function Login() {
   const navigation = useNavigation();
   const isSubmiting = navigation.state === "submitting";
   let message;
+  const handleForgetPass = async (e) => {
+    e.preventDefault();
+    let userEmail = document.querySelector("[type=email]").value;
+    let response = null;
+
+    if (
+      (userEmail && userEmail.length < 0) ||
+      !userEmail ||
+      !userEmail.includes("@")
+    ) {
+      return alert("Please proide a valid email id");
+    }
+
+    if (userEmail && userEmail.length > 0) {
+      response = await loginTime(
+        "https://fastrash-1337.ew.r.appspot.com/api/auth/org/resetpassword/",
+        { email: userEmail }
+      );
+      console.log(response);
+      return response.ok && alert("Reset Email message sent");
+    }
+  };
   if (errors?.email && !errors?.password) {
     message = errors?.email;
   }
@@ -68,7 +89,14 @@ export default function Login() {
         padding="50px"
         height="100%"
       >
-        <Box display='flex' alignItems='center' justifyContent='center' width="100%" height='100%' margin="auto">
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          width="100%"
+          height="100%"
+          margin="auto"
+        >
           <Flex
             align="center"
             justify="center"
@@ -94,7 +122,19 @@ export default function Login() {
 
       <Box width={{ lg: "30%", sm: "80%" }} margin="auto">
         <Heading size="lg">Welcome Back!</Heading>
-        {message && <Text mt={5} bg='crimson' color='#fff' fontWeight={600} textAlign='center' borderRadius='md' p={2}>{message}</Text>}
+        {message && (
+          <Text
+            mt={5}
+            bg="crimson"
+            color="#fff"
+            fontWeight={600}
+            textAlign="center"
+            borderRadius="md"
+            p={2}
+          >
+            {message}
+          </Text>
+        )}
 
         <Box marginTop="40px" as={form} method="post">
           <FormControl marginY="16px">
@@ -140,7 +180,12 @@ export default function Login() {
           >
             {isSubmiting ? "Loading..." : "Login"}
           </Button>
-          <Text marginTop="30px" fontWeight="bold" display='flex' justifyContent='space-between'>
+          <Text
+            marginTop="30px"
+            fontWeight="bold"
+            display="flex"
+            justifyContent="space-between"
+          >
             Don't Have an account?{" "}
             <Link href="/signup" marginLeft="16px" color="#7F56D9">
               Sign Up!
@@ -151,24 +196,6 @@ export default function Login() {
     </Flex>
   );
 }
-
-const handleForgetPass = async (e) => {
-  e.preventDefault();
-  let userEmail = document.querySelector("[type=email]").value;
-  let response = null;
-
-  if (
-    (userEmail && userEmail.length < 0) ||
-    !userEmail ||
-    !userEmail.includes("@")
-  ) {
-    return alert("Please proide a valid email id");
-  }
-
-  if (userEmail && userEmail.length > 0) {
-    await resetPassword(userEmail);
-  }
-};
 
 export async function action({ request }) {
   const formData = await request.formData();

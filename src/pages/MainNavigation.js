@@ -61,9 +61,11 @@ function MainNavigation() {
 
     const handleToggleNavbar = () => {
         document.getElementById('collapse-sidebar').classList.toggle('collapse')
+        document.getElementById('header').classList.toggle('collapse')
+        document.getElementById('main-section').classList.toggle('collapse')
     }
     return (
-        <Box className={`${pathname.includes('/dashboard') && 'dashboard-header'} header`}>
+        <Box id='header' className={`${pathname.includes('/dashboard') && 'dashboard-header'} header`}>
             {/** WEBSITE LOGO SECTION */}
             {!pathname.includes('/dashboard') &&
                 <Box fontSize={{ base: "1xl", md: '18px', lg: '20px' }} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
@@ -71,9 +73,9 @@ function MainNavigation() {
                 </Box>
             }
             {pathname.includes('/dashboard') &&
-                <Box onClick={handleToggleNavbar} className='toggle-open'>
+                <Box onClick={handleToggleNavbar} className='toggle-open-sidepanel'>
                     <Box w='30px'></Box>
-                    <Box w='25px'></Box>
+                    <Box w='30px'></Box>
                     <Box w='30px'></Box>
                 </Box>
             }

@@ -2,8 +2,6 @@ import {
   Box,
   Flex,
   Heading,
-  Avatar,
-  AvatarGroup,
   Text,
   FormControl,
   FormLabel,
@@ -31,37 +29,13 @@ import {
   useNavigation,
 } from "react-router-dom";
 import LoginTime from "../util/login";
-import User1 from '../assets/images/user1.jpg'
-import User2 from '../assets/images/user2.jpg'
-import User3 from '../assets/images/user3.jpg'
-import User4 from '../assets/images/user4.jpg'
-import User5 from '../assets/images/user5.jpg'
-import User6 from '../assets/images/user6.jpg'
-import User7 from '../assets/images/user7.jpg'
-
+import { checkIfErrorDataExist } from "../util/checkErrors";
 export default function Signup() {
   const [show, setValue] = useState(false);
   const togglePassword = (event) => setValue(!show);
   const errors = useActionData();
   const navigation = useNavigation();
   const isSubmiting = navigation.state === "submitting";
-
-  let checkIfErrorDataExist = function(type){
-    if(!Boolean(errors)){
-      return false;
-    }
-
-    if(Object.keys(errors).length > 0){
-        if(errors.hasOwnProperty(type)){
-           return true;
-        }else{
-          return false;
-        }
-    }
-  }
-
-
-
   return (
     <Flex
       width="100%"
@@ -75,7 +49,7 @@ export default function Signup() {
       }}
       height="100vh"
     >
-      <Box pt={'40px'} width={{ lg: "30%", sm: "80%" }} margin="auto">
+      <Box pt={"40px"} width={{ lg: "30%", sm: "80%" }} margin="auto">
         <Heading size="lg">Sign Up!</Heading>
 
         <Box marginTop="40px" as={forms} method="post">
@@ -86,7 +60,7 @@ export default function Signup() {
             <FormLabel>Business Name*</FormLabel>
             <Input type="text" name="name" placeholder="Enter your Name" />
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("name") ? errors.name: ""}
+              {checkIfErrorDataExist("name", errors) ? errors.name : ""}
             </Text>
           </FormControl>
 
@@ -94,16 +68,14 @@ export default function Signup() {
             <FormLabel>Email address</FormLabel>
             <Input type="email" name="email" placeholder="Enter your email" />
             <Text marginTop="10px" color="red">
-
-              {checkIfErrorDataExist("email") ? errors.email: ""}
-
+              {checkIfErrorDataExist("email", errors) ? errors.email : ""}
             </Text>
           </FormControl>
           <FormControl marginY="16px">
             <FormLabel>Location</FormLabel>
             <Input type="text" name="location" placeholder="Address" />
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("location") ? errors.location: ""}
+              {checkIfErrorDataExist("location", errors) ? errors.location : ""}
             </Text>
           </FormControl>
           <FormControl>
@@ -122,9 +94,7 @@ export default function Signup() {
               </NumberInputStepper>
             </NumberInput>
             <Text marginTop="10px" color="red">
-
-              {checkIfErrorDataExist("years") ? errors.years: ""}
-
+              {checkIfErrorDataExist("years", errors) ? errors.years : ""}
             </Text>
           </FormControl>
 
@@ -145,9 +115,7 @@ export default function Signup() {
             </RadioGroup>
 
             <Text marginTop="10px" color="red">
-
-              {checkIfErrorDataExist("size") ? errors.size: ""}
-
+              {checkIfErrorDataExist("size", errors) ? errors.size : ""}
             </Text>
           </FormControl>
 
@@ -168,9 +136,7 @@ export default function Signup() {
             </InputGroup>
 
             <Text marginTop="10px" color="red">
-
-              {checkIfErrorDataExist("password") ? errors.password: ""}
-
+              {checkIfErrorDataExist("password", errors) ? errors.password : ""}
             </Text>
           </FormControl>
 
@@ -191,7 +157,7 @@ export default function Signup() {
             </InputGroup>
 
             <Text marginTop="10px" color="red">
-              {checkIfErrorDataExist("passwordConfirm")
+              {checkIfErrorDataExist("passwordConfirm", errors)
                 ? errors.passwordConfirm
                 : ""}
             </Text>
@@ -209,7 +175,7 @@ export default function Signup() {
             {isSubmiting ? "Loading..." : "Get started"}
           </Button>
 
-          <Text mt="10px" mb='30px' textAlign="center">
+          <Text mt="10px" mb="30px" textAlign="center">
             Already have an account?{" "}
             <Link
               href="/login"
@@ -222,75 +188,6 @@ export default function Signup() {
           </Text>
         </Box>
       </Box>
-
-      <Box
-        display={{
-          sm: "none",
-          base: "none",
-          md: "none",
-          lg: "flex",
-          xl: "flex",
-        }}
-        width="50%"
-        background="linear-gradient(45deg, #101828 0%, #475467 100%)"
-        style={{
-          color: "white",
-          flexDirection: "column",
-          alignContent: "center",
-        }}
-        // padding="50px 10px"
-        height="920px"
-      >
-        <Box width="80%" margin="auto">
-          <Flex
-            alignItems="center"
-            justifyContent="center"
-            gap="30px"
-            direction="column"
-            marginBottom="60px"
-          >
-            <Heading size="xl">
-              Sign Up and Reward users While you Recycle!
-            </Heading>
-
-            <Text>
-              Create a free account and get full access to all Collectors with
-              Trash Available to Dispose.
-            </Text>
-
-            <Flex
-              gap="10px"
-              alignItems="center"
-              justifyContent="flex-start"
-              width="100%"
-            >
-              <AvatarGroup size="md" max={7}>
-                <Avatar name="Alex Unusual" src={User1} />
-                <Avatar name="Chidera" src={User2} />
-                <Avatar name="Victor Okonkwo" src={User3} />
-                <Avatar name="Localhost" src={User4} />
-                <Avatar name="Christian Nwamba" src={User5} />
-                <Avatar name="Victory George" src={User4} />
-                <Avatar name="Sunday Ezekiel" src={User5} />
-                <Avatar name="Israel Godfrey" src={User6} />
-                <Avatar name="Emeka Lamb" src={User7} />
-                <Avatar name="Christian Nwamba" src={User5} />
-                <Avatar name="Victory George" src={User4} />
-                <Avatar name="Sunday Ezekiel" src={User5} />
-                <Avatar name="Israel Godfrey" src={User6} />
-                <Avatar name="Emeka Lamb" src={User7} />
-                <Avatar name="Christian Nwamba" src={User5} />
-                <Avatar name="Victory George" src={User4} />
-                <Avatar name="Sunday Ezekiel" src={User5} />
-                <Avatar name="Israel Godfrey" src={User6} />
-                <Avatar name="Emeka Lamb" src={User7} />
-              </AvatarGroup>
-
-              <Text>Join 40,000+ users.</Text>
-            </Flex>
-          </Flex>
-        </Box>
-      </Box>
     </Flex>
   );
 }
@@ -299,7 +196,6 @@ export async function action({ request }) {
   console.log(request);
   const formData = await request.formData();
   const errors = {};
-  
 
   const data = {
     businessName: formData.get("name"),
@@ -320,7 +216,6 @@ export async function action({ request }) {
   if (!data.password) {
     errors.password = "Password is required";
   }
-
 
   if (!data.passwordConfirm) {
     errors.passwordConfirm = "Password Confirmation is required";

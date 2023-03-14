@@ -3,15 +3,13 @@ import Rootlayout from "./pages/Rootlayout";
 import Welcome from "./pages/Welcome";
 import Login, { action as LoginAction } from "./pages/login";
 import Signup, { action as SignupAction } from "./pages/Signup";
-import ResetPassword from './pages/ResetPassword'
+import ResetPassword, { action as resetAction } from "./pages/ResetPassword";
 import ErrorPage from "./pages/ErrorPage";
 import { logout as Logout } from "./Auth/logout";
 import { checkToken as tokenLoader } from "./Auth/getToken";
 import Error from "./pages/Error";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import { loader as dashboardLoader } from "./util/dashboard";
-import { extendTheme } from "@chakra-ui/react";
-
 
 // This can be imported by anyone throughout the app instead of having to declare the color or site name in all files...
 // For example, I imported it in the ErrorPage.js file
@@ -19,57 +17,58 @@ import { extendTheme } from "@chakra-ui/react";
 export const THEME_COLOR = "#7F56D9";
 export const SITE_NAME = "FAST TRASH";
 export const useColors = {
-    appYellow: '#ffa800',
-    appGreen: '#2a8d00',
-    appWhite: '#ffffff'
-}
+  appYellow: "#ffa800",
+  appGreen: "#2a8d00",
+  appWhite: "#ffffff",
+};
 
 const route = createBrowserRouter([
-    {
+  {
+    path: "/",
+    element: <Rootlayout />,
+    id: "root",
+    loader: tokenLoader,
+    errorElement: <Error />,
+    children: [
+      {
+        index: true,
         path: "/",
-        element: <Rootlayout />,
-        id: "root",
-        loader: tokenLoader,
-        errorElement: <Error />,
-        children: [
-            {
-                index: true,
-                path: "/",
-                element: <Welcome />,
-            },
-            {
-                path: "*",
-                element: <ErrorPage />, //This is the page for all 404 routes on this website!
-            },
-            {
-                path: "login",
-                element: <Login />,
-                action: LoginAction,
-            },
-            {
-                path: "logout",
-                loader: Logout,
-            },
-            {
-                path: "Signup",
-                element: <Signup />,
-                action: SignupAction,
-            },
-            {
-                path: "reset-password/:token",
-                element: <ResetPassword />,
-            },
-            {
-                path: "dashboard/:profile",
-                element: <Dashboard />,
-                loader: dashboardLoader,
-            },
-        ],
-    },
+        element: <Welcome />,
+      },
+      {
+        path: "*",
+        element: <ErrorPage />, //This is the page for all 404 routes on this website!
+      },
+      {
+        path: "login",
+        element: <Login />,
+        action: LoginAction,
+      },
+      {
+        path: "logout",
+        loader: Logout,
+      },
+      {
+        path: "Signup",
+        element: <Signup />,
+        action: SignupAction,
+      },
+      {
+        path: "resetpassword/:Id/:token/:tokenID",
+        element: <ResetPassword />,
+        action: resetAction,
+      },
+      {
+        path: "dashboard/:profile",
+        element: <Dashboard />,
+        loader: dashboardLoader,
+      },
+    ],
+  },
 ]);
 
 function App() {
-    return <RouterProvider router={route} />;
+  return <RouterProvider router={route} />;
 }
 
 export default App;

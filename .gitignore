@@ -24,3 +24,5 @@ package-lock.json
 *.sln
 *.sw?
 package-lock.json
+# Local Netlify folder
+.netlify

@@ -76,6 +76,7 @@ body.grey {
     top: 5px;
     right: 5px;
     border-radius: var(--border-radius);
+    transition: all 0.5s ease;
 }
 
 .nav-wrapper {
@@ -142,8 +143,19 @@ body.grey {
     transition: all 0.5s ease;
 }
 
-.side-panel[class*='collapse'] {
-    width: 50px;
+.toggle-open-sidepanel {
+    flex-flow: column;
+    align-items: flex-end;
+    justify-content: right;
+    cursor: pointer;
+}
+
+.toggle-open-sidepanel>div {
+    cursor: pointer;
+    height: 4px;
+    margin: 3px 0;
+    border-radius: var(--border-radius);
+    background: var(--app-green);
 }
 
 .main {
@@ -158,6 +170,20 @@ body.grey {
     background-color: #fff;
     border: 1px solid #eee;
     padding: 20px;
+    transition: all 0.5s ease;
+}
+
+.side-panel[class*='collapse'] {
+    width: 60px;
+}
+
+.dashboard-header[class*='collapse'] {
+    width: calc(100vw - (60px + 35px)) !important;
+}
+
+.main[class*='collapse'] {
+    width: calc(100vw - (60px + 36px)) !important;
+    margin-left: calc(60px + 7px) !important;
 }
 
 @media only screen and (max-width: 768px) {

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Avatar, Box, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { useColors } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { addToState } from "../../store/alerts";
@@ -15,6 +15,7 @@ const Dashboard = () => {
     pending: pend,
     Accepted: accepted,
   } = useSelector((state) => state.alert);
+  console.log(items);
   // ** CHANGE THE BACKGROUND COLOR TO BE GREY ON COMPONENT-DID-MOUNT
   useEffect(() => {
     const getData = async () => {
@@ -34,21 +35,31 @@ const Dashboard = () => {
     getData();
   }, [dispatch]);
 
-  console.log(items)
+  console.log(items);
 
   return (
     <React.Fragment>
       {/** DASHBOARD SIDEPANEL SECTION */}
       <Box id='collapse-sidebar' className="side-panel">
-        <Box className="center" h="55px" fontSize={{ base: "1xl", md: '18px', lg: '20px' }} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
+        <Box
+          className="center"
+          h="55px"
+          fontSize={{ base: "1xl", md: "18px", lg: "20px" }}
+          fontWeight={700}
+          bgGradient="linear(to-l, #FAB20F, #2A8D00)"
+          bgClip="text"
+        >
           FAST TRASH
         </Box>
       </Box>
 
       {/** DASHBOARD MAIN SECTION */}
-      <Box className="main">
-        <Box display='flex' w="100%" px="5px" fontSize={17} fontWeight={600}>
-          Welcome Back <Text ml='5px' fontWeight={600} color={useColors.appGreen}>{businessName}</Text>
+      <Box id='main-section' className="main">
+        <Box display="flex" w="100%" px="5px" fontSize={17} fontWeight={600}>
+          Welcome Back{" "}
+          <Text ml="5px" fontWeight={600} color={useColors.appGreen}>
+            {businessName}
+          </Text>
         </Box>
         <Box className="details-summary center">
           <Box className="card danger">
