@@ -142,6 +142,10 @@ body.grey {
     transition: all 0.5s ease;
 }
 
+.side-panel[class*='collapse'] {
+    width: 50px;
+}
+
 .main {
     height: 100%;
     width: calc(100vw - (var(--side-panel-width) + 36px)) !important;
@@ -154,6 +158,21 @@ body.grey {
     background-color: #fff;
     border: 1px solid #eee;
     padding: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    .side-panel {
+        border-radius: 0px;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 0px;
+    }
+
+    .side-panel[class*='collapse'] {
+        width: var(--side-panel-width);
+        z-index: 2000;
+    }
 }
 
 .details-summary {

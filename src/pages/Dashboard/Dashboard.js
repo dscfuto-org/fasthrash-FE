@@ -39,7 +39,7 @@ const Dashboard = () => {
   return (
     <React.Fragment>
       {/** DASHBOARD SIDEPANEL SECTION */}
-      <Box className="side-panel">
+      <Box id='collapse-sidebar' className="side-panel">
         <Box className="center" h="55px" fontSize={{ base: "1xl", md: '18px', lg: '20px' }} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
           FAST TRASH
         </Box>

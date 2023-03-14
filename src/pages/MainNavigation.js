@@ -59,6 +59,9 @@ function MainNavigation() {
         );
     }
 
+    const handleToggleNavbar = () => {
+        document.getElementById('collapse-sidebar').classList.toggle('collapse')
+    }
     return (
         <Box className={`${pathname.includes('/dashboard') && 'dashboard-header'} header`}>
             {/** WEBSITE LOGO SECTION */}
@@ -68,7 +71,11 @@ function MainNavigation() {
                 </Box>
             }
             {pathname.includes('/dashboard') &&
-                <Box></Box>
+                <Box onClick={handleToggleNavbar} className='toggle-open'>
+                    <Box w='30px'></Box>
+                    <Box w='25px'></Box>
+                    <Box w='30px'></Box>
+                </Box>
             }
             {/** MOBILE MENU BUTTON/SWITCH */}
             <Box onClick={toggleNavbar} className='toggle-open'>

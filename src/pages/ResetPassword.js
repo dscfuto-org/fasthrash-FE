@@ -11,7 +11,7 @@ const ResetPassword = () => {
 
     return (
         <Box display='flex' alignItems='center' justifyContent='center' flexFlow='column' width={{ base: '90%', md: '40%' }} height='auto' mt='50px'>
-            <Text fontWeight={700} fontSize={{ base: '', md: '', lg: '35px' }} mb={5}>Reset Password</Text>
+            <Text fontWeight={700} fontSize={{ base: '22px', md: '25px', lg: '35px' }} mb={5}>Reset Password</Text>
             <Box display='flex' alignItems='center' justifyContent='center' flexFlow='column' border='1px solid #eee' width='100%' height='100%' borderRadius='md' p={5}>
                 <FormControl marginY="30px">
                     <FormLabel>Enter your new Password</FormLabel>
