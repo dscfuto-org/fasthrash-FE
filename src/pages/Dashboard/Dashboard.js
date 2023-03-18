@@ -3,14 +3,15 @@ import { Box, Text } from "@chakra-ui/react";
 import { useColors, SITE_NAME } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { addToState } from "../../store/alerts";
-import { Link, useLoaderData, useLocation, useParams } from "react-router-dom";
+import { Link, useLoaderData, useLocation, useNavigate, useParams } from "react-router-dom";
 import History from "./history";
 import { handleCloseNavbar, handleToggleNavbar } from "../MainNavigation";
-import { FaHistory, FaHome } from 'react-icons/fa'
+import { FcHome, FcTimeline } from 'react-icons/fc'
 
 const Dashboard = () => {
   // ** GET CURRENT ROUTE FROM REACT ROUTER DOM
   const { pathname } = useLocation();
+  const navigate = useNavigate()
   const { profile } = useParams()
 
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const Dashboard = () => {
     Accepted: accepted,
   } = useSelector((state) => state.alert);
   console.log(items);
-  // ** CHANGE THE BACKGROUND COLOR TO BE GREY ON COMPONENT-DID-MOUNT
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -42,8 +43,6 @@ const Dashboard = () => {
     getData();
   }, [dispatch]);
 
-  console.log(items);
-
   return (
     <React.Fragment>
       {/** DASHBOARD SIDEPANEL SECTION */}
@@ -60,11 +59,11 @@ const Dashboard = () => {
           {SITE_NAME}
         </Box>
         <Box mt={0} py={1} width='100%' borderBottom='1px solid rgba(0, 0, 0, 30%)' borderTop='1px solid rgba(0, 0, 0, 30%)'>
-          <Link onClick={handleCloseNavbar} to={`/dashboard/${profile}`}>
-            <Box bg={pathname.includes('/dashboard') ? '#eee' : 'inherit'} display='flex' p={2} cursor='pointer' fontWeight={600} borderRadius='sm' my={1.5} _hover={{ bg: '#eee' }}><FaHome style={{ fontSize: '20px', margin: 'auto 5px' }} /><span className='nav-item'>Dashboard</span></Box>
+          <Link onClick={() => { handleCloseNavbar(); navigate(`/dashboard/${profile}`) }} to={`/dashboard/${profile}`}>
+            <Box bg={!pathname.includes('/history') ? '#eee' : 'inherit'} display='flex' p={2} cursor='pointer' fontWeight={600} borderRadius='sm' my={1.5} _hover={{ bg: '#eee' }}><FcHome style={{ fontSize: '20px', margin: 'auto 5px' }} /><span className='nav-item'>Dashboard</span></Box>
           </Link>
-          <Link onClick={handleCloseNavbar} to={`/history/${profile}`}>
-            <Box bg={pathname.includes('/history') ? '#eee' : 'inherit'} display='flex' p={2} cursor='pointer' fontWeight={600} borderRadius='sm' my={1.5} _hover={{ bg: '#eee' }}><FaHistory style={{ fontSize: '20px', margin: 'auto 5px' }} /><span className='nav-item'>View History</span></Box>
+          <Link onClick={() => { handleCloseNavbar(); navigate(`/dashboard/history/${profile}`) }} to={`/dashboard/history/${profile}`}>
+            <Box bg={pathname.includes('/history') ? '#eee' : 'inherit'} display='flex' p={2} cursor='pointer' fontWeight={600} borderRadius='sm' my={1.5} _hover={{ bg: '#eee' }}><FcTimeline style={{ fontSize: '20px', margin: 'auto 5px' }} /><span className='nav-item'>View History</span></Box>
           </Link>
         </Box>
       </Box>

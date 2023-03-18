@@ -178,7 +178,7 @@ export default function Login() {
             type="submit"
             disable={isSubmiting.toString()}
           >
-            {isSubmiting ? "Loading..." : "Login"}
+            {isSubmiting ? "Signing you in..." : "Login"}
           </Button>
           <Text
             marginTop="30px"
