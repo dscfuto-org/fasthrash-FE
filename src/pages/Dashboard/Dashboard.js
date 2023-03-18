@@ -87,10 +87,7 @@ const Dashboard = () => {
               <span className="nav-item">Dashboard</span>
             </Box>
           </Link>
-          <Link
-            onClick={handleCloseNavbar}
-            to={`history`}
-          >
+          <Link onClick={handleCloseNavbar} to={`history`}>
             <Box
               bg={pathname.includes("history") ? "#eee" : "inherit"}
               display="flex"
@@ -121,7 +118,7 @@ const Dashboard = () => {
           className="details-summary center"
         >
           <Box w={{ base: "100%", md: "100%" }} className="card danger">
-            <Box className="title">Total Pending Alerts</Box>
+            <Box className="title">Total Wastes Uncollected</Box>
             <Box
               textAlign="center"
               fontWeight={600}
@@ -154,7 +151,7 @@ const Dashboard = () => {
             </Box>
           </Box>
           <Box w={{ base: "100%", md: "100%" }} className="card info">
-            <Box className="title">Total Alerts Created</Box>
+            <Box className="title">Total Waste Alerts Created</Box>
             <Box
               textAlign="center"
               fontWeight={600}
