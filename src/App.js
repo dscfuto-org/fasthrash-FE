@@ -10,6 +10,8 @@ import { checkToken as tokenLoader } from "./Auth/getToken";
 import Error from "./pages/Error";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import { loader as dashboardLoader } from "./util/dashboard";
+import Recent from "./pages/Dashboard/history_";
+import History from "./pages/Dashboard/recent";
 
 // This can be imported by anyone throughout the app instead of having to declare the color or site name in all files...
 // For example, I imported it in the ErrorPage.js file
@@ -62,6 +64,13 @@ const route = createBrowserRouter([
         path: "dashboard/:profile",
         element: <Dashboard />,
         loader: dashboardLoader,
+        children: [
+          { path: "", index: true, element: <History /> },
+          {
+            path: "history",
+            element: <Recent />,
+          },
+        ],
       },
     ],
   },

@@ -78,7 +78,7 @@ function MainNavigation() {
             {/** WEBSITE LOGO SECTION */}
             {!pathname.includes('/dashboard') &&
                 <Box fontSize={{ base: "1xl", md: '18px', lg: '20px' }} fontWeight={700} bgGradient='linear(to-l, #FAB20F, #2A8D00)' bgClip='text'>
-                    <Link to="/">FAST TRASH</Link>
+                    <Link to="/">FASTRASH</Link>
                 </Box>
             }
             {pathname.includes('/dashboard') &&
