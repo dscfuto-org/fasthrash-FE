@@ -22,6 +22,7 @@ export default function Rootlayout() {
 				w="100%"
 				h="100%"
 				mt='56px'
+				overflowX='hidden'
 			>
 				{<Outlet />}
 			</Box>

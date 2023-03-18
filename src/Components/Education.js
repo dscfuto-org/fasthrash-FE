@@ -1,5 +1,5 @@
 import { Box, Heading, Flex, Image, Text } from '@chakra-ui/react'
-import React, { useRef, useState } from "react";
+import React from "react";
 import TagImage from "../assets/images/tagImg.png"
 import CardImage1 from "../assets/images/img5.jpg"
 import CardImage2 from "../assets/images/img2.jpg"
@@ -12,7 +12,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import "swiper/css/pagination";
-import { FreeMode, Navigation, Autoplay } from "swiper";
+import {  Navigation, Autoplay } from "swiper";
 import './Swiper.css'
 const Education = () => {
   const educationRef = useActiveNav('Education')

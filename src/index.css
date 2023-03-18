@@ -71,13 +71,6 @@ body.grey {
     transition: top 0.4s;
 }
 
-.dashboard-header {
-    width: calc(100vw - (var(--side-panel-width) + 35px)) !important;
-    top: 5px;
-    right: 5px;
-    border-radius: var(--border-radius);
-}
-
 .nav-wrapper {
     color: #0009;
     font-weight: 600;
@@ -142,6 +135,29 @@ body.grey {
     transition: all 0.5s ease;
 }
 
+.dashboard-header {
+    width: calc(100vw - (var(--side-panel-width) + 35px)) !important;
+    top: 5px;
+    right: 5px;
+    border-radius: var(--border-radius);
+    transition: all 0.5s ease;
+}
+
+.toggle-open-sidepanel {
+    flex-flow: column;
+    align-items: flex-end;
+    justify-content: right;
+    cursor: pointer;
+}
+
+.toggle-open-sidepanel>div {
+    cursor: pointer;
+    height: 4px;
+    margin: 3px 0;
+    border-radius: var(--border-radius);
+    background: var(--app-green);
+}
+
 .main {
     height: 100%;
     width: calc(100vw - (var(--side-panel-width) + 36px)) !important;
@@ -149,11 +165,86 @@ body.grey {
     margin-top: 12px;
     margin-right: 5px;
     margin-bottom: 5px;
-    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.3);
-    border-radius: var(--border-radius);
     background-color: #fff;
-    border: 1px solid #eee;
     padding: 20px;
+    transition: all 0.5s ease;
+    overflow-x: hidden;
+}
+
+.side-panel[class*='collapse'] {
+    width: 60px;
+}
+
+.dashboard-header[class*='collapse'] {
+    width: calc(100vw - (60px + 35px)) !important;
+}
+
+.main[class*='collapse'] {
+    width: calc(100vw - (60px + 36px)) !important;
+    margin-left: calc(60px + 7px) !important;
+}
+
+
+.side-panel[class*='collapse'] .nav-logo {
+    opacity: 0 !important;
+    transition: all 0.1s ease;
+}
+
+.side-panel[class*='collapse'] .nav-item {
+    display:none !important;
+    transition: all 0.1s ease;
+}
+
+@media only screen and (max-width: 768px) {
+    .side-panel {
+        border-radius: 0px;
+        top: 0;
+        left: 0;
+        padding: 0;
+        height: 100vh;
+        width: 0px;
+    }
+
+    .side-panel[class*='collapse'] {
+        width: var(--side-panel-width);
+        z-index: 2000;
+    }
+
+    .dashboard-header,
+    .dashboard-header[class*='collapse'] {
+        position: fixed !important;
+        width: 100vw !important;
+        top: 0;
+        border-radius: 0;
+        right: 0;
+        left: 0;
+    }
+
+    .main,
+    .main[class*='collapse'] {
+        width: calc(100vw - 5px) !important;
+        margin: auto 0;
+        border-radius: 0;
+    }
+
+    .dashboard_navbar_side_overlay_bg[class*='collapse'] {
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        background: rgba(0, 0, 0, .6);
+        z-index: 100;
+    }
+        
+    .side-panel[class*='collapse'] .nav-logo {
+        opacity: 1 !important
+    }
+    .side-panel[class*='collapse'] .nav-item {
+        display:flex !important
+    }
+    
 }
 
 .details-summary {
@@ -174,6 +265,8 @@ body.grey {
     font-weight: 600;
     font-size: 16px;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 table {

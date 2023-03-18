@@ -16,7 +16,6 @@ import {
   useActionData,
   Form as form,
   useNavigation,
-  json,
 } from "react-router-dom";
 const ResetPassword = () => {
   const [show, setValue] = useState(false);
@@ -157,14 +156,8 @@ export async function action({ request, params }) {
     { password: data.password }
   );
   console.log(response);
-  if (response.status === 401 || response.status === 404) {
-    return { message: "Invalid email or password", status: response.status };
-  }
-  if (!response.ok) {
-    return json(
-      { message: "Error changing your password" },
-      { status: response.status }
-    );
+  if (response.status === 401 || response.status === 404 || !response.ok) {
+    return { message: "invalid", status: response.status };
   }
   console.log(response.ok);
   return redirect("/login");

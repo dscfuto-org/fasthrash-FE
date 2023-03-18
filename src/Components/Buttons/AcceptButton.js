@@ -1,14 +1,14 @@
 import { Button, Spinner } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
-import { completed, Accepted, updateState } from "../../store/alerts";
+import { useDispatch } from "react-redux";
+import { completed, Accepted } from "../../store/alerts";
 import { useState } from "react";
 import getAndFetchData from "../../util/fetchData";
+import { useParams } from "react-router-dom";
 
 export default function Buttons({ id, name, color }) {
   const dispatch = useDispatch();
-
+  const { profile } = useParams();
   const [spin, setSpin] = useState(false);
-  const { items } = useSelector((state) => state.alert);
   const handleClick = async () => {
     setSpin(true);
     if (name === "collected") {
@@ -20,33 +20,29 @@ export default function Buttons({ id, name, color }) {
       if (name === "pending") {
         const data = await getAndFetchData("GET", id);
         const status = data.data.alert.status;
-        if (status === "pending") {
-          const res = await getAndFetchData("PUT", id, { status: "accepted" });
-          console.log(res);
+        if (status === name) {
+          await getAndFetchData("PUT", id, {
+            status: "accepted",
+            collectorId: profile,
+          });
           setSpin(false);
           dispatch(Accepted({ id: id }));
-          console.log(items);
         }
-        if (data !== "pending") {
-          updateState({ id: id, status: data });
-          setSpin(false);
-        }
+        return;
       }
       if (name === "accepted") {
         const data = await getAndFetchData("GET", id);
-        const status = data.data.alert.status;
-        if (status === "accepted") {
-          const res = await getAndFetchData("PUT", id, { status: "collected" });
-          console.log(res);
+        let status = data.data.alert.status;
+        if (status !== name && status === "collected") {
           setSpin(false);
           dispatch(completed({ id: id }));
         }
-        if (data !== "accepted") {
-          updateState({ id: id, status: data });
-          setSpin(false);
-        }
+        setSpin(false);
+        return;
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Button onClick={handleClick} bg={color}>
