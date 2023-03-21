@@ -20,10 +20,11 @@ export default function Recent() {
     accepted: "#ffc400",
     collected: "#79d861",
   };
-  const { items, businessName } = useSelector((state) => state.alert);
+  const { items, businessName,user } = useSelector((state) => state.alert);
   const data = items.filter((item) => {
     return item.status !== "pending" && item.collectorId === params.profile;
   });
+  console.log(businessName,user);
   return (
     <>
       {" "}

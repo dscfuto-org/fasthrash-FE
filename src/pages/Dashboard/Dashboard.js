@@ -33,7 +33,7 @@ const Dashboard = () => {
     const getData = async () => {
       try {
         const response = await fetch(
-          "https://fastrash-1337.ew.r.appspot.com/api/org/alerts/?role=collector"
+          "https://fastrash-1337.ew.r.appspot.com/api/org/alerts/?role=collector&status=pending"
         );
         const { data } = await response.json();
         dispatch(
