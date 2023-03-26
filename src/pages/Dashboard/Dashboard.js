@@ -3,8 +3,10 @@ import { Box, Text } from "@chakra-ui/react";
 import { useColors, SITE_NAME } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { addToState } from "../../store/alerts";
+
 import {
   Link,
+  NavLink,
   useLoaderData,
   useLocation,
   Outlet,
@@ -27,25 +29,29 @@ const Dashboard = () => {
     pending: pend,
     Accepted: accepted,
   } = useSelector((state) => state.alert);
-
   // ** CHANGE THE BACKGROUND COLOR TO BE GREY ON COMPONENT-DID-MOUNT
+  const getData = async () => {
+    try {
+      const response = await fetch(
+        "https://fastrash-1337.ew.r.appspot.com/api/org/alerts/role?role=collector"
+      );
+      const { data } = await response.json();
+      dispatch(
+        addToState({ data: data.alert, id: profile, userName: businessName })
+      );
+      console.log("hi");
+    } catch (error) {
+      //should return something
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetch(
-          "https://fastrash-1337.ew.r.appspot.com/api/org/alerts/?role=collector&status=pending"
-        );
-        const { data } = await response.json();
-        dispatch(
-          addToState({ data: data.alert, id: profile, userName: businessName })
-        );
-      } catch (error) {
-        //should return something
-        console.log(error);
-      }
-    };
     getData();
-  }, [businessName, dispatch, profile]);
+    const interval = setInterval(() => {
+      getData();
+    }, 60000);
+    return () => clearInterval(interval);
+  }, [dispatch]);
   return (
     <React.Fragment>
       {/** DASHBOARD SIDEPANEL SECTION */}
@@ -72,9 +78,19 @@ const Dashboard = () => {
           borderBottom="1px solid rgba(0, 0, 0, 30%)"
           borderTop="1px solid rgba(0, 0, 0, 30%)"
         >
-          <Link onClick={handleCloseNavbar} to={`/dashboard/${profile}`}>
+          <Box
+            as={NavLink}
+            onClick={handleCloseNavbar}
+            to={`/dashboard/${profile}`}
+            className={({ isActive }) => {
+              return {
+                backgroundColor: isActive ? "red" : "",
+                color: isActive ? "red" : "black",
+              };
+            }}
+          >
             <Box
-              bg={pathname.includes("/dashboard") ? "#eee" : "inherit"}
+              bg={!pathname.includes("/history") ? "#eee" : "inherit"}
               display="flex"
               p={2}
               cursor="pointer"
@@ -86,8 +102,14 @@ const Dashboard = () => {
               <FaHome style={{ fontSize: "20px", margin: "auto 5px" }} />
               <span className="nav-item">Dashboard</span>
             </Box>
-          </Link>
-          <Link onClick={handleCloseNavbar} to={`history`}>
+          </Box>
+          <NavLink
+            onClick={handleCloseNavbar}
+            to={`history`}
+            // className={({ isActive, isPending }) =>
+            //   isPending ? "pending" : isActive ? "active" : ""
+            // }
+          >
             <Box
               bg={pathname.includes("history") ? "#eee" : "inherit"}
               display="flex"
@@ -101,7 +123,7 @@ const Dashboard = () => {
               <FaHistory style={{ fontSize: "20px", margin: "auto 5px" }} />
               <span className="nav-item">View History</span>
             </Box>
-          </Link>
+          </NavLink>
         </Box>
       </Box>
 

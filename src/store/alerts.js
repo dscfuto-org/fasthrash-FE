@@ -44,15 +44,18 @@ const Alertdata = createSlice({
           return initial;
         }, 0);
     },
+    update(state) {
+      Alertdata.caseReducers.completedUpdate(state);
+      Alertdata.caseReducers.AcceptingUpdate(state);
+      Alertdata.caseReducers.pendingUpdate(state);
+    },
     Accepted(state, action) {
       const actions = action.payload;
       const pending = state.items.find((item) => item._id === actions.id);
+      console.log(pending);
       if (pending?.status === "pending") {
         pending.status = "accepted";
-        pending.updatedAt = new Date().toISOString();
-        Alertdata.caseReducers.completedUpdate(state);
-        Alertdata.caseReducers.AcceptingUpdate(state);
-        Alertdata.caseReducers.pendingUpdate(state);
+        Alertdata.caseReducers.update(state);
       }
     },
     completed(state, action) {
@@ -61,9 +64,7 @@ const Alertdata = createSlice({
       if (pending?.status === "accepted") {
         pending.status = "collected";
         pending.updatedAt = new Date().toISOString();
-        Alertdata.caseReducers.completedUpdate(state);
-        Alertdata.caseReducers.AcceptingUpdate(state);
-        Alertdata.caseReducers.pendingUpdate(state);
+        Alertdata.caseReducers.update(state);
       }
     },
     addToState(state, action) {
@@ -79,10 +80,7 @@ const Alertdata = createSlice({
       state.items.push(...newItems);
       state.user = actions.id;
       state.businessName = actions.userName;
-      console.log(state.user);
-      Alertdata.caseReducers.completedUpdate(state);
-      Alertdata.caseReducers.AcceptingUpdate(state);
-      Alertdata.caseReducers.pendingUpdate(state);
+      Alertdata.caseReducers.update(state);
     },
   },
 });

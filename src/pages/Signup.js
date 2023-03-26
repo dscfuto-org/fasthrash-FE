@@ -36,6 +36,14 @@ export default function Signup() {
   const errors = useActionData();
   const navigation = useNavigation();
   const isSubmiting = navigation.state === "submitting";
+  const clear = () => {
+    let text = document.querySelectorAll("p");
+    let texts = [...text].slice(0, text.length - 1);
+    texts.forEach((p) => {
+      p.innerText = "";
+    });
+    return;
+  };
   return (
     <Flex
       width="100%"
@@ -49,15 +57,15 @@ export default function Signup() {
       }}
       height="100vh"
     >
-      <Box pt={"40px"} width={{ lg: "30%", sm: "80%" }} margin="auto">
+      <Box pt={"4px"} width={{ lg: "30%", sm: "80%" }} margin="auto">
         <Heading size="lg">Sign Up!</Heading>
 
-        <Box marginTop="40px" as={forms} method="post">
+        <Box marginTop="40px" as={forms} method="post" onFocus={clear}>
           <Text marginTop="10px" color="red">
             {errors?.status ? errors.message : ""}
           </Text>
           <FormControl marginY="16px">
-            <FormLabel>Business Name*</FormLabel>
+            <FormLabel>Business Name</FormLabel>
             <Input type="text" name="name" placeholder="Enter your Name" />
             <Text marginTop="10px" color="red">
               {checkIfErrorDataExist("name", errors) ? errors.name : ""}
@@ -168,7 +176,7 @@ export default function Signup() {
             color="white"
             width="100%"
             fontWeight="bold"
-            marginY="20px"
+            marginY="8px"
             type="submit"
             disabled={isSubmiting}
           >
@@ -180,7 +188,7 @@ export default function Signup() {
             <Link
               href="/login"
               marginLeft="16px"
-              color="#7F56D9"
+              color={useColors.appGreen}
               fontWeight="bold"
             >
               Login
@@ -196,17 +204,24 @@ export async function action({ request }) {
   console.log(request);
   const formData = await request.formData();
   const errors = {};
-
+  const {
+    name: businessName,
+    email,
+    password,
+    passwordConfirm,
+    size,
+    years: yearsOfOperation,
+    location,
+  } = Object.fromEntries(formData.entries());
   const data = {
-    businessName: formData.get("name"),
-    email: formData.get("email"),
-    password: formData.get("password"),
-    passwordConfirm: formData.get("passwordConfirm"),
-    size: formData.get("size"),
-    yearsOfOperation: Number(formData.get("years")),
-    location: formData.get("location"),
+    businessName,
+    email,
+    password,
+    passwordConfirm,
+    size,
+    yearsOfOperation,
+    location,
   };
-
   if (!data.businessName) {
     errors.name = "Name is required";
   }
@@ -216,7 +231,13 @@ export async function action({ request }) {
   if (!data.password) {
     errors.password = "Password is required";
   }
-
+  if (data.password.length < 8) {
+    errors.password = "Password should be at least 8 characters long";
+  }
+  if (!/(?=.*[a-z])(?=.*[A-Z])/.test(data.password)) {
+    errors.password =
+      "Password should contain at least one uppercase and one lowercase character";
+  }
   if (!data.passwordConfirm) {
     errors.passwordConfirm = "Password Confirmation is required";
   }

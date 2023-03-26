@@ -20,14 +20,15 @@ export default function Buttons({ id, name, color }) {
       if (name === "pending") {
         const data = await getAndFetchData("GET", id);
         const status = data.data.alert.status;
+        
         if (status === name) {
           await getAndFetchData("PUT", id, {
             status: "accepted",
             collectorId: profile,
           });
-          setSpin(false);
           dispatch(Accepted({ id: id }));
         }
+        setSpin(false);
         return;
       }
       if (name === "accepted") {

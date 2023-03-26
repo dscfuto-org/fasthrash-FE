@@ -2,9 +2,7 @@ import {
   Box,
   Flex,
   Heading,
-  Stack,
-  Avatar,
-  AvatarBadge,
+  Image,
   Text,
   FormControl,
   FormLabel,
@@ -24,7 +22,7 @@ import loginTime from "../util/login";
 export default function Login() {
   const [show, setValue] = useState(false);
   const togglePassword = (event) => setValue(!show);
-  const errors = useActionData();
+  let errors = useActionData();
   const navigation = useNavigation();
   const isSubmiting = navigation.state === "submitting";
   let message;
@@ -49,6 +47,10 @@ export default function Login() {
       console.log(response);
       return response.ok && alert("Reset Email message sent");
     }
+  };
+  const clear = () => {
+    message = "";
+    console.log("helo");
   };
   if (errors?.email && !errors?.password) {
     message = errors?.email;
@@ -95,28 +97,9 @@ export default function Login() {
           justifyContent="center"
           width="100%"
           height="100%"
-          margin="auto"
+          margin="0"
         >
-          <Flex
-            align="center"
-            justify="center"
-            gap="16px"
-            direction="column"
-            marginBottom="60px"
-          >
-            <Heading size="md" align="center">
-              LOGIN TO YOUR ACCOUNT
-            </Heading>
-
-            <Stack direction="row" spacing={4}>
-              <Avatar src="/assets/Profile1.jpg" size="lg">
-                <AvatarBadge boxSize="1em" bg="green.500" />
-              </Avatar>
-            </Stack>
-
-            <Text as="b">Kelly Williams</Text>
-            <Text>Head Of Design, Layers.</Text>
-          </Flex>
+          <Image src="/assets/Branding-07.png" w="100%" />
         </Box>
       </Box>
 
@@ -139,7 +122,7 @@ export default function Login() {
         <Box marginTop="40px" as={form} method="post">
           <FormControl marginY="16px">
             <FormLabel> Email address</FormLabel>
-            <Input type="email" name="email" />
+            <Input type="email" name="email" onChange={clear} />
           </FormControl>
 
           <FormControl marginY="30px">
@@ -156,6 +139,7 @@ export default function Login() {
                 type={show ? "text" : "password"}
                 placeholder="Enter password"
                 name="password"
+                onChange={clear}
               />
               <InputRightElement width="4.5rem">
                 <Button h="1.75rem" size="sm" onClick={togglePassword}>
@@ -187,7 +171,7 @@ export default function Login() {
             justifyContent="space-between"
           >
             Don't Have an account?{" "}
-            <Link href="/signup" marginLeft="16px" color="#7F56D9">
+            <Link href="/signup" marginLeft="16px" color={useColors.appGreen}>
               Sign Up!
             </Link>
           </Text>
