@@ -1,6 +1,7 @@
 import { Avatar } from "@chakra-ui/react";
 import Buttons from "../../Components/Buttons/AcceptButton";
 import { useParams } from "react-router-dom";
+import setToken from "../../Auth/getToken";
 import {
   Table,
   Thead,
@@ -17,6 +18,7 @@ import {
   Text,
   ModalOverlay,
   ModalContent,
+  Spinner,
   ModalHeader,
   ModalFooter,
   ModalBody,
@@ -26,7 +28,7 @@ import {
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 export default function Recent() {
   let buttonClass = {
     pending: "#fc270bbd",
@@ -37,6 +39,8 @@ export default function Recent() {
   const data = items.filter((item) => {
     return item.status === "pending";
   });
+  const token = setToken();
+  const [newData, SetnewData] = useState([]);
   const OverlayOne = () => (
     <ModalOverlay
       bg="blackAlpha.300"
@@ -55,7 +59,32 @@ export default function Recent() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
-  const [Wastepic, setWastepic] = useState("");
+  const [Wastepic, setWastepic] = useState({});
+  useEffect(() => {
+    async function fetchAndUpdateData() {
+      const promises = data.map(async (name) => {
+        const getName = await fetch(
+          `https://fastrash-1337.ew.r.appspot.com/api/auth/profile/${name.userId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: token,
+            },
+          }
+        );
+        const {
+          data: { user },
+        } = await getName.json();
+        return {
+          ...name,
+          Fullname: `${user.firstName} ${user.lastName}`,
+        };
+      });
+      const newData = await Promise.all(promises);
+      SetnewData(newData);
+    }
+    fetchAndUpdateData();
+  }, [data,token]);
   return (
     <>
       {" "}
@@ -64,7 +93,8 @@ export default function Recent() {
           <Text fontSize="2xl">No Alerts To Accept Yet </Text>
         </Box>
       )}
-      {data.length > 0 && (
+      {newData.length <= 0 && data.length > 0 && <Spinner size="lg" />}
+      {newData.length > 0 && (
         <TableContainer>
           <Table variant="striped" colorScheme="grey">
             <TableCaption>Transactions for {businessName} </TableCaption>
@@ -78,7 +108,7 @@ export default function Recent() {
               </Tr>
             </Thead>
             <Tbody>
-              {data?.map((item, index) => {
+              {newData?.map((item, index) => {
                 return (
                   <Tr key={item._id}>
                     <Td>{index}</Td>
@@ -89,11 +119,15 @@ export default function Recent() {
                           onClick={() => {
                             setOverlay(<OverlayOne />);
                             onOpen();
-                            setWastepic(item.images[0]);
+                            setWastepic({
+                              image: item.images[0],
+                              Text: item.address,
+                              amount: item.quantity,
+                            });
                           }}
                         >
                           <Avatar src={item.images[0]} mr="5px" size="sm" />
-                          Alex Chima
+                          {item.Fullname}
                         </div>
                       </Tooltip>
                     </Td>
@@ -134,7 +168,9 @@ export default function Recent() {
           <ModalCloseButton />
           <ModalBody>
             <Box boxSize="">
-              <Image src={Wastepic} alt="waste Picture" />
+              <Image src={Wastepic.image} alt="waste Picture" />
+              <Text>Address:{Wastepic.Text}</Text>
+              <Text as="b">Amount in Kg:{Wastepic.amount}kg</Text>
             </Box>
           </ModalBody>
           <ModalFooter>

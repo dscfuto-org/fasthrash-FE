@@ -50,11 +50,11 @@ const route = createBrowserRouter([
         path: "logout",
         loader: Logout,
       },
-      {
-        path: "Signup",
-        element: <Signup />,
-        action: SignupAction,
-      },
+      // {
+      //   path: "Signup",
+      //   element: <Signup />,
+      //   action: SignupAction,
+      // },
       {
         path: "resetpassword/:Id/:token/:tokenID",
         element: <ResetPassword />,

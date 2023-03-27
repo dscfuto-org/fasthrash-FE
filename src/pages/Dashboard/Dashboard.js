@@ -89,6 +89,7 @@ const Dashboard = () => {
               };
             }}
           >
+            {" "}
             <Box
               bg={!pathname.includes("/history") ? "#eee" : "inherit"}
               display="flex"
@@ -126,7 +127,6 @@ const Dashboard = () => {
           </NavLink>
         </Box>
       </Box>
-
       {/** DASHBOARD MAIN SECTION */}
       <Box id="main-section" className="main">
         <Box display="flex" w="100%" px="5px" fontSize={17} fontWeight={600}>
