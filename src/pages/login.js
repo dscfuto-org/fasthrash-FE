@@ -164,15 +164,14 @@ export default function Login() {
           >
             {isSubmiting ? "Loading..." : "Login"}
           </Button>
-          <Text
-            marginTop="30px"
-            fontWeight="bold"
-            display="flex"
-            justifyContent="space-between"
-          >
-            Don't Have an account?{" "}
-            <Link href="/signup" marginLeft="16px" color={useColors.appGreen}>
-              Sign Up!
+          <Text marginLeft="16px" marginTop="20px" fontWeight="bold">
+            By Logging in you accept our{" "}
+            <Link href="/legal/privacy-policy" color={useColors.appGreen}>
+              privacy policy{" "}
+            </Link>
+            and{" "}
+            <Link href="/legal/terms-of-use" color={useColors.appGreen}>
+              terms of use
             </Link>
           </Text>
         </Box>

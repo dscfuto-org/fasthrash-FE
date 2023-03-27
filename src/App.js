@@ -12,6 +12,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import { loader as dashboardLoader } from "./util/dashboard";
 import Recent from "./pages/Dashboard/history_";
 import History from "./pages/Dashboard/recent";
+import Privacy from "./pages/privacy";
+import Terms from "./pages/terms";
 
 // This can be imported by anyone throughout the app instead of having to declare the color or site name in all files...
 // For example, I imported it in the ErrorPage.js file
@@ -49,6 +51,20 @@ const route = createBrowserRouter([
       {
         path: "logout",
         loader: Logout,
+      },
+      {
+        path: "legal",
+        children: [
+          {
+            index: true,
+            path: "privacy-policy",
+            element: <Privacy />,
+          },
+          {
+            path: "terms-of-use",
+            element: <Terms />,
+          },
+        ],
       },
       // {
       //   path: "Signup",
