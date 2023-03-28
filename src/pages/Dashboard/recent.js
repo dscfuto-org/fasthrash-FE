@@ -1,7 +1,6 @@
 import { Avatar } from "@chakra-ui/react";
 import Buttons from "../../Components/Buttons/AcceptButton";
-import { useParams } from "react-router-dom";
-import setToken from "../../Auth/getToken";
+// import setToken from "../../Auth/getToken";
 import {
   Table,
   Thead,
@@ -28,7 +27,7 @@ import {
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 export default function Recent() {
   let buttonClass = {
     pending: "#fc270bbd",
@@ -39,8 +38,8 @@ export default function Recent() {
   const data = items.filter((item) => {
     return item.status === "pending";
   });
-  const token = setToken();
-  const [newData, SetnewData] = useState([]);
+  // const token = setToken();
+  // const [newData, SetnewData] = useState([]);
   const OverlayOne = () => (
     <ModalOverlay
       bg="blackAlpha.300"
@@ -48,43 +47,34 @@ export default function Recent() {
     />
   );
 
-  const OverlayTwo = () => (
-    <ModalOverlay
-      bg="none"
-      backdropFilter="auto"
-      backdropInvert="80%"
-      backdropBlur="2px"
-    />
-  );
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [overlay, setOverlay] = useState(<OverlayOne />);
+  const [, setOverlay] = useState(<OverlayOne />);
   const [Wastepic, setWastepic] = useState({});
-  useEffect(() => {
-    async function fetchAndUpdateData() {
-      const promises = data.map(async (name) => {
-        const getName = await fetch(
-          `https://fastrash-1337.ew.r.appspot.com/api/auth/profile/${name.userId}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: token,
-            },
-          }
-        );
-        const {
-          data: { user },
-        } = await getName.json();
-        return {
-          ...name,
-          Fullname: `${user.firstName} ${user.lastName}`,
-        };
-      });
-      const newData = await Promise.all(promises);
-      SetnewData(newData);
-    }
-    fetchAndUpdateData();
-  }, [data,token]);
+  // useEffect(() => {
+  //   async function fetchAndUpdateData() {
+  //     const promises = data.map(async (name) => {
+  //       const getName = await fetch(
+  //         `https://fastrash-1337.ew.r.appspot.com/api/auth/profile/${name.userId}`,
+  //         {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: token,
+  //           },
+  //         }
+  //       );
+  //       const {
+  //         data: { user },
+  //       } = await getName.json();
+  //       return {
+  //         ...name,
+  //         Fullname: `${user.firstName} ${user.lastName}`,
+  //       };
+  //     });
+  //     const newData = await Promise.all(promises);
+  //     SetnewData(newData);
+  //   }
+  //   fetchAndUpdateData();
+  // }, [data,token]);
   return (
     <>
       {" "}
@@ -93,8 +83,8 @@ export default function Recent() {
           <Text fontSize="2xl">No Alerts To Accept Yet </Text>
         </Box>
       )}
-      {newData.length <= 0 && data.length > 0 && <Spinner size="lg" />}
-      {newData.length > 0 && (
+      {data.length <= 0 && data.length > 0 && <Spinner size="lg" />}
+      {data.length > 0 && (
         <TableContainer>
           <Table variant="striped" colorScheme="grey">
             <TableCaption>Transactions for {businessName} </TableCaption>
@@ -108,7 +98,7 @@ export default function Recent() {
               </Tr>
             </Thead>
             <Tbody>
-              {newData?.map((item, index) => {
+              {data?.map((item, index) => {
                 return (
                   <Tr key={item._id}>
                     <Td>{index}</Td>

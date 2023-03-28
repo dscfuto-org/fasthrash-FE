@@ -59,34 +59,36 @@ export default function Recent() {
   );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [overlay, setOverlay] = useState(<OverlayOne />);
+  const [, setOverlay] = useState(<OverlayOne />);
   const [Wastepic, setWastepic] = useState({});
 
   useEffect(() => {
     async function fetchAndUpdateData() {
-      const promises = data.map(async (name) => {
-        const getName = await fetch(
-          `https://fastrash-1337.ew.r.appspot.com/api/auth/profile/${name.userId}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: token,
-            },
-          }
-        );
-        const {
-          data: { user },
-        } = await getName.json();
-        return {
-          ...name,
-          Fullname: `${user.firstName} ${user.lastName}`,
-        };
-      });
-      const newData = await Promise.all(promises);
-      SetnewData(newData);
+      if (data) {
+        const promises = data.map(async (name) => {
+          const getName = await fetch(
+            `https://fastrash-1337.ew.r.appspot.com/api/auth/profile/${name.userId}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: token,
+              },
+            }
+          );
+          const {
+            data: { user },
+          } = await getName.json();
+          return {
+            ...name,
+            Fullname: `${user.firstName} ${user.lastName}`,
+          };
+        });
+        const newData = await Promise.all(promises);
+        SetnewData(newData);
+      } else return;
     }
     fetchAndUpdateData();
-  }, [data,token]);
+  }, [data, token]);
 
   return (
     <>

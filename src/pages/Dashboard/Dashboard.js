@@ -104,13 +104,13 @@ const Dashboard = () => {
               <span className="nav-item">Dashboard</span>
             </Box>
           </Box>
-          <NavLink
+          {/* <NavLink
             onClick={handleCloseNavbar}
             to={`history`}
             // className={({ isActive, isPending }) =>
             //   isPending ? "pending" : isActive ? "active" : ""
             // }
-          >
+          > */}
             <Box
               bg={pathname.includes("history") ? "#eee" : "inherit"}
               display="flex"
@@ -124,7 +124,7 @@ const Dashboard = () => {
               <FaHistory style={{ fontSize: "20px", margin: "auto 5px" }} />
               <span className="nav-item">View History</span>
             </Box>
-          </NavLink>
+          {/* </NavLink> */}
         </Box>
       </Box>
       {/** DASHBOARD MAIN SECTION */}

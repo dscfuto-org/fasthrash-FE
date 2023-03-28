@@ -58,11 +58,11 @@ const route = createBrowserRouter([
           {
             index: true,
             path: "privacy-policy",
-            element: <Privacy />,
+            element: <Privacy/>,
           },
           {
             path: "terms-of-use",
-            element: <Terms />,
+            element: <Terms/>,
           },
         ],
       },
