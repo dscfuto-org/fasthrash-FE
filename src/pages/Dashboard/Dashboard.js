@@ -78,20 +78,9 @@ const Dashboard = () => {
           borderBottom="1px solid rgba(0, 0, 0, 30%)"
           borderTop="1px solid rgba(0, 0, 0, 30%)"
         >
-          <Box
-            as={NavLink}
-            onClick={handleCloseNavbar}
-            to={`/dashboard/${profile}`}
-            className={({ isActive }) => {
-              return {
-                backgroundColor: isActive ? "red" : "",
-                color: isActive ? "red" : "black",
-              };
-            }}
-          >
-            {" "}
+          <Link onClick={handleCloseNavbar} to={`/dashboard/${profile}`}>
             <Box
-              bg={!pathname.includes("/history") ? "#eee" : "inherit"}
+              bg={!pathname.includes("history") ? "#eee" : "inherit"}
               display="flex"
               p={2}
               cursor="pointer"
@@ -103,14 +92,8 @@ const Dashboard = () => {
               <FaHome style={{ fontSize: "20px", margin: "auto 5px" }} />
               <span className="nav-item">Dashboard</span>
             </Box>
-          </Box>
-          {/* <NavLink
-            onClick={handleCloseNavbar}
-            to={`history`}
-            // className={({ isActive, isPending }) =>
-            //   isPending ? "pending" : isActive ? "active" : ""
-            // }
-          > */}
+          </Link>
+          <Link onClick={handleCloseNavbar} to={`history`}>
             <Box
               bg={pathname.includes("history") ? "#eee" : "inherit"}
               display="flex"
@@ -124,7 +107,7 @@ const Dashboard = () => {
               <FaHistory style={{ fontSize: "20px", margin: "auto 5px" }} />
               <span className="nav-item">View History</span>
             </Box>
-          {/* </NavLink> */}
+          </Link>
         </Box>
       </Box>
       {/** DASHBOARD MAIN SECTION */}
