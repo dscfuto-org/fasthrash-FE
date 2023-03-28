@@ -28,7 +28,7 @@ import {
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 export default function Recent() {
   let buttonClass = {
     pending: "#fc270bbd",
@@ -60,31 +60,35 @@ export default function Recent() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const [Wastepic, setWastepic] = useState({});
-  useEffect(() => {
-    async function fetchAndUpdateData() {
-      const promises = data.map(async (name) => {
-        const getName = await fetch(
-          `https://fastrash-1337.ew.r.appspot.com/api/auth/profile/${name.userId}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: token,
-            },
-          }
-        );
-        const {
-          data: { user },
-        } = await getName.json();
-        return {
-          ...name,
-          Fullname: `${user.firstName} ${user.lastName}`,
-        };
-      });
-      const newData = await Promise.all(promises);
-      SetnewData(newData);
+  const fetchAndUpdateData = useCallback(async () => {
+    if (data.length === 0) {
+      SetnewData([]);
+      return;
     }
+    const promises = data.map(async (name) => {
+      const getName = await fetch(
+        `https://fastrash-1337.ew.r.appspot.com/api/auth/profile/${name.userId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      const {
+        data: { user },
+      } = await getName.json();
+      return {
+        ...name,
+        Fullname: `${user.firstName} ${user.lastName}`,
+      };
+    });
+    const newData = await Promise.all(promises);
+    SetnewData(newData);
+  }, [data, token]);
+  useEffect(() => {
     fetchAndUpdateData();
-  }, [data,token]);
+  }, [fetchAndUpdateData]);
   return (
     <>
       {" "}
