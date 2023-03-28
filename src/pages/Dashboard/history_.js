@@ -87,7 +87,7 @@ export default function Recent() {
     <>
       {" "}
       {newData.length <= 0 && data.length > 0 && (
-        <Box display="flex" alignContent="center" justifyItems="center">
+        <Box display="flex" alignItems="center" justifyContent="center">
           <Spinner size="md" />
         </Box>
       )}
@@ -96,7 +96,7 @@ export default function Recent() {
           No History Yet
         </Text>
       )}
-      {newData.length > 1 && (
+      {newData.length > 0 && (
         <TableContainer>
           <Table variant="striped" colorScheme="grey">
             <TableCaption>Transactions for {businessName} </TableCaption>
@@ -113,7 +113,7 @@ export default function Recent() {
               {newData?.map((item, index) => {
                 return (
                   <Tr key={item._id}>
-                    <Td>{index}</Td>
+                    <Td>{index + 1}</Td>
                     <Td className="text-bold">
                       <Tooltip label="View waste Description And Picture">
                         <div

@@ -97,7 +97,11 @@ export default function Recent() {
           <Text fontSize="2xl">No Alerts To Accept Yet </Text>
         </Box>
       )}
-      {newData.length <= 0 && data.length > 0 && <Spinner size="lg" />}
+      {newData.length <= 0 && data.length > 0 && (
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <Spinner size="lg" />
+        </Box>
+      )}
       {newData.length > 0 && (
         <TableContainer>
           <Table variant="striped" colorScheme="grey">
@@ -115,7 +119,7 @@ export default function Recent() {
               {newData?.map((item, index) => {
                 return (
                   <Tr key={item._id}>
-                    <Td>{index}</Td>
+                    <Td>{index + 1}</Td>
                     <Td className="text-bold">
                       <Tooltip label="View waste">
                         <div

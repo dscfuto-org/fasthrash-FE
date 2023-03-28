@@ -20,6 +20,5 @@ export async function loader({ request, params }) {
     return json({ status: 500 }, { message: response.message });
   }
   const { data } = await response.json();
-  console.log(data);
   return data;
 }

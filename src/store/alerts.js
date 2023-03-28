@@ -52,7 +52,7 @@ const Alertdata = createSlice({
     Accepted(state, action) {
       const actions = action.payload;
       const pending = state.items.find((item) => item._id === actions.id);
-      console.log(pending);
+      console.log(actions);
       if (pending?.status === "pending") {
         pending.status = "accepted";
         Alertdata.caseReducers.update(state);
