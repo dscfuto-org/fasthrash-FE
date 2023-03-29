@@ -39,7 +39,6 @@ const Dashboard = () => {
       dispatch(
         addToState({ data: data.alert, id: profile, userName: businessName })
       );
-      console.log("hi");
     } catch (error) {
       //should return something
       console.log(error);

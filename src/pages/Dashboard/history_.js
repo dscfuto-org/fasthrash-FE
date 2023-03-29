@@ -28,7 +28,7 @@ import {
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 export default function Recent() {
   const params = useParams();
   let buttonClass = {
@@ -49,57 +49,54 @@ export default function Recent() {
     />
   );
 
-  const OverlayTwo = () => (
-    <ModalOverlay
-      bg="none"
-      backdropFilter="auto"
-      backdropInvert="80%"
-      backdropBlur="2px"
-    />
-  );
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [, setOverlay] = useState(<OverlayOne />);
   const [Wastepic, setWastepic] = useState({});
 
-  useEffect(() => {
-    async function fetchAndUpdateData() {
-      if (data) {
-        const promises = data.map(async (name) => {
-          const getName = await fetch(
-            `https://fastrash-1337.ew.r.appspot.com/api/auth/profile/${name.userId}`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: token,
-              },
-            }
-          );
-          const {
-            data: { user },
-          } = await getName.json();
-          return {
-            ...name,
-            Fullname: `${user.firstName} ${user.lastName}`,
-          };
-        });
-        const newData = await Promise.all(promises);
-        SetnewData(newData);
-      } else return;
+  const fetchAndUpdateData = useCallback(async () => {
+    if (data.length === 0) {
+      SetnewData([]);
+      return;
     }
-    fetchAndUpdateData();
+    const promises = data.map(async (name) => {
+      const getName = await fetch(
+        `https://fastrash-1337.ew.r.appspot.com/api/auth/profile/${name.userId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      const {
+        data: { user },
+      } = await getName.json();
+      return {
+        ...name,
+        Fullname: `${user.firstName} ${user.lastName}`,
+      };
+    });
+    const newdata = await Promise.all(promises);
+    SetnewData(newdata);
   }, [data, token]);
+  useEffect(() => {
+    fetchAndUpdateData();
+  }, [fetchAndUpdateData]);
 
   return (
     <>
       {" "}
-      {newData.length <= 0 && data.length > 0 && <Spinner size="md" />}
+      {newData.length <= 0 && data.length > 0 && (
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <Spinner size="md" />
+        </Box>
+      )}
       {data.length <= 0 && (
         <Text textAlign="center" fontSize="2xl">
           No History Yet
         </Text>
       )}
-      {newData.length > 1 && (
+      {newData.length > 0 && (
         <TableContainer>
           <Table variant="striped" colorScheme="grey">
             <TableCaption>Transactions for {businessName} </TableCaption>
@@ -116,13 +113,13 @@ export default function Recent() {
               {newData?.map((item, index) => {
                 return (
                   <Tr key={item._id}>
-                    <Td>{index}</Td>
+                    <Td>{index + 1}</Td>
                     <Td className="text-bold">
                       <Tooltip label="View waste Description And Picture">
                         <div
                           className="flex"
                           onClick={() => {
-                            setOverlay(<OverlayTwo />);
+                            setOverlay(<OverlayOne />);
                             onOpen();
                             setWastepic({
                               image: item.images[0],

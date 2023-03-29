@@ -195,13 +195,13 @@ function MainNavigation() {
               </Box>
             </Link>
           )}
-          {(!token && pathname !== '/signup') &&
+          {/* {(!token && pathname !== '/signup') &&
                         <Link to="/signup">
                             <Box onClick={toggleNavbar} fontSize={15} ml='4' fontWeight={600} color="#fff" background={useColors.appGreen} px='25px' py='10px' borderRadius='5px' transition='all 0.3s ease' _hover={{ opacity: .6 }}>
                                 Sign Up!
                             </Box>
                         </Link>
-                    }
+                    } */}
         </Box>
       </Box>
     </Box>
