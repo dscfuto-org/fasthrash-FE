@@ -28,6 +28,7 @@ import {
 import { useDisclosure } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { useState, useEffect, useCallback } from "react";
+import { useColors } from "../../App";
 export default function Recent() {
   let buttonClass = {
     pending: "#fc270bbd",
@@ -48,7 +49,6 @@ export default function Recent() {
   );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [, setOverlay] = useState(<OverlayOne />);
   const [Wastepic, setWastepic] = useState({});
   const fetchAndUpdateData = useCallback(async () => {
     if (data.length === 0) {
@@ -110,12 +110,11 @@ export default function Recent() {
                 return (
                   <Tr key={item._id}>
                     <Td>{index + 1}</Td>
-                    <Td className="text-bold">
+                    <Td cursor='pointer' className="text-bold">
                       <Tooltip label="View waste">
                         <div
                           className="flex"
                           onClick={() => {
-                            setOverlay(<OverlayOne />);
                             onOpen();
                             setWastepic({
                               image: item.images[0],
@@ -160,16 +159,21 @@ export default function Recent() {
         </TableContainer>
       )}
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
-        <ModalOverlay />
+        <ModalOverlay
+          bg='none'
+          backdropFilter='auto'
+          backdropInvert='80%'
+          backdropBlur='2px'
+        />
         <ModalContent>
           <ModalHeader>Waste To Dispose</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Box boxSize="">
-              <Image src={Wastepic.image} alt="waste Picture" />
-              <Text>Address:{Wastepic.Text}</Text>
-              <Text as="b">Amount in Kg:{Wastepic.amount}kg</Text>
+            <Box>
+              <Image maxH={{ base: '350px', md: '400px' }} width='100%' height='100%' src={Wastepic.image} alt="waste Picture" />
             </Box>
+            <Text mt='10px' fontWeight={600} color={useColors.appGreen}>Address: <span style={{ color: '#000' }}>{Wastepic.Text}</span></Text>
+            <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Amount in Kg: <span style={{ color: '#000' }}>{Wastepic.amount}kg</span></Text>
           </ModalBody>
           <ModalFooter>
             <Button onClick={onClose}>Close</Button>

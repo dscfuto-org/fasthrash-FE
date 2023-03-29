@@ -29,6 +29,7 @@ import {
 import { useDisclosure } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { useEffect, useState, useCallback } from "react";
+import { useColors } from "../../App";
 export default function Recent() {
   const params = useParams();
   let buttonClass = {
@@ -43,15 +44,8 @@ export default function Recent() {
   let token = setToken();
   console.log(items);
   const [newData, SetnewData] = useState([]);
-  const OverlayOne = () => (
-    <ModalOverlay
-      bg="blackAlpha.300"
-      backdropFilter="blur(10px) hue-rotate(90deg)"
-    />
-  );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [, setOverlay] = useState(<OverlayOne />);
   const [Wastepic, setWastepic] = useState({});
 
   const fetchAndUpdateData = useCallback(async () => {
@@ -115,12 +109,11 @@ export default function Recent() {
                 return (
                   <Tr key={item._id}>
                     <Td>{index + 1}</Td>
-                    <Td className="text-bold">
+                    <Td cursor='pointer' className="text-bold">
                       <Tooltip label="View waste Description And Picture">
                         <div
                           className="flex"
                           onClick={() => {
-                            setOverlay(<OverlayOne />);
                             onOpen();
                             setWastepic({
                               image: item.images[0],
@@ -130,7 +123,7 @@ export default function Recent() {
                           }}
                         >
                           <Avatar src={item.images[0]} mr="5px" size="sm" />
-                          {item.Fullname}
+                          <Text my='auto'>{item.Fullname}</Text>
                         </div>
                       </Tooltip>
                     </Td>
@@ -161,17 +154,22 @@ export default function Recent() {
           </Table>
         </TableContainer>
       )}
-      <Modal onClose={onClose} isOpen={isOpen} isCentered>
-        <ModalOverlay />
+      <Modal size='lg' scrollBehavior="outside" onClose={onClose} isOpen={isOpen} isCentered>
+        <ModalOverlay
+          bg='none'
+          backdropFilter='auto'
+          backdropInvert='80%'
+          backdropBlur='2px'
+        />
         <ModalContent>
           <ModalHeader>Waste To Dispose</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Box boxSize="">
-              <Image src={Wastepic.image} alt="waste Picture" />
+            <Box>
+              <Image maxH={{ base: '350px', md: '400px' }} width='100%' height='100%' src={Wastepic.image} alt="waste Picture" />
             </Box>
-            <Text>Address:{Wastepic.Text}</Text>
-            <Text as="b">Amount in Kg:{Wastepic.amount}kg</Text>
+            <Text mt='10px' fontWeight={600} color={useColors.appGreen}>Address: <span style={{ color: '#000' }}>{Wastepic.Text}</span></Text>
+            <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Amount in Kg: <span style={{ color: '#000' }}>{Wastepic.amount}kg</span></Text>
           </ModalBody>
           <ModalFooter>
             <Button onClick={onClose}>Close</Button>

@@ -47,7 +47,6 @@ const Dashboard = () => {
     }
   };
   // dispatch(accepteds({ id: "6423e82c7815821e08d1789b" }));
-  console.log(items, user);
 
   useEffect(() => {
     getData();
@@ -65,79 +64,82 @@ const Dashboard = () => {
         onClick={handleToggleNavbar}
       ></Box>
       <Box id="collapse-sidebar" className="side-panel">
-        <Box
-          className="center nav-logo"
-          h="55px"
-          fontSize={{ base: "22px", md: "20px", lg: "23px" }}
-          fontWeight={700}
-          bgGradient="linear(to-l, #FAB20F, #2A8D00)"
-          bgClip="text"
-        >
-          {SITE_NAME}
+        <Box position='relative' width='100%' height='100%'>
+          <Box
+            className="center nav-logo"
+            h="55px"
+            fontSize={{ base: "22px", md: "20px", lg: "23px" }}
+            fontWeight={700}
+            bgGradient="linear(to-l, #FAB20F, #2A8D00)"
+            bgClip="text"
+          >
+            {SITE_NAME}
+          </Box>
+          <Box
+            mt={0}
+            py={1}
+            width="100%"
+            borderBottom="1px solid rgba(0, 0, 0, 30%)"
+            borderTop="1px solid rgba(0, 0, 0, 30%)"
+          >
+            <Link onClick={handleCloseNavbar} to={`/dashboard/${profile}`}>
+              <Box
+                bg={!pathname.includes("history") ? "#eee" : "inherit"}
+                display="flex"
+                p={2}
+                cursor="pointer"
+                fontWeight={600}
+                borderRadius="sm"
+                my={1.5}
+                _hover={{ bg: "#eee" }}
+              >
+                <FcHome style={{ fontSize: "20px", margin: "auto 5px" }} />
+                <span className="nav-item">Dashboard</span>
+              </Box>
+            </Link>
+            <Link onClick={handleCloseNavbar} to={`history`}>
+              <Box
+                bg={pathname.includes("history") ? "#eee" : "inherit"}
+                display="flex"
+                p={2}
+                cursor="pointer"
+                fontWeight={600}
+                borderRadius="sm"
+                my={1.5}
+                _hover={{ bg: "#eee" }}
+              >
+                <FcTimeline style={{ fontSize: "20px", margin: "auto 5px" }} />
+                <span className="nav-item">View History</span>
+              </Box>
+            </Link>
+          </Box>
+          <Box
+            width="100%"
+            borderTop="1px solid rgba(0, 0, 0, 30%)"
+            position='absolute'
+            bottom={'5px'}
+            px={3}
+            left={0}
+          >
+            <Link onClick={handleCloseNavbar} to={`/logout`}>
+              <Box
+                bg='#0009'
+                display="flex"
+                p={2}
+                cursor="pointer"
+                fontWeight={600}
+                borderRadius="sm"
+                mt={'10px'}
+                color={'#fff'}
+                _hover={{ bg: "#eee", color: '#000' }}
+              >
+                <FcExport style={{ fontSize: "20px", margin: "auto 5px" }} />
+                <span className="nav-item">Sign Out</span>
+              </Box>
+            </Link>
+          </Box>
         </Box>
-        <Box
-          mt={0}
-          py={1}
-          width="100%"
-          borderBottom="1px solid rgba(0, 0, 0, 30%)"
-          borderTop="1px solid rgba(0, 0, 0, 30%)"
-        >
-          <Link onClick={handleCloseNavbar} to={`/dashboard/${profile}`}>
-            <Box
-              bg={!pathname.includes("history") ? "#eee" : "inherit"}
-              display="flex"
-              p={2}
-              cursor="pointer"
-              fontWeight={600}
-              borderRadius="sm"
-              my={1.5}
-              _hover={{ bg: "#eee" }}
-            >
-              <FcHome style={{ fontSize: "20px", margin: "auto 5px" }} />
-              <span className="nav-item">Dashboard</span>
-            </Box>
-          </Link>
-          <Link onClick={handleCloseNavbar} to={`history`}>
-            <Box
-              bg={pathname.includes("history") ? "#eee" : "inherit"}
-              display="flex"
-              p={2}
-              cursor="pointer"
-              fontWeight={600}
-              borderRadius="sm"
-              my={1.5}
-              _hover={{ bg: "#eee" }}
-            >
-              <FcTimeline style={{ fontSize: "20px", margin: "auto 5px" }} />
-              <span className="nav-item">View History</span>
-            </Box>
-          </Link>
-        </Box>
-        <Box
-          width="100%"
-          borderTop="1px solid rgba(0, 0, 0, 30%)"
-          position='absolute'
-          bottom={'10px'}
-          px={3}
-          left={0}
-        >
-          <Link onClick={handleCloseNavbar} to={`/logout`}>
-            <Box
-              bg='#0009'
-              display="flex"
-              p={2}
-              cursor="pointer"
-              fontWeight={600}
-              borderRadius="sm"
-              mt={'10px'}
-              color={'#fff'}
-              _hover={{ bg: "#eee", color: '#000' }}
-            >
-              <FcExport style={{ fontSize: "20px", margin: "auto 5px" }} />
-              <span className="nav-item">Sign Out</span>
-            </Box>
-          </Link>
-        </Box>
+
       </Box>
       {/** DASHBOARD MAIN SECTION */}
       <Box id="main-section" className="main">
