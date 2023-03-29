@@ -103,7 +103,7 @@ export default function Login() {
         </Box>
       </Box>
 
-      <Box width={{ lg: "30%", sm: "80%" }} margin="auto">
+      <Box w={{ lg: "30%", base: "80%", sm: "50%" }} margin="auto">
         <Heading size="lg">Welcome Back!</Heading>
         {message && (
           <Text

@@ -1,9 +1,10 @@
 import { Button, Spinner } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { completed, Accepted } from "../../store/alerts";
+import { completed, accepted } from "../../store/alerts";
 import { useState } from "react";
 import getAndFetchData from "../../util/fetchData";
 import { useParams } from "react-router-dom";
+import { updateState } from "../../store/alerts";
 
 export default function Buttons({ id, name, color }) {
   const dispatch = useDispatch();
@@ -21,13 +22,17 @@ export default function Buttons({ id, name, color }) {
         const data = await getAndFetchData("GET", id);
         const status = data.data.alert.status;
 
-        if (status === name) {
+        if (status === "pending") {
           await getAndFetchData("PUT", id, {
             status: "accepted",
             collectorId: profile,
           });
+          dispatch(accepted({ id: id }));
         }
-        dispatch(Accepted({ id: id }));
+        if (status !== "pending") {
+          dispatch(updateState({ id, status }));
+          setSpin(false);
+        }
         setSpin(false);
         return;
       }
