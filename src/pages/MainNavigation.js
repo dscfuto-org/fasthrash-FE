@@ -25,7 +25,7 @@ function MainNavigation() {
   // ** GET CURRENT ROUTE FROM REACT ROUTER DOM
   const { pathname } = useLocation();
   const { user } = useSelector((state) => state.alert);
-
+  console.log(user);
   // ** GET APP CONTEXT STORE
   const { activeNavLinkId, setActiveNavLinkId } = useAppContext();
 
@@ -197,9 +197,8 @@ function MainNavigation() {
             </Link>
           )}
           {pathname === "/" && token && (
-            <Link onClick={toggleNavbar} to={`/dashboard/${user}`}>
+            <Link to={`/dashboard/${user}`}>
               <Box
-                onClick={toggleNavbar}
                 fontSize={15}
                 ml="4"
                 fontWeight={600}
