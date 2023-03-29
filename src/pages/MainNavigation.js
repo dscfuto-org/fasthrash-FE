@@ -5,6 +5,7 @@ import React, { useRef, useEffect } from "react";
 import { useAppContext } from "../context";
 import { FaTimes } from "react-icons/fa";
 import { checkToken } from "../Auth/getToken";
+import { useSelector } from "react-redux";
 export const handleToggleNavbar = () => {
   document.getElementById("collapse-sidebar").classList.toggle("collapse");
   document.getElementById("header").classList.toggle("collapse");
@@ -23,6 +24,7 @@ function MainNavigation() {
 
   // ** GET CURRENT ROUTE FROM REACT ROUTER DOM
   const { pathname } = useLocation();
+  const { user } = useSelector((state) => state.alert);
 
   // ** GET APP CONTEXT STORE
   const { activeNavLinkId, setActiveNavLinkId } = useAppContext();
@@ -177,7 +179,25 @@ function MainNavigation() {
             </Link>
           )}
           {!token && pathname !== "/login" && (
-            <Link onClick={toggleNavbar} to="/login">
+            <Link to="/login">
+              <Box
+                fontSize={15}
+                ml="4"
+                fontWeight={600}
+                color="#fff"
+                background={useColors.appGreen}
+                px="25px"
+                py="10px"
+                borderRadius="5px"
+                transition="all 0.3s ease"
+                _hover={{ opacity: 0.6 }}
+              >
+                Login
+              </Box>
+            </Link>
+          )}
+          {pathname === "/" && token && (
+            <Link onClick={toggleNavbar} to={`/dashboard/${user}`}>
               <Box
                 onClick={toggleNavbar}
                 fontSize={15}
@@ -191,7 +211,7 @@ function MainNavigation() {
                 transition="all 0.3s ease"
                 _hover={{ opacity: 0.6 }}
               >
-                Login
+                Back to Dashboard
               </Box>
             </Link>
           )}

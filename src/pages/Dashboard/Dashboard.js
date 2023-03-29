@@ -28,6 +28,7 @@ const Dashboard = () => {
     completed: complete,
     pending: pend,
     Accepted: accepted,
+    user,
   } = useSelector((state) => state.alert);
   // ** CHANGE THE BACKGROUND COLOR TO BE GREY ON COMPONENT-DID-MOUNT
   const getData = async () => {
@@ -45,7 +46,7 @@ const Dashboard = () => {
     }
   };
   // dispatch(accepteds({ id: "6423e82c7815821e08d1789b" }));
-  console.log(items);
+  console.log(items, user);
 
   useEffect(() => {
     getData();
