@@ -49,7 +49,7 @@ const Alertdata = createSlice({
       Alertdata.caseReducers.AcceptingUpdate(state);
       Alertdata.caseReducers.pendingUpdate(state);
     },
-    Accepted(state, action) {
+    accepted(state, action) {
       const actions = action.payload;
       const pending = state.items.find((item) => item._id === actions.id);
       console.log(actions);
@@ -92,6 +92,6 @@ const Alertdata = createSlice({
     },
   },
 });
-export const { Accepted, completed, addToState, updateState } =
+export const { accepted, completed, addToState, updateState } =
   Alertdata.actions;
 export default Alertdata;

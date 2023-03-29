@@ -4,7 +4,7 @@ import { useColors } from "../App";
 import React, { useRef, useEffect } from "react";
 import { useAppContext } from "../context";
 import { FaTimes } from "react-icons/fa";
-
+import { checkToken } from "../Auth/getToken";
 export const handleToggleNavbar = () => {
   document.getElementById("collapse-sidebar").classList.toggle("collapse");
   document.getElementById("header").classList.toggle("collapse");
@@ -19,7 +19,7 @@ export const handleCloseNavbar = () => {
 };
 
 function MainNavigation() {
-  const token = useRouteLoaderData("root");
+  const token = checkToken();
 
   // ** GET CURRENT ROUTE FROM REACT ROUTER DOM
   const { pathname } = useLocation();

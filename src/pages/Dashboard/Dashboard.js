@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { useColors, SITE_NAME } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
-import { addToState } from "../../store/alerts";
+import { addToState, accepted as accepteds } from "../../store/alerts";
 
 import {
   Link,
@@ -44,6 +44,9 @@ const Dashboard = () => {
       console.log(error);
     }
   };
+  // dispatch(accepteds({ id: "6423e82c7815821e08d1789b" }));
+  console.log(items);
+
   useEffect(() => {
     getData();
     const interval = setInterval(() => {

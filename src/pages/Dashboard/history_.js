@@ -41,6 +41,7 @@ export default function Recent() {
     return item.status !== "pending" && item.collectorId === params.profile;
   });
   let token = setToken();
+  console.log(items);
   const [newData, SetnewData] = useState([]);
   const OverlayOne = () => (
     <ModalOverlay
