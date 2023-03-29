@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { Form, Link, useLocation, useRouteLoaderData } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useColors } from "../App";
 import React, { useRef, useEffect } from "react";
 import { useAppContext } from "../context";

@@ -121,6 +121,8 @@ export default function Recent() {
                               image: item.images[0],
                               Text: item.address,
                               amount: item.quantity,
+                              delivery: item.deliveryTime,
+                              price: item.costPerKg,
                             });
                           }}
                         >
@@ -167,8 +169,12 @@ export default function Recent() {
           <ModalBody>
             <Box boxSize="">
               <Image src={Wastepic.image} alt="waste Picture" />
-              <Text>Address:{Wastepic.Text}</Text>
-              <Text as="b">Amount in Kg:{Wastepic.amount}kg</Text>
+              <Box display="flex" flexDirection="column">
+                <Text as="b">Address:{Wastepic.Text}</Text>
+                <Text as="b">Amount in Kg:{Wastepic.amount}kg</Text>
+                <Text as="b">Delivery Time:{Wastepic.delivery}kg</Text>
+                <Text as="b">Price per Kg:{Wastepic.price}ngn</Text>
+              </Box>
             </Box>
           </ModalBody>
           <ModalFooter>
