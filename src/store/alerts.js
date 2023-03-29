@@ -58,6 +58,14 @@ const Alertdata = createSlice({
         Alertdata.caseReducers.update(state);
       }
     },
+    updateState(state, action) {
+      const actions = action.payload;
+      const update = state.items.find((item) => item._id === actions.id);
+      if (update) {
+        update.status = action.status;
+        Alertdata.caseReducers.update(state);
+      }
+    },
     completed(state, action) {
       const actions = action.payload;
       const pending = state.items.find((item) => item._id === actions.id);
@@ -84,5 +92,6 @@ const Alertdata = createSlice({
     },
   },
 });
-export const { Accepted, completed, addToState } = Alertdata.actions;
+export const { Accepted, completed, addToState, updateState } =
+  Alertdata.actions;
 export default Alertdata;

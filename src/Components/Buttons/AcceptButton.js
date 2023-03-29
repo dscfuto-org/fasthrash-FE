@@ -26,9 +26,9 @@ export default function Buttons({ id, name, color }) {
             status: "accepted",
             collectorId: profile,
           });
-
+          dispatch(Accepted({ id: id }));
         }
-        dispatch(Accepted({ id: id }));
+      
         setSpin(false);
         return;
       }
