@@ -106,7 +106,7 @@ export default function Recent() {
               </Tr>
             </Thead>
             <Tbody>
-              {data?.map((item, index) => {
+              {newData?.map((item, index) => {
                 return (
                   <Tr key={item._id}>
                     <Td>{index + 1}</Td>
