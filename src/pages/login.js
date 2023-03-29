@@ -103,7 +103,7 @@ export default function Login() {
         </Box>
       </Box>
 
-      <Box width={{ lg: "30%", sm: "80%" }} margin="auto">
+      <Box px={{ base: 3 }} width={{ lg: "30%", sm: "80%" }} margin="auto">
         <Heading size="lg">Welcome Back!</Heading>
         {message && (
           <Text
@@ -162,9 +162,9 @@ export default function Login() {
             type="submit"
             disable={isSubmiting.toString()}
           >
-            {isSubmiting ? "Loading..." : "Login"}
+            {isSubmiting ? "Signing you in..." : "Login"}
           </Button>
-          <Text marginLeft="16px" marginTop="20px" fontWeight="bold">
+          <Text textAlign='center' marginLeft="16px" marginTop="20px" fontWeight="bold">
             By Logging in you accept our{" "}
             <Link href="/legal/privacy-policy" color={useColors.appGreen}>
               privacy policy{" "}

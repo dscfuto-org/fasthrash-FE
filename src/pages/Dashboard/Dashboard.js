@@ -13,7 +13,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { handleCloseNavbar, handleToggleNavbar } from "../MainNavigation";
-import { FaHistory, FaHome } from "react-icons/fa";
+import { FcHome, FcExport, FcTimeline } from 'react-icons/fc'
 
 const Dashboard = () => {
   // ** GET CURRENT ROUTE FROM REACT ROUTER DOM
@@ -22,7 +22,8 @@ const Dashboard = () => {
 
   const dispatch = useDispatch();
   const data = useLoaderData();
-  const { businessName } = data.user;
+
+  const { businessName } = data?.user;
   const {
     items,
     completed: complete,
@@ -88,7 +89,7 @@ const Dashboard = () => {
               my={1.5}
               _hover={{ bg: "#eee" }}
             >
-              <FaHome style={{ fontSize: "20px", margin: "auto 5px" }} />
+              <FcHome style={{ fontSize: "20px", margin: "auto 5px" }} />
               <span className="nav-item">Dashboard</span>
             </Box>
           </Link>
@@ -103,8 +104,33 @@ const Dashboard = () => {
               my={1.5}
               _hover={{ bg: "#eee" }}
             >
-              <FaHistory style={{ fontSize: "20px", margin: "auto 5px" }} />
+              <FcTimeline style={{ fontSize: "20px", margin: "auto 5px" }} />
               <span className="nav-item">View History</span>
+            </Box>
+          </Link>
+        </Box>
+        <Box
+          width="100%"
+          borderTop="1px solid rgba(0, 0, 0, 30%)"
+          position='absolute'
+          bottom={'10px'}
+          px={3}
+          left={0}
+        >
+          <Link onClick={handleCloseNavbar} to={`/logout`}>
+            <Box
+              bg='#0009'
+              display="flex"
+              p={2}
+              cursor="pointer"
+              fontWeight={600}
+              borderRadius="sm"
+              mt={'10px'}
+              color={'#fff'}
+              _hover={{ bg: "#eee", color: '#000' }}
+            >
+              <FcExport style={{ fontSize: "20px", margin: "auto 5px" }} />
+              <span className="nav-item">Sign Out</span>
             </Box>
           </Link>
         </Box>

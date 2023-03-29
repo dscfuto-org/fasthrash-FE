@@ -11,7 +11,7 @@ export const useActiveNav = (navLinkId) => {
     const options = {
         root: null,
         rootMargin: '0px',
-        threshold: tenBreakpointThreshold
+        threshold: 0.5
     }
     const isOnScreen = useElementOnScreen(options, ref);
 
