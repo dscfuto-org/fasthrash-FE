@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { useColors, SITE_NAME } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
-import { addToState } from "../../store/alerts";
+import { addToState, accepted as accepteds } from "../../store/alerts";
 
 import {
   Link,
@@ -29,6 +29,7 @@ const Dashboard = () => {
     completed: complete,
     pending: pend,
     Accepted: accepted,
+    user,
   } = useSelector((state) => state.alert);
   // ** CHANGE THE BACKGROUND COLOR TO BE GREY ON COMPONENT-DID-MOUNT
   const getData = async () => {
@@ -45,6 +46,9 @@ const Dashboard = () => {
       console.log(error);
     }
   };
+  // dispatch(accepteds({ id: "6423e82c7815821e08d1789b" }));
+  console.log(items, user);
+
   useEffect(() => {
     getData();
     const interval = setInterval(() => {

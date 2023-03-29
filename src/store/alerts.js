@@ -49,12 +49,20 @@ const Alertdata = createSlice({
       Alertdata.caseReducers.AcceptingUpdate(state);
       Alertdata.caseReducers.pendingUpdate(state);
     },
-    Accepted(state, action) {
+    accepted(state, action) {
       const actions = action.payload;
       const pending = state.items.find((item) => item._id === actions.id);
       console.log(state.items);
       if (pending?.status === "pending") {
         pending.status = "accepted";
+        Alertdata.caseReducers.update(state);
+      }
+    },
+    updateState(state, action) {
+      const actions = action.payload;
+      const update = state.items.find((item) => item._id === actions.id);
+      if (update) {
+        update.status = action.status;
         Alertdata.caseReducers.update(state);
       }
     },
@@ -84,5 +92,6 @@ const Alertdata = createSlice({
     },
   },
 });
-export const { Accepted, completed, addToState } = Alertdata.actions;
+export const { accepted, completed, addToState, updateState } =
+  Alertdata.actions;
 export default Alertdata;
