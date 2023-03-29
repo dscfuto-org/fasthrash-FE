@@ -211,7 +211,7 @@ function MainNavigation() {
                 transition="all 0.3s ease"
                 _hover={{ opacity: 0.6 }}
               >
-                Back to Dashboard
+                Dashboard
               </Box>
             </Link>
           )}
