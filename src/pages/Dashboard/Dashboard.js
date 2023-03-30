@@ -118,7 +118,6 @@ const Dashboard = () => {
             borderTop="1px solid rgba(0, 0, 0, 30%)"
             position='absolute'
             bottom={'5px'}
-            px={3}
             left={0}
           >
             <Link onClick={handleCloseNavbar} to={`/logout`}>

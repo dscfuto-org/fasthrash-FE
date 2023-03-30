@@ -2,6 +2,7 @@ import { Avatar } from "@chakra-ui/react";
 import Buttons from "../../Components/Buttons/AcceptButton";
 import { useParams } from "react-router-dom";
 import setToken from "../../Auth/getToken";
+import Moment from 'react-moment';
 import {
   Table,
   Thead,
@@ -30,6 +31,7 @@ import { useDisclosure } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { useEffect, useState, useCallback } from "react";
 import { useColors } from "../../App";
+import { FcBusinessContact, FcBusinessman, FcClock, FcDocument, FcDonate, FcEmptyTrash, FcExpired, FcFullTrash, FcHome } from "react-icons/fc";
 export default function Recent() {
   const params = useParams();
   let buttonClass = {
@@ -105,7 +107,7 @@ export default function Recent() {
               </Tr>
             </Thead>
             <Tbody>
-              {newData?.reverse()?.map((item, index) => {
+              {[...newData]?.reverse()?.map((item, index) => {
                 return (
                   <Tr key={item._id}>
                     <Td>{index + 1}</Td>
@@ -116,10 +118,15 @@ export default function Recent() {
                           onClick={() => {
                             onOpen();
                             setWastepic({
+                              creator: item.userName,
+                              email: item.userEmail,
                               image: item.images[0],
                               address: item.address,
                               description: item.description,
                               amount: item.quantity,
+                              costPerKg: item.costPerKg,
+                              createdAt: item.createdAt,
+                              updatedAt: item.updatedAt
                             });
                           }}
                         >
@@ -155,7 +162,7 @@ export default function Recent() {
           </Table>
         </TableContainer>
       )}
-      <Modal size='lg' scrollBehavior="outside" onClose={onClose} isOpen={isOpen} isCentered>
+      <Modal size='lg' scrollBehavior="inside" onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay
           bg='none'
           backdropFilter='auto'
@@ -163,15 +170,58 @@ export default function Recent() {
           backdropBlur='2px'
         />
         <ModalContent>
-          <ModalHeader>Waste To Dispose</ModalHeader>
+          <ModalHeader display='flex' alignItems='center' justifyContent='left'><FcFullTrash style={{ marginRight: 3, fontSize: '22px' }} /> Waste To Dispose</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Box>
-              <Image maxH={{ base: '350px', md: '400px' }} width='100%' height='100%' src={Wastepic.image} alt="waste Picture" />
+              <Image maxH={{ base: '350px', md: '400px' }} borderRadius='5px' width='100%' height='100%' src={Wastepic.image} alt="waste Picture" />
             </Box>
-            <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Address: <span style={{ color: '#000' }}>{Wastepic.address}</span></Text>
-            <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Alert Description: <span style={{ color: '#000' }}>{Wastepic.description}</span></Text>
-            <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Amount in Kg: <span style={{ color: '#000' }}>{Wastepic.amount}kg</span></Text>
+
+            <Text display='flex' alignItems='center' justifyContent='left' mt='20px' fontWeight={700} color={useColors.appGreen}>
+              <FcBusinessman style={{ marginRight: 3, fontSize: '22px' }} /> Created By:
+              <span style={{ color: '#000', fontWeight: 600, marginLeft: '5px' }}>{Wastepic.creator}</span>
+            </Text>
+
+            <Text display='flex' alignItems='center' justifyContent='left' mt='20px' fontWeight={700} color={useColors.appGreen}>
+              <FcBusinessContact style={{ marginRight: 3, fontSize: '22px' }} /> Contact Email:
+              <span style={{ color: '#000', fontWeight: 600, marginLeft: '5px' }}>{Wastepic.email}</span>
+            </Text>
+
+            <Text display='flex' alignItems='center' justifyContent='left' mt='20px' fontWeight={700} color={useColors.appGreen}>
+              <FcHome style={{ marginRight: 3, fontSize: '22px' }} /> Address:
+              <span style={{ color: '#000', fontWeight: 600, marginLeft: '5px' }}>{Wastepic.address}</span>
+            </Text>
+            <Box display='flex' alignItems='center' justifyContent='left' mt='20px' fontWeight={700} color={useColors.appGreen}>
+              <FcDocument style={{ marginRight: 3, fontSize: '22px' }} /> Alert Description:
+              <span style={{ color: '#000', fontWeight: 600, marginLeft: '5px' }}>{Wastepic.description}</span>
+            </Box>
+            <Text display='flex' alignItems='center' justifyContent='left' mt='20px' fontWeight={700} color={useColors.appGreen}>
+              <FcEmptyTrash style={{ marginRight: 3, fontSize: '22px' }} /> Amount in Kg:
+              <span style={{ color: '#000', fontWeight: 600, marginLeft: '5px' }}>{Wastepic.amount}kg</span>
+            </Text>
+            <Text display='flex' alignItems='center' justifyContent='left' mt='20px' fontWeight={700} color={useColors.appGreen}>
+              <FcFullTrash style={{ marginRight: 3, fontSize: '22px' }} /> Cost per Kg:
+              <span style={{ color: '#000', fontWeight: 600, marginLeft: '5px' }}>{Wastepic.costPerKg} Naira</span>
+            </Text>
+            <Text display='flex' alignItems='center' justifyContent='left' mt='20px' fontWeight={700} color={useColors.appGreen}>
+              <FcDonate style={{ marginRight: 3, fontSize: '22px' }} /> Total Cost:
+              <span style={{ color: '#000', fontWeight: 600, marginLeft: '5px' }}>{Wastepic.amount * Wastepic.costPerKg} Naira</span>
+            </Text>
+
+            <Box display='flex' alignItems='center' justifyContent='left' mt='20px' fontWeight={700} color={useColors.appGreen}>
+              <FcExpired style={{ marginRight: 3, fontSize: '22px' }} /> Date Created:
+              <span style={{ color: '#000', fontWeight: 600, marginLeft: '5px' }}>
+                <Moment format='ddd'>{Wastepic.createdAt}</Moment> <Moment format='LT'>{Wastepic.createdAt}</Moment>,
+                <Moment format='DD'>{Wastepic.createdAt}</Moment>/<Moment format='MM'>{Wastepic.createdAt}</Moment>/<Moment format='YY'>{Wastepic.createdAt}</Moment>
+              </span>
+            </Box>
+            <Box display='flex' alignItems='center' justifyContent='left' mt='20px' fontWeight={700} color={useColors.appGreen}>
+              <FcClock style={{ marginRight: 3, fontSize: '22px' }} /> Date Accepted:
+              <span style={{ color: '#000', fontWeight: 600, marginLeft: '5px' }}>
+                <Moment format='ddd'>{Wastepic.updatedAt}</Moment> <Moment format='LT'>{Wastepic.updatedAt}</Moment>,
+                <Moment format='DD'>{Wastepic.updatedAt}</Moment>/<Moment format='MM'>{Wastepic.updatedAt}</Moment>/<Moment format='YY'>{Wastepic.updatedAt}</Moment>
+              </span>
+            </Box>
           </ModalBody>
           <ModalFooter>
             <Button onClick={onClose}>Close</Button>
