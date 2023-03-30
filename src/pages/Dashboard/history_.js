@@ -111,7 +111,7 @@ export default function Recent() {
                 return (
                   <Tr key={item._id}>
                     <Td>{index + 1}</Td>
-                    <Td cursor='pointer' className="text-bold">
+                    <Td cursor="pointer" className="text-bold">
                       <Tooltip label="View waste Description And Picture">
                         <div
                           className="flex"
@@ -130,8 +130,13 @@ export default function Recent() {
                             });
                           }}
                         >
-                          <Avatar borderRadius='5px' src={item.images[0]} mr="5px" size="sm" />
-                          <Text my='auto'>{item.Fullname}</Text>
+                          <Avatar
+                            borderRadius="5px"
+                            src={item.images[0]}
+                            mr="5px"
+                            size="sm"
+                          />
+                          <Text my="auto">{item.Fullname}</Text>
                         </div>
                       </Tooltip>
                     </Td>
@@ -164,10 +169,10 @@ export default function Recent() {
       )}
       <Modal size='lg' scrollBehavior="inside" onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay
-          bg='none'
-          backdropFilter='auto'
-          backdropInvert='80%'
-          backdropBlur='2px'
+          bg="none"
+          backdropFilter="auto"
+          backdropInvert="80%"
+          backdropBlur="2px"
         />
         <ModalContent>
           <ModalHeader display='flex' alignItems='center' justifyContent='left'><FcFullTrash style={{ marginRight: 3, fontSize: '22px' }} /> Waste To Dispose</ModalHeader>

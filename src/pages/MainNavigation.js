@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { Form, Link, useLocation, useRouteLoaderData } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useColors } from "../App";
 import React, { useRef, useEffect } from "react";
 import { useAppContext } from "../context";
@@ -21,12 +21,10 @@ export const handleCloseNavbar = () => {
 };
 
 function MainNavigation() {
-  const token = useRouteLoaderData("root");
+  const token = checkToken();
 
   // ** GET CURRENT ROUTE FROM REACT ROUTER DOM
   const { pathname } = useLocation();
-  const { user } = useSelector((state) => state.alert);
-
   // ** GET APP CONTEXT STORE
   const { activeNavLinkId, setActiveNavLinkId } = useAppContext();
 
@@ -180,7 +178,7 @@ function MainNavigation() {
             </Link>
           )}
           {!token && pathname !== "/login" && (
-            <Link to="/login">
+            <Link onClick={toggleNavbar} to="/login">
               <Box
                 fontSize={15}
                 ml="4"
@@ -194,25 +192,6 @@ function MainNavigation() {
                 _hover={{ opacity: 0.6 }}
               >
                 Login
-              </Box>
-            </Link>
-          )}
-          {pathname === "/" && token && (
-            <Link onClick={toggleNavbar} to={`/dashboard/${user}`}>
-              <Box
-                onClick={toggleNavbar}
-                fontSize={15}
-                ml="4"
-                fontWeight={600}
-                color="#fff"
-                background={useColors.appGreen}
-                px="25px"
-                py="10px"
-                borderRadius="5px"
-                transition="all 0.3s ease"
-                _hover={{ opacity: 0.6 }}
-              >
-                Dashboard
               </Box>
             </Link>
           )}
