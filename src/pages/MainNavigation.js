@@ -25,8 +25,6 @@ function MainNavigation() {
 
   // ** GET CURRENT ROUTE FROM REACT ROUTER DOM
   const { pathname } = useLocation();
-  const { user } = useSelector((state) => state.alert);
-  console.log(user);
   // ** GET APP CONTEXT STORE
   const { activeNavLinkId, setActiveNavLinkId } = useAppContext();
 
@@ -194,24 +192,6 @@ function MainNavigation() {
                 _hover={{ opacity: 0.6 }}
               >
                 Login
-              </Box>
-            </Link>
-          )}
-          {pathname === "/" && token && (
-            <Link to={`/dashboard/${user}`}>
-              <Box
-                fontSize={15}
-                ml="4"
-                fontWeight={600}
-                color="#fff"
-                background={useColors.appGreen}
-                px="25px"
-                py="10px"
-                borderRadius="5px"
-                transition="all 0.3s ease"
-                _hover={{ opacity: 0.6 }}
-              >
-                Dashboard
               </Box>
             </Link>
           )}
