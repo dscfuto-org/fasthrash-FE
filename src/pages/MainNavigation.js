@@ -179,7 +179,7 @@ function MainNavigation() {
             </Link>
           )}
           {!token && pathname !== "/login" && (
-            <Link to="/login">
+            <Link onClick={toggleNavbar} to="/login">
               <Box
                 fontSize={15}
                 ml="4"
