@@ -54,7 +54,7 @@ const Dashboard = () => {
       getData();
     }, 60000);
     return () => clearInterval(interval);
-  }, [dispatch]);
+  }, []);
   return (
     <React.Fragment>
       {/** DASHBOARD SIDEPANEL SECTION */}
@@ -208,7 +208,7 @@ const Dashboard = () => {
           boxShadow="1px 1px 2px 0 rgba(42, 141, 0, 0.3)"
         >
           <Box w="100%" fontWeight={600} p="10px" fontSize="15px">
-            Recent Collections
+            {!pathname.includes("history") ? 'Recent Collections' : 'Your Collections History'}
           </Box>
           <Outlet />
         </Box>

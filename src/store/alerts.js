@@ -13,16 +13,12 @@ const Alertdata = createSlice({
   initialState: initialState,
   reducers: {
     AcceptingUpdate(state) {
-      state.Accepted = state.items
-        .filter((item) => {
-          return item.status === "accepted" && item.collectorId === state.user;
-        })
-        .reduce((initial, item) => {
-          if (item.status === "accepted") {
-            return initial + 1;
-          }
-          return initial;
-        }, 0);
+      state.Accepted = state.items.reduce((initial, item) => {
+        if (item.status === "accepted" && item.collectorId === state.user) {
+          return initial + 1;
+        }
+        return initial;
+      }, 0);
     },
     pendingUpdate(state) {
       state.pending = state.items.reduce((initial, item) => {
@@ -33,16 +29,12 @@ const Alertdata = createSlice({
       }, 0);
     },
     completedUpdate(state) {
-      state.completed = state.items
-        .filter((item) => {
-          return item.status === "collected" && item.collectorId === state.user;
-        })
-        .reduce((initial, item) => {
-          if (item.status === "collected") {
-            return initial + 1;
-          }
-          return initial;
-        }, 0);
+      state.completed = state.items.reduce((initial, item) => {
+        if (item.status === "collected" && item.collectorId === state.user) {
+          return initial + 1;
+        }
+        return initial;
+      }, 0);
     },
     update(state) {
       Alertdata.caseReducers.completedUpdate(state);
@@ -52,9 +44,9 @@ const Alertdata = createSlice({
     accepted(state, action) {
       const actions = action.payload;
       const pending = state.items.find((item) => item._id === actions.id);
-      console.log(state.items);
       if (pending?.status === "pending") {
         pending.status = "accepted";
+        pending.collectorId = state.user;
         Alertdata.caseReducers.update(state);
       }
     },
@@ -71,6 +63,7 @@ const Alertdata = createSlice({
       const pending = state.items.find((item) => item._id === actions.id);
       if (pending?.status === "accepted") {
         pending.status = "collected";
+        pending.collectorId = state.user;
         pending.updatedAt = new Date().toISOString();
         Alertdata.caseReducers.update(state);
       }

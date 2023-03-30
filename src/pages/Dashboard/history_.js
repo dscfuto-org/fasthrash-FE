@@ -76,7 +76,7 @@ export default function Recent() {
   }, [data, token]);
   useEffect(() => {
     fetchAndUpdateData();
-  }, [fetchAndUpdateData]);
+  }, [items]);
 
   return (
     <>
@@ -105,7 +105,7 @@ export default function Recent() {
               </Tr>
             </Thead>
             <Tbody>
-              {newData?.map((item, index) => {
+              {newData?.reverse()?.map((item, index) => {
                 return (
                   <Tr key={item._id}>
                     <Td>{index + 1}</Td>
@@ -117,12 +117,13 @@ export default function Recent() {
                             onOpen();
                             setWastepic({
                               image: item.images[0],
-                              Text: item.address,
+                              address: item.address,
+                              description: item.description,
                               amount: item.quantity,
                             });
                           }}
                         >
-                          <Avatar src={item.images[0]} mr="5px" size="sm" />
+                          <Avatar borderRadius='5px' src={item.images[0]} mr="5px" size="sm" />
                           <Text my='auto'>{item.Fullname}</Text>
                         </div>
                       </Tooltip>
@@ -168,7 +169,8 @@ export default function Recent() {
             <Box>
               <Image maxH={{ base: '350px', md: '400px' }} width='100%' height='100%' src={Wastepic.image} alt="waste Picture" />
             </Box>
-            <Text mt='10px' fontWeight={600} color={useColors.appGreen}>Address: <span style={{ color: '#000' }}>{Wastepic.Text}</span></Text>
+            <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Address: <span style={{ color: '#000' }}>{Wastepic.address}</span></Text>
+            <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Alert Description: <span style={{ color: '#000' }}>{Wastepic.description}</span></Text>
             <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Amount in Kg: <span style={{ color: '#000' }}>{Wastepic.amount}kg</span></Text>
           </ModalBody>
           <ModalFooter>
