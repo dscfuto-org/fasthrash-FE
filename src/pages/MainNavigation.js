@@ -6,6 +6,7 @@ import { useAppContext } from "../context";
 import { FaTimes } from "react-icons/fa";
 import { checkToken } from "../Auth/getToken";
 import { useSelector } from "react-redux";
+
 export const handleToggleNavbar = () => {
   document.getElementById("collapse-sidebar").classList.toggle("collapse");
   document.getElementById("header").classList.toggle("collapse");
@@ -112,7 +113,7 @@ function MainNavigation() {
       {/** WEBSITE LOGO SECTION */}
       {!pathname.includes("/dashboard") && (
         <Box
-          fontSize={{ base: "1xl", md: "18px", lg: "20px" }}
+          fontSize={{ base: "21px", md: "18px", lg: "20px" }}
           fontWeight={700}
           bgGradient="linear(to-l, #FAB20F, #2A8D00)"
           bgClip="text"
@@ -148,7 +149,7 @@ function MainNavigation() {
             </Box>
             <Box className="responsive-nav-logo">
               <Box
-                fontSize={{ base: "1xl", md: "18px", lg: "20px" }}
+                fontSize={{ base: "21px", md: "18px", lg: "20px" }}
                 fontWeight={700}
                 bgGradient="linear(to-l, #FAB20F, #2A8D00)"
                 bgClip="text"

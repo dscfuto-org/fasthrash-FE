@@ -48,6 +48,7 @@ export default function Buttons({ id, name, color }) {
       }
     } catch (error) {
       console.log(error);
+      setSpin(false);
     }
   };
   return (

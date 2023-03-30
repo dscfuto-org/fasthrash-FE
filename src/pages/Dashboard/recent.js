@@ -28,6 +28,7 @@ import {
 import { useDisclosure } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { useState, useEffect, useCallback } from "react";
+import { useColors } from "../../App";
 export default function Recent() {
   let buttonClass = {
     pending: "#fc270bbd",
@@ -40,15 +41,8 @@ export default function Recent() {
   });
   const token = setToken();
   const [newData, SetnewData] = useState([]);
-  const OverlayOne = () => (
-    <ModalOverlay
-      bg="blackAlpha.300"
-      backdropFilter="blur(10px) hue-rotate(90deg)"
-    />
-  );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [, setOverlay] = useState(<OverlayOne />);
   const [Wastepic, setWastepic] = useState({});
   const fetchAndUpdateData = useCallback(async () => {
     if (data.length === 0) {
@@ -75,10 +69,12 @@ export default function Recent() {
     });
     const newdata = await Promise.all(promises);
     SetnewData(newdata);
-  }, [data, token]);
+  }, [items, data, token]);
+
   useEffect(() => {
     fetchAndUpdateData();
-  }, [fetchAndUpdateData]);
+  }, [items]);
+
   return (
     <>
       {" "}
@@ -106,28 +102,28 @@ export default function Recent() {
               </Tr>
             </Thead>
             <Tbody>
-              {newData?.map((item, index) => {
+              {newData?.reverse()?.map((item, index) => {
                 return (
                   <Tr key={item._id}>
                     <Td>{index + 1}</Td>
-                    <Td className="text-bold">
+                    <Td cursor='pointer' className="text-bold">
                       <Tooltip label="View waste">
                         <div
                           className="flex"
                           onClick={() => {
-                            setOverlay(<OverlayOne />);
                             onOpen();
                             setWastepic({
                               image: item.images[0],
-                              Text: item.address,
+                              address: item.address,
+                              description:item.description,
                               amount: item.quantity,
                               delivery: item.deliveryTime,
                               price: item.costPerKg,
                             });
                           }}
                         >
-                          <Avatar src={item.images[0]} mr="5px" size="sm" />
-                          {item.Fullname}
+                          <Avatar borderRadius='5px' src={item.images[0]} mr="5px" size="sm" />
+                          <Text my='auto'>{item.Fullname}</Text>
                         </div>
                       </Tooltip>
                     </Td>
@@ -162,20 +158,22 @@ export default function Recent() {
         </TableContainer>
       )}
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
-        <ModalOverlay />
+        <ModalOverlay
+          bg='none'
+          backdropFilter='auto'
+          backdropInvert='80%'
+          backdropBlur='2px'
+        />
         <ModalContent>
           <ModalHeader>Waste To Dispose</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Box boxSize="">
-              <Image src={Wastepic.image} alt="waste Picture" />
-              <Box display="flex" flexDirection="column">
-                <Text as="b">Address:{Wastepic.Text}</Text>
-                <Text as="b">Amount in Kg:{Wastepic.amount}kg</Text>
-                <Text as="b">Delivery Time:{Wastepic.delivery}kg</Text>
-                <Text as="b">Price per Kg:{Wastepic.price}ngn</Text>
-              </Box>
+            <Box>
+              <Image maxH={{ base: '350px', md: '400px' }} width='100%' height='100%' src={Wastepic.image} alt="waste Picture" />
             </Box>
+            <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Address: <span style={{ color: '#000' }}>{Wastepic.address}</span></Text>
+            <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Alert Description: <span style={{ color: '#000' }}>{Wastepic.description}</span></Text>
+            <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Amount in Kg: <span style={{ color: '#000' }}>{Wastepic.amount}kg</span></Text>
           </ModalBody>
           <ModalFooter>
             <Button onClick={onClose}>Close</Button>
