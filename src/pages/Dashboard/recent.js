@@ -106,7 +106,7 @@ export default function Recent() {
                 return (
                   <Tr key={item._id}>
                     <Td>{index + 1}</Td>
-                    <Td cursor='pointer' className="text-bold">
+                    <Td cursor="pointer" className="text-bold">
                       <Tooltip label="View waste">
                         <div
                           className="flex"
@@ -115,15 +115,20 @@ export default function Recent() {
                             setWastepic({
                               image: item.images[0],
                               address: item.address,
-                              description:item.description,
+                              description: item.description,
                               amount: item.quantity,
                               delivery: item.deliveryTime,
                               price: item.costPerKg,
                             });
                           }}
                         >
-                          <Avatar borderRadius='5px' src={item.images[0]} mr="5px" size="sm" />
-                          <Text my='auto'>{item.Fullname}</Text>
+                          <Avatar
+                            borderRadius="5px"
+                            src={item.images[0]}
+                            mr="5px"
+                            size="sm"
+                          />
+                          <Text my="auto">{item.Fullname}</Text>
                         </div>
                       </Tooltip>
                     </Td>
@@ -159,21 +164,39 @@ export default function Recent() {
       )}
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay
-          bg='none'
-          backdropFilter='auto'
-          backdropInvert='80%'
-          backdropBlur='2px'
+          bg="none"
+          backdropFilter="auto"
+          backdropInvert="80%"
+          backdropBlur="2px"
         />
         <ModalContent>
           <ModalHeader>Waste To Dispose</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Box>
-              <Image maxH={{ base: '350px', md: '400px' }} width='100%' height='100%' src={Wastepic.image} alt="waste Picture" />
+              <Image
+                maxH={{ base: "350px", md: "400px" }}
+                width="100%"
+                height="100%"
+                src={Wastepic.image}
+                alt="waste Picture"
+              />
             </Box>
-            <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Address: <span style={{ color: '#000' }}>{Wastepic.address}</span></Text>
-            <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Alert Description: <span style={{ color: '#000' }}>{Wastepic.description}</span></Text>
-            <Text mt='10px' fontWeight={700} color={useColors.appGreen}>Amount in Kg: <span style={{ color: '#000' }}>{Wastepic.amount}kg</span></Text>
+            <Text mt="10px" fontWeight={700} color={useColors.appGreen}>
+              Address: <span style={{ color: "#000" }}>{Wastepic.address}</span>
+            </Text>
+            <Text mt="10px" fontWeight={700} color={useColors.appGreen}>
+              Alert Description:{" "}
+              <span style={{ color: "#000" }}>{Wastepic.description}</span>
+            </Text>
+            <Text mt="10px" fontWeight={700} color={useColors.appGreen}>
+              Amount in Kg:{" "}
+              <span style={{ color: "#000" }}>{Wastepic.amount}kg</span>
+            </Text>
+            <Text mt="10px" fontWeight={700} color={useColors.appGreen}>
+              Price per waste:{" "}
+              <span style={{ color: "#000" }}>{Wastepic.price}kg</span>
+            </Text>
           </ModalBody>
           <ModalFooter>
             <Button onClick={onClose}>Close</Button>
