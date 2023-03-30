@@ -10,7 +10,7 @@ Its a Project that was built for the 2023 Google Solution Challenge that helps p
 
 git clone it to your local file,
 run `npm install`
-after yarn install you then run `npm run start` to view it in your browser.
+after you then run `npm run start` to view it on your browser.
 
 # Contributing
 

@@ -50,7 +50,6 @@ export default function Login() {
   };
   const clear = () => {
     message = "";
-    console.log("helo");
   };
   if (errors?.email && !errors?.password) {
     message = errors?.email;
@@ -164,7 +163,12 @@ export default function Login() {
           >
             {isSubmiting ? "Signing you in..." : "Login"}
           </Button>
-          <Text textAlign='center' marginLeft="16px" marginTop="20px" fontWeight="bold">
+          <Text
+            textAlign="center"
+            marginLeft="16px"
+            marginTop="20px"
+            fontWeight="bold"
+          >
             By Logging in you accept our{" "}
             <Link href="/legal/privacy-policy" color={useColors.appGreen}>
               privacy policy{" "}
