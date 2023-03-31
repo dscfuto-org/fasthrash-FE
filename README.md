@@ -23,3 +23,8 @@ after you then run `npm run start` to view it on your browser.
 7. Make the changes in your forked Repo and then merge to your main Branch and open a pull request .
 8. As you update your PR and apply changes, mark each conversation as resolved.
 9. CONGRATULATIONS YOUR PULL REQUEST IS MERGED after it has been reviewed 💜.
+
+# Hot credentials
+## Credentials for logging into the application
+`Email:` solutionchallenge23@gmail.com
+`Password:` y&b%=7H5}(=zZs@:
